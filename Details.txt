@@ -14,6 +14,10 @@ Components:
 - RL algorithm specifics?
 	- On encountering reward, increase chance of choosing this action
 	- On encountering punishment, decrease chance of choosing this action
-	- How much to propagate backwards?
+	- How much to propagate backwards? All the way.
 - Maze representation?
 	- 2D array
+- Agent doesn't need to know anything about maze, not even its dimensions.
+  It simply goes somewhere from its current location - if invalid, set probability of this choice to zero so we don't try it again.
+- Movement specifics
+	- Agent sends destination tile coordinates to maze, maze returns tile value, agent updates location, score and strategy
