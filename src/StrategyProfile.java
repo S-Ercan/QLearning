@@ -8,10 +8,20 @@ public class StrategyProfile
 		profile = new Strategy[x][y];
 		for(int i = 0; i < x; i++)
 		{
-			for(int j = 0; j < j; j++)
+			for(int j = 0; j < y; j++)
 			{
-				profile[x][y] = new Strategy();
+				profile[i][j] = new Strategy();
 			}
 		}
+	}
+
+	public Direction getBestDirectionFromTile(int x, int y)
+	{
+		return profile[x][y].getBestDirection();
+	}
+
+	public void excludeDirectionFromTile(int x, int y, Direction direction)
+	{
+		profile[x][y].excludeDirection(direction);
 	}
 }

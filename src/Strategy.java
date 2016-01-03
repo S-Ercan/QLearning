@@ -17,6 +17,7 @@ public class Strategy
 
 	public Direction getBestDirection()
 	{
+		// TODO: randomize in case all non-excluded directions have equal probability
 		Direction maxKey = null;
 		double maxValue = 0;
 		double currentValue;
@@ -31,7 +32,41 @@ public class Strategy
 		}
 		return maxKey;
 	}
-	
+
+	public void excludeDirection(Direction direction)
+	{
+		double difference = strategy.get(direction);
+		int numExcludedDirections = getNumberOfExcludedDirections();
+		double correction = difference / numExcludedDirections;
+
+		Direction key;
+		for(Entry<Direction, Double> entry : strategy.entrySet())
+		{
+			key = entry.getKey();
+			if(key == direction)
+			{
+				strategy.put(key, 0.0);
+			}
+			else if(entry.getValue() != 0)
+			{
+				strategy.put(key, entry.getValue() + correction);
+			}
+		}
+	}
+
+	public int getNumberOfExcludedDirections()
+	{
+		int number = 0;
+		for(double value : strategy.values())
+		{
+			if(value == 0)
+			{
+				number++;
+			}
+		}
+		return number;
+	}
+
 	public double getProbUp()
 	{
 		return strategy.get(Direction.UP);
