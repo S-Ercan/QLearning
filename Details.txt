@@ -2,7 +2,8 @@ Agent learning to navigate maze containing rewards and punishments.
 
 Components:
 - Agent
-	- Direction
+	- Map (m x n array)
+	- Strategy profile (m x n array; each element an object with four fields representing probabilities for choosing each direction)
 	- Movement
 	- Score
 	- RL algorithm updating strategy according to score changes

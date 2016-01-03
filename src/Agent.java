@@ -13,7 +13,7 @@ public class Agent
 		yPosition = 0;
 		score = 0;
 	}
-	
+
 	public void chooseAction()
 	{
 		int x = 0;
