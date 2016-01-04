@@ -1,13 +1,19 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 import java.util.Map.Entry;
 
 public class Strategy
 {
 	private Map<Direction, Double> strategy;
+	private Random random;
 
 	public Strategy()
 	{
+		random = new Random();
 		strategy = new HashMap<Direction, Double>();
 		strategy.put(Direction.UP, 0.25);
 		strategy.put(Direction.DOWN, 0.25);
@@ -18,7 +24,7 @@ public class Strategy
 	public Direction getBestDirection()
 	{
 		// TODO: randomize in case all non-excluded directions have equal probability
-		Direction maxKey = null;
+		List<Direction> list = new ArrayList<Direction>();
 		double maxValue = 0;
 		double currentValue;
 		for(Entry<Direction, Double> entry : strategy.entrySet())
@@ -26,9 +32,20 @@ public class Strategy
 			currentValue = entry.getValue();
 			if(currentValue > maxValue)
 			{
-				maxKey = entry.getKey();
+				list.clear();
+				list.add(entry.getKey());
 				maxValue = currentValue;
 			}
+		}
+
+		Direction maxKey = null;
+		if(list.size() > 1)
+		{
+			maxKey = list.get(random.nextInt(list.size()));	
+		}
+		else
+		{
+			maxKey = list.get(0);
 		}
 		return maxKey;
 	}
@@ -36,35 +53,13 @@ public class Strategy
 	public void excludeDirection(Direction direction)
 	{
 		double difference = strategy.get(direction);
-		int numExcludedDirections = getNumberOfExcludedDirections();
-		double correction = difference / numExcludedDirections;
+		double correction = difference / strategy.size();
 
-		Direction key;
+		strategy.remove(direction);		
 		for(Entry<Direction, Double> entry : strategy.entrySet())
 		{
-			key = entry.getKey();
-			if(key == direction)
-			{
-				strategy.put(key, 0.0);
-			}
-			else if(entry.getValue() != 0)
-			{
-				strategy.put(key, entry.getValue() + correction);
-			}
+			strategy.put(entry.getKey(), entry.getValue() + correction);
 		}
-	}
-
-	public int getNumberOfExcludedDirections()
-	{
-		int number = 0;
-		for(double value : strategy.values())
-		{
-			if(value == 0)
-			{
-				number++;
-			}
-		}
-		return number;
 	}
 
 	public double getProbUp()

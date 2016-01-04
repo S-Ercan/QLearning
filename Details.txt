@@ -22,3 +22,4 @@ Components:
   It simply goes somewhere from its current location - if invalid, set probability of this choice to zero so we don't try it again.
 - Movement specifics
 	- Agent sends destination tile coordinates to maze, maze returns tile value, agent updates location, score and strategy
+	- If maximum value in strategy is not unique, randomize between identical maximum values
