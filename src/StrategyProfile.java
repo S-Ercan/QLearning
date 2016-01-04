@@ -6,9 +6,9 @@ public class StrategyProfile
 	public StrategyProfile(int x, int y)
 	{
 		profile = new Strategy[x][y];
-		for(int i = 0; i < x; i++)
+		for (int i = 0; i < x; i++)
 		{
-			for(int j = 0; j < y; j++)
+			for (int j = 0; j < y; j++)
 			{
 				profile[i][j] = new Strategy();
 			}

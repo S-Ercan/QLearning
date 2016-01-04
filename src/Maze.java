@@ -17,7 +17,7 @@ public class Maze
 	public int getTileValue(int x, int y)
 	{
 		int tileValue = -1;
-		if(!(x < 0 || x >= xSize || y < 0 || y >= ySize))
+		if (!(x < 0 || x >= xSize || y < 0 || y >= ySize))
 		{
 			tileValue = maze[x][y];
 		}
