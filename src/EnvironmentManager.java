@@ -1,16 +1,13 @@
 
 public class EnvironmentManager
 {
-	private static Maze maze;
-	private static Agent agent;
-
 	public static void main(String[] args)
 	{
-		maze = new Maze();
-		agent = new Agent();
+		Maze maze = new Maze();
+		new Agent(maze).run();
 	}
 
-	public static int executeMove(int x, int y)
+	public static int executeMove(Maze maze, int x, int y)
 	{
 		return maze.getTileValue(x, y);
 	}
