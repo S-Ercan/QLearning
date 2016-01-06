@@ -23,6 +23,11 @@ public class StrategyProfile
 		return profile[x][y].chooseDirection();
 	}
 
+	public void adjustProbabilitiesForTile(int x, int y, Direction direction, double correction)
+	{
+		profile[x][y].adjustProbabilities(direction, correction);
+	}
+
 	public void excludeDirectionFromTile(int x, int y, Direction direction)
 	{
 		profile[x][y].excludeDirection(direction);

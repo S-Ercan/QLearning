@@ -10,6 +10,8 @@ public class Agent
 	private int yPosition;
 	private int score;
 
+	private double learningFactor = 0.1;
+
 	public Agent(Maze maze)
 	{
 		this.maze = maze;
@@ -44,8 +46,7 @@ public class Agent
 		int scoreChange = EnvironmentManager.executeMove(maze, x, y);
 		if (scoreChange != -1)
 		{
-			updateScore(scoreChange);
-			updatePosition(x, y);
+			update(x, y, direction, scoreChange);
 		}
 		else
 		{
@@ -53,15 +54,21 @@ public class Agent
 		}
 	}
 
-	public void updatePosition(int x, int y)
+	public void update(int x, int y, Direction direction, int scoreChange)
 	{
+		if(scoreChange > 0)
+		{
+			profile.adjustProbabilitiesForTile(xPosition, yPosition, direction, learningFactor);
+		}
+		else if(scoreChange < 0)
+		{
+			profile.adjustProbabilitiesForTile(xPosition, yPosition, direction, -learningFactor);	
+		}
+
 		xPosition = x;
 		yPosition = y;
 		System.out.println("Moved to (" + x + ", " + y + ")");
-	}
 
-	public void updateScore(int scoreChange)
-	{
 		score += scoreChange;
 		System.out.println("Score: " + score);
 	}

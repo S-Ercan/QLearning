@@ -41,11 +41,38 @@ public class Strategy
 		return direction;
 	}
 
+	public void adjustProbabilities(Direction direction, double correction)
+	{
+		Direction key;
+		ProbabilityInterval interval;
+
+		double lowerBound = 0;
+		double upperBound;
+		double intervalSize;
+		for (Entry<Direction, ProbabilityInterval> entry : strategy.entrySet())
+		{
+			key = entry.getKey();
+			interval = entry.getValue();
+			intervalSize = interval.getUpperBound() - interval.getLowerBound();
+			if (key == direction)
+			{
+				upperBound = lowerBound + intervalSize + correction;
+				strategy.put(key, new ProbabilityInterval(lowerBound, upperBound));
+			}
+			else
+			{
+				upperBound = lowerBound + intervalSize - (correction / (strategy.size() - 1));
+				strategy.put(key, new ProbabilityInterval(lowerBound, upperBound));
+			}
+			lowerBound = upperBound;
+		}
+	}
+
 	public void excludeDirection(Direction direction)
 	{
 		ProbabilityInterval interval = strategy.get(direction);
 		double difference = interval.getUpperBound() - interval.getLowerBound();
-		double correction = difference / strategy.size();
+		double correction = difference / (strategy.size() - 1);
 
 		strategy.remove(direction);
 		double lowerBound = 0;
