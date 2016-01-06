@@ -28,7 +28,7 @@ public class Agent
 
 	public void chooseMove()
 	{
-		Direction direction = profile.getBestDirectionFromTile(xPosition, yPosition);
+		Direction direction = profile.chooseDirectionFromTile(xPosition, yPosition);
 		int x = direction == Direction.LEFT ? xPosition - 1
 				: direction == Direction.RIGHT ? xPosition + 1 : xPosition;
 		int y = direction == Direction.DOWN ? yPosition + 1

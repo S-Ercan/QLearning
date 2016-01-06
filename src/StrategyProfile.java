@@ -15,9 +15,9 @@ public class StrategyProfile
 		}
 	}
 
-	public Direction getBestDirectionFromTile(int x, int y)
+	public Direction chooseDirectionFromTile(int x, int y)
 	{
-		return profile[x][y].getBestDirection();
+		return profile[x][y].chooseDirection();
 	}
 
 	public void excludeDirectionFromTile(int x, int y, Direction direction)
