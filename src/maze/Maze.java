@@ -2,10 +2,16 @@ package maze;
 
 import java.util.Random;
 
+/**
+ * Represents a maze using a 2D array.
+ */
 public class Maze
 {
 	private Random random;
 	private int[][] maze;
+
+	private final int minSize = 2;
+	private final int maxSize = 10;
 	private int xSize;
 	private int ySize;
 
@@ -13,14 +19,19 @@ public class Maze
 	{
 		random = new Random();
 
-		xSize = random.nextInt(9) + 2;
-		ySize = random.nextInt(9) + 2;
+		// Randomly determine dimensions
+		xSize = random.nextInt(maxSize - 1) + minSize;
+		ySize = random.nextInt(maxSize - 1) + minSize;
 		maze = new int[xSize][ySize];
 		System.out.println("Creating " + xSize + " x " + ySize + " maze");
 
 		populateMaze();
 	}
 
+	/**
+	 * Loops through all tiles and assigns a reward with 0.1 probability or a
+	 * punishment with 0.1 probability.
+	 */
 	public void populateMaze()
 	{
 		for (int i = 0; i < xSize; i++)
