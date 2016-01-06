@@ -1,3 +1,6 @@
+package maze;
+
+import strategy.StrategyProfile;
 
 public class Agent
 {

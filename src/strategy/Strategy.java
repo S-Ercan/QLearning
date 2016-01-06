@@ -1,6 +1,11 @@
+package strategy;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import maze.Direction;
+
 import java.util.Random;
 
 public class Strategy
@@ -26,7 +31,7 @@ public class Strategy
 		for (Entry<Direction, ProbabilityInterval> entry : strategy.entrySet())
 		{
 			interval = entry.getValue();
-			if(value >= interval.getLowerBound() && value <= interval.getUpperBound())
+			if (value >= interval.getLowerBound() && value <= interval.getUpperBound())
 			{
 				direction = entry.getKey();
 				break;

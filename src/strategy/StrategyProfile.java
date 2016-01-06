@@ -1,3 +1,6 @@
+package strategy;
+
+import maze.Direction;
 
 public class StrategyProfile
 {

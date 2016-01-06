@@ -1,3 +1,5 @@
+package maze;
+
 import java.util.Random;
 
 public class Maze

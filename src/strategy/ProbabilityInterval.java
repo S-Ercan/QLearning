@@ -1,9 +1,10 @@
+package strategy;
 
 public class ProbabilityInterval
 {
 	private double lowerBound;
 	private double upperBound;
-	
+
 	public ProbabilityInterval(double lowerBound, double upperBound)
 	{
 		this.lowerBound = lowerBound;
