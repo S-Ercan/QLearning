@@ -1,5 +1,7 @@
 package maze;
 
+import gui.GameWindow;
+
 /**
  * Instantiates and runs the maze and the agents active in it.
  * Passes moves from agents to the maze, and returns move results to agents.
@@ -10,6 +12,8 @@ public class EnvironmentManager
 	{
 		Maze maze = new Maze();
 		new Agent(maze).run();
+
+		new GameWindow(maze);
 	}
 
 	/**
