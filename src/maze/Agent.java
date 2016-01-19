@@ -64,13 +64,13 @@ public class Agent
 
 	public void update(int x, int y, Direction direction, int scoreChange)
 	{
-		if(scoreChange > 0)
+		if (scoreChange > 0)
 		{
 			profile.adjustProbabilitiesForTile(xPosition, yPosition, direction, learningFactor);
 		}
-		else if(scoreChange < 0)
+		else if (scoreChange < 0)
 		{
-			profile.adjustProbabilitiesForTile(xPosition, yPosition, direction, -learningFactor);	
+			profile.adjustProbabilitiesForTile(xPosition, yPosition, direction, -learningFactor);
 		}
 
 		xPosition = x;

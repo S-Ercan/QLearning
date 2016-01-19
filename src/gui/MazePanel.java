@@ -13,11 +13,11 @@ public class MazePanel extends JPanel
 	private static final long serialVersionUID = 5364142617462688939L;
 
 	private Color[][] colorMap;
-	
-	private final int tileWidth = 25;
-	private final int tileHeight = 25;
-	private final int xSpacing = 30;
-	private final int ySpacing = 30;
+
+	private final int tileWidth = 50;
+	private final int tileHeight = 50;
+	private final int xSpacing = 60;
+	private final int ySpacing = 60;
 
 	private Maze maze;
 	private int xSize;
@@ -33,17 +33,19 @@ public class MazePanel extends JPanel
 		this.ySize = maze.getYSize();
 
 		this.colorMap = new Color[xSize][ySize];
-		
+
 		setLayout(new GridLayout(xSize, ySize));
 	}
 
 	/**
-	 * Animates an agent's move to tile (x, y) by
-	 * first restoring the agent's previous tile to its original color
-	 * and then painting its current tile white.
+	 * Animates an agent's move to tile (x, y) by first restoring the agent's
+	 * previous tile to its original color and then painting its current tile
+	 * white.
 	 * 
-	 * @param x x coordinate of destination tile
-	 * @param y y coordinate of destination tile
+	 * @param x
+	 *            x coordinate of destination tile
+	 * @param y
+	 *            y coordinate of destination tile
 	 */
 	public void showMoveAnimation(int x, int y)
 	{
@@ -65,15 +67,15 @@ public class MazePanel extends JPanel
 		super.paintComponent(g);
 		Color color;
 
-		for(int x = 1; x <= xSize; x++)
+		for (int x = 1; x <= xSize; x++)
 		{
-			for(int y = 1; y <= ySize; y++)
+			for (int y = 1; y <= ySize; y++)
 			{
-				if(maze.getTileValue(x - 1, y - 1) == 10)
+				if (maze.getTileValue(x - 1, y - 1) == 10)
 				{
 					color = Color.green;
 				}
-				else if(maze.getTileValue(x - 1, y - 1) == -10)
+				else if (maze.getTileValue(x - 1, y - 1) == -10)
 				{
 					color = Color.red;
 				}
@@ -87,5 +89,15 @@ public class MazePanel extends JPanel
 				g.fillRect(x * xSpacing, y * ySpacing, tileWidth, tileHeight);
 			}
 		}
+	}
+
+	public int getTileWidth()
+	{
+		return tileWidth;
+	}
+
+	public int getTileHeight()
+	{
+		return tileHeight;
 	}
 }

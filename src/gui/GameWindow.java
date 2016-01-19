@@ -1,5 +1,8 @@
 package gui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.JFrame;
 
 import maze.Maze;
@@ -13,17 +16,28 @@ public class GameWindow extends JFrame
 	/**
 	 * Creates a new window with a graphical representation of maze.
 	 * 
-	 * @param maze maze to display
+	 * @param maze
+	 *            maze to display
 	 */
 	public GameWindow(Maze maze)
 	{
-		setSize(500, 500);
+		mazePanel = new MazePanel(maze);
+		getContentPane().add(mazePanel);
+
+		int windowWidth = (maze.getXSize() + 4) * mazePanel.getTileWidth();
+		int windowHeight = (maze.getYSize() + 5) * mazePanel.getTileHeight();
+
+		setSize(windowWidth, windowHeight);
+
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double screenWidth = screenSize.getWidth();
+		double screenHeight = screenSize.getHeight();
+		
+		setLocation((int) screenWidth / 2 - windowWidth / 2, (int) screenHeight / 2 - windowHeight / 2);
+
 		setResizable(false);
 		setTitle("Maze");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		mazePanel = new MazePanel(maze);
-		getContentPane().add(mazePanel);
 
 		setVisible(true);
 	}
@@ -31,8 +45,10 @@ public class GameWindow extends JFrame
 	/**
 	 * Calls mazePanel's move animation functionality.
 	 * 
-	 * @param x x coordinate of destination tile
-	 * @param y y coordinate of destination tile
+	 * @param x
+	 *            x coordinate of destination tile
+	 * @param y
+	 *            y coordinate of destination tile
 	 */
 	public void showMoveAnimation(int x, int y)
 	{
