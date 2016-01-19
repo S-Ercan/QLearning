@@ -10,6 +10,11 @@ public class GameWindow extends JFrame
 
 	private MazePanel mazePanel;
 
+	/**
+	 * Creates a new window with a graphical representation of maze.
+	 * 
+	 * @param maze maze to display
+	 */
 	public GameWindow(Maze maze)
 	{
 		setSize(500, 500);
@@ -23,8 +28,14 @@ public class GameWindow extends JFrame
 		setVisible(true);
 	}
 
-	public void moveToSquare(int x, int y)
+	/**
+	 * Calls mazePanel's move animation functionality.
+	 * 
+	 * @param x x coordinate of destination tile
+	 * @param y y coordinate of destination tile
+	 */
+	public void showMoveAnimation(int x, int y)
 	{
-		mazePanel.moveToSquare(x, y);
+		mazePanel.showMoveAnimation(x, y);
 	}
 }

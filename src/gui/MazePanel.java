@@ -37,14 +37,25 @@ public class MazePanel extends JPanel
 		setLayout(new GridLayout(xSize, ySize));
 	}
 
-	public void moveToSquare(int x, int y)
+	/**
+	 * Animates an agent's move to tile (x, y) by
+	 * first restoring the agent's previous tile to its original color
+	 * and then painting its current tile white.
+	 * 
+	 * @param x x coordinate of destination tile
+	 * @param y y coordinate of destination tile
+	 */
+	public void showMoveAnimation(int x, int y)
 	{
 		Graphics g = getGraphics();
+		// Restore color of previous tile
 		g.setColor(colorMap[xOld][yOld]);
 		g.fillRect((xOld + 1) * xSpacing, (yOld + 1) * ySpacing, tileWidth, tileHeight);
+		// Paint current tile white
 		g.setColor(Color.white);
 		g.fillRect((x + 1) * xSpacing, (y + 1) * ySpacing, tileWidth, tileHeight);
 
+		// Save current coordinates
 		this.xOld = x;
 		this.yOld = y;
 	}

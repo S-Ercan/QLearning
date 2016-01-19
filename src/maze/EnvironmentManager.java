@@ -3,6 +3,7 @@ package maze;
 import gui.GameWindow;
 
 /**
+ * Creates the game window which displays the maze graphically.
  * Instantiates and runs the maze and the agents active in it.
  * Passes moves from agents to the maze, and returns move results to agents.
  */
@@ -29,9 +30,10 @@ public class EnvironmentManager
 	public static int executeMove(Maze maze, int x, int y)
 	{
 		int result = maze.getTileValue(x, y);
+		// Trigger move animation if move was valid
 		if(result != -1)
 		{
-			gameWindow.moveToSquare(x, y);
+			gameWindow.showMoveAnimation(x, y);
 		}
 		return result;
 	}
