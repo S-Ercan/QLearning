@@ -8,12 +8,14 @@ import gui.GameWindow;
  */
 public class EnvironmentManager
 {
+	private static GameWindow gameWindow;
+	
 	public static void main(String[] args)
 	{
 		Maze maze = new Maze();
-		new Agent(maze).run();
+		gameWindow = new GameWindow(maze);
 
-		new GameWindow(maze);
+		new Agent(maze).run();
 	}
 
 	/**
@@ -26,6 +28,11 @@ public class EnvironmentManager
 	 */
 	public static int executeMove(Maze maze, int x, int y)
 	{
-		return maze.getTileValue(x, y);
+		int result = maze.getTileValue(x, y);
+		if(result != -1)
+		{
+			gameWindow.moveToSquare(x, y);
+		}
+		return result;
 	}
 }

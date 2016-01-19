@@ -26,6 +26,15 @@ public class Agent
 		int stepCounter = 0;
 		while (stepCounter < 50)
 		{
+			try
+			{
+				Thread.sleep(500);
+			}
+			catch (InterruptedException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			chooseMove();
 			stepCounter++;
 		}
