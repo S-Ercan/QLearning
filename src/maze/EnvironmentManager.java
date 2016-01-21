@@ -40,7 +40,7 @@ public class EnvironmentManager
 		{
 			gameWindow.showMoveAnimation(x, y);
 			gameWindow.updateQValue(agent.getXPosition(), agent.getYPosition(), direction,
-					agent.getQValue(x, y, direction));
+					agent.getQValue(agent.getXPosition(), agent.getYPosition(), direction));
 		}
 		return result;
 	}

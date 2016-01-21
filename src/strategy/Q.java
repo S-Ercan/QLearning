@@ -50,7 +50,7 @@ public class Q
 	public Direction getBestDirection()
 	{
 		List<Direction> candidateDirections = new ArrayList<Direction>();
-		double maxQ = 0;
+		double maxQ = Double.NEGATIVE_INFINITY;
 		double value;
 		for (Entry<Direction, Double> entry : strategy.entrySet())
 		{

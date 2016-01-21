@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Toolkit;
 
 import javax.swing.BoxLayout;
@@ -73,6 +72,6 @@ public class GameWindow extends JFrame
 
 	public void updateQValue(int x, int y, Direction direction, double q)
 	{
-		
+//		qValuePanel.updateQValue(x, y, direction, q);
 	}
 }
