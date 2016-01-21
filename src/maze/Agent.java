@@ -4,6 +4,9 @@ import strategy.StrategyProfile;
 
 public class Agent
 {
+	private final int numSteps = 100;
+	private final int moveDelay = 500;
+
 	private Maze maze;
 	private StrategyProfile profile;
 	private int xPosition;
@@ -22,11 +25,11 @@ public class Agent
 	public void run()
 	{
 		int stepCounter = 0;
-		while (stepCounter < 100)
+		while (stepCounter < numSteps)
 		{
 			try
 			{
-				Thread.sleep(500);
+				Thread.sleep(moveDelay);
 			}
 			catch (InterruptedException e)
 			{

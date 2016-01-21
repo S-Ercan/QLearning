@@ -7,11 +7,12 @@ import java.util.Random;
  */
 public class Maze
 {
+	private final int minSize = 2;
+	private final int maxSize = 10;
+
 	private Random random;
 	private int[][] maze;
 
-	private final int minSize = 2;
-	private final int maxSize = 10;
 	private int xSize;
 	private int ySize;
 
@@ -49,6 +50,8 @@ public class Maze
 				}
 			}
 		}
+		// Ensure initial square is free
+		maze[0][0] = 0;
 	}
 
 	public int getTileValue(int x, int y)

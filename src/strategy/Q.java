@@ -14,14 +14,14 @@ import java.util.Random;
 
 public class Q
 {
+	private final double alpha = 1;
+	private final double gamma = 0.5;
+
 	private int x;
 	private int y;
 
 	private Map<Direction, Double> strategy;
 	private Random random;
-
-	private double alpha;
-	private double gamma;
 
 	private DecimalFormat decimalFormat;
 
@@ -37,9 +37,6 @@ public class Q
 		strategy.put(Direction.DOWN, 0.0);
 		strategy.put(Direction.LEFT, 0.0);
 		strategy.put(Direction.RIGHT, 0.0);
-
-		alpha = 0.1;
-		gamma = 0.5;
 
 		decimalFormat = new DecimalFormat("#0.00");
 	}
