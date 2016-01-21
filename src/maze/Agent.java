@@ -56,7 +56,7 @@ public class Agent
 		}
 		else
 		{
-			profile.excludeDirectionFromTile(x, y, direction);
+			profile.excludeDirectionFromTile(xPosition, yPosition, direction);
 		}
 	}
 
