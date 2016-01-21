@@ -8,16 +8,24 @@ import javax.swing.JPanel;
 
 import maze.Maze;
 
+/**
+ * JPanel for displaying maze and animating agent movement through it.
+ */
 public class MazePanel extends JPanel
 {
 	private static final long serialVersionUID = 5364142617462688939L;
 
+	// Mapping from x and y coordinates to color
 	private Color[][] colorMap;
 
 	private final int tileWidth = 50;
 	private final int tileHeight = 50;
 	private final int xSpacing = 60;
 	private final int ySpacing = 60;
+
+	private final Color neutralColor = Color.gray;
+	private final Color rewardColor = Color.green;
+	private final Color punishmentColor = Color.red;
 
 	private Maze maze;
 	private int xSize;
@@ -62,6 +70,9 @@ public class MazePanel extends JPanel
 		this.yOld = y;
 	}
 
+	/**
+	 * Paints each maze tile according to its content.
+	 */
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
@@ -73,15 +84,15 @@ public class MazePanel extends JPanel
 			{
 				if (maze.getTileValue(x - 1, y - 1) == 10)
 				{
-					color = Color.green;
+					color = rewardColor;
 				}
 				else if (maze.getTileValue(x - 1, y - 1) == -10)
 				{
-					color = Color.red;
+					color = punishmentColor;
 				}
 				else
 				{
-					color = Color.gray;
+					color = neutralColor;
 				}
 
 				colorMap[x - 1][y - 1] = color;

@@ -23,9 +23,9 @@ public class StrategyProfile
 		profile[xOld][yOld].update(direction, profile[x][y], reward);
 	}
 
-	public Direction chooseDirectionFromTile(int x, int y)
+	public Direction getBestDirectionFromTile(int x, int y)
 	{
-		return profile[x][y].chooseDirection();
+		return profile[x][y].getBestDirection();
 	}
 
 	public void excludeDirectionFromTile(int x, int y, Direction direction)

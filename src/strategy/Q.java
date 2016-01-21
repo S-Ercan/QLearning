@@ -41,7 +41,13 @@ public class Q
 		decimalFormat = new DecimalFormat("#0.00");
 	}
 
-	public Direction chooseDirection()
+	/**
+	 * Returns the direction with the highest Q-value.
+	 * If multiple dimensions share this maximum, one is selected among these randomly.
+	 * 
+	 * @return direction with highest value
+	 */
+	public Direction getBestDirection()
 	{
 		List<Direction> candidateDirections = new ArrayList<Direction>();
 		double maxQ = 0;
@@ -63,6 +69,14 @@ public class Q
 		return candidateDirections.get(random.nextInt(candidateDirections.size()));
 	}
 
+	/**
+	 * Updates Q((x, y), direction) according to the Q-values in the next state
+	 * and the reward received.
+	 * 
+	 * @param direction direction to update Q-value for
+	 * @param nextStrategy Q-values belonging to state reached by last move
+	 * @param reward reward received by last move (positive or negative)
+	 */
 	public void update(Direction direction, Q nextStrategy, double reward)
 	{
 		double oldValue = strategy.get(direction);
@@ -72,6 +86,9 @@ public class Q
 				+ decimalFormat.format(oldValue) + " to " + decimalFormat.format(newValue) + ".");
 	}
 
+	/**
+	 * @return maximum value occurring in strategy
+	 */
 	public double getMaxQValue()
 	{
 		double maxQ = 0;
@@ -87,6 +104,12 @@ public class Q
 		return maxQ;
 	}
 
+	/**
+	 * Removes direction from strategy - used when moving in 'direction' from tile (x, y)
+	 * turns out to be an invalid move. 
+	 * 
+	 * @param direction direction to remove
+	 */
 	public void excludeDirection(Direction direction)
 	{
 		strategy.remove(direction);

@@ -22,6 +22,9 @@ public class Agent
 		score = 0;
 	}
 
+	/**
+	 * Contains main agent loop: chooses and executes a move 'numSteps' times.
+	 */
 	public void run()
 	{
 		int stepCounter = 0;
@@ -40,9 +43,13 @@ public class Agent
 		}
 	}
 
+	/**
+	 * Uses 'profile' to get the best direction to head from the current tile.
+	 * Calculates destination coordinates accordingly and executes the move.
+	 */
 	public void chooseMove()
 	{
-		Direction direction = profile.chooseDirectionFromTile(xPosition, yPosition);
+		Direction direction = profile.getBestDirectionFromTile(xPosition, yPosition);
 		int x = direction == Direction.LEFT ? xPosition - 1
 				: direction == Direction.RIGHT ? xPosition + 1 : xPosition;
 		int y = direction == Direction.DOWN ? yPosition + 1
@@ -50,6 +57,14 @@ public class Agent
 		executeMove(x, y, direction);
 	}
 
+	/**
+	 * Passes the x and y coordinates of the desired destination square to EnvironmentManager.
+	 * Updates profile if move was valid, otherwise excludes direction from current tile.
+	 * 
+	 * @param x x coordinate of target tile
+	 * @param y y coordinate of target tile
+	 * @param direction direction we're moving in from current tile to get to target tile
+	 */
 	public void executeMove(int x, int y, Direction direction)
 	{
 		int scoreChange = EnvironmentManager.executeMove(maze, x, y);
@@ -63,6 +78,14 @@ public class Agent
 		}
 	}
 
+	/**
+	 * Updates position and score and outputs status messages.
+	 * 
+	 * @param x x coordinate of new tile
+	 * @param y y coordinate of new tile
+	 * @param direction direction we've moved in from previous tile to current tile
+	 * @param scoreChange change in score caused by move
+	 */
 	public void update(int x, int y, Direction direction, int scoreChange)
 	{
 		System.out.println("Moved to (" + x + ", " + y + ")");

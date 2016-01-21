@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 
 import maze.Maze;
 
+/**
+ * Main frame for graphical maze representation.
+ */
 public class GameWindow extends JFrame
 {
 	private static final long serialVersionUID = 1903142717890981086L;
@@ -24,15 +27,15 @@ public class GameWindow extends JFrame
 		mazePanel = new MazePanel(maze);
 		getContentPane().add(mazePanel);
 
+		// Adjust size to maze dimension
 		int windowWidth = (maze.getXSize() + 4) * mazePanel.getTileWidth();
 		int windowHeight = (maze.getYSize() + 5) * mazePanel.getTileHeight();
-
 		setSize(windowWidth, windowHeight);
 
+		// Adjust location to size
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double screenWidth = screenSize.getWidth();
 		double screenHeight = screenSize.getHeight();
-		
 		setLocation((int) screenWidth / 2 - windowWidth / 2, (int) screenHeight / 2 - windowHeight / 2);
 
 		setResizable(false);
