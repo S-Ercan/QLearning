@@ -114,4 +114,9 @@ public class Q
 	{
 		strategy.remove(direction);
 	}
+
+	public double getQValueForDirection(Direction direction)
+	{
+		return strategy.getOrDefault(direction, 0.0);
+	}
 }

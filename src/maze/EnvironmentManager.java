@@ -3,20 +3,22 @@ package maze;
 import gui.GameWindow;
 
 /**
- * Creates the game window which displays the maze graphically.
- * Instantiates and runs the maze and the agents active in it.
- * Passes moves from agents to the maze, and returns move results to agents.
+ * Creates the game window which displays the maze graphically. Instantiates and
+ * runs the maze and the agents active in it. Passes moves from agents to the
+ * maze, and returns move results to agents.
  */
 public class EnvironmentManager
 {
 	private static GameWindow gameWindow;
+	private static Agent agent;
 
 	public static void main(String[] args)
 	{
 		Maze maze = new Maze();
 		gameWindow = new GameWindow(maze);
 
-		new Agent(maze).run();
+		agent = new Agent(maze);
+		agent.run();
 	}
 
 	/**
@@ -30,13 +32,15 @@ public class EnvironmentManager
 	 *            y coordinate of destination tile
 	 * @return change in score (can be positive and negative)
 	 */
-	public static int executeMove(Maze maze, int x, int y)
+	public static int executeMove(Maze maze, int x, int y, Direction direction)
 	{
 		int result = maze.getTileValue(x, y);
 		// Trigger move animation if move was valid
 		if (result != -1)
 		{
 			gameWindow.showMoveAnimation(x, y);
+			gameWindow.updateQValue(agent.getXPosition(), agent.getYPosition(), direction,
+					agent.getQValue(x, y, direction));
 		}
 		return result;
 	}

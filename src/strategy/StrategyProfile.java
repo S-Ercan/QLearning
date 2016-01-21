@@ -23,6 +23,11 @@ public class StrategyProfile
 		profile[xOld][yOld].update(direction, profile[x][y], reward);
 	}
 
+	public double getQValue(int x, int y, Direction direction)
+	{
+		return profile[x][y].getQValueForDirection(direction);
+	}
+
 	public Direction getBestDirectionFromTile(int x, int y)
 	{
 		return profile[x][y].getBestDirection();

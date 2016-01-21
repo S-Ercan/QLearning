@@ -1,10 +1,14 @@
 package gui;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
+import maze.Direction;
 import maze.Maze;
 
 /**
@@ -14,7 +18,9 @@ public class GameWindow extends JFrame
 {
 	private static final long serialVersionUID = 1903142717890981086L;
 
+	private JPanel mainPanel;
 	private MazePanel mazePanel;
+	private QValuePanel qValuePanel;
 
 	/**
 	 * Creates a new window with a graphical representation of maze.
@@ -24,11 +30,18 @@ public class GameWindow extends JFrame
 	 */
 	public GameWindow(Maze maze)
 	{
+		mainPanel = new JPanel();
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+		getContentPane().add(mainPanel);
+
 		mazePanel = new MazePanel(maze);
-		getContentPane().add(mazePanel);
+		mainPanel.add(mazePanel);
+
+		qValuePanel = new QValuePanel(maze.getXSize(), maze.getYSize());
+		mainPanel.add(qValuePanel);
 
 		// Adjust size to maze dimension
-		int windowWidth = (maze.getXSize() + 4) * mazePanel.getTileWidth();
+		int windowWidth = (maze.getXSize() + 5) * mazePanel.getTileWidth() * 2;
 		int windowHeight = (maze.getYSize() + 5) * mazePanel.getTileHeight();
 		setSize(windowWidth, windowHeight);
 
@@ -56,5 +69,10 @@ public class GameWindow extends JFrame
 	public void showMoveAnimation(int x, int y)
 	{
 		mazePanel.showMoveAnimation(x, y);
+	}
+
+	public void updateQValue(int x, int y, Direction direction, double q)
+	{
+		
 	}
 }

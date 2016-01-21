@@ -9,8 +9,10 @@ public class Agent
 
 	private Maze maze;
 	private StrategyProfile profile;
+
 	private int xPosition;
 	private int yPosition;
+
 	private int score;
 
 	public Agent(Maze maze)
@@ -67,7 +69,7 @@ public class Agent
 	 */
 	public void executeMove(int x, int y, Direction direction)
 	{
-		int scoreChange = EnvironmentManager.executeMove(maze, x, y);
+		int scoreChange = EnvironmentManager.executeMove(maze, x, y, direction);
 		if (scoreChange != -1)
 		{
 			update(x, y, direction, scoreChange);
@@ -97,5 +99,30 @@ public class Agent
 
 		xPosition = x;
 		yPosition = y;
+	}
+
+	public double getQValue(int x, int y, Direction direction)
+	{
+		return profile.getQValue(x, y, direction);
+	}
+
+	public int getXPosition()
+	{
+		return xPosition;
+	}
+
+	public void setXPosition(int xPosition)
+	{
+		this.xPosition = xPosition;
+	}
+
+	public int getYPosition()
+	{
+		return yPosition;
+	}
+
+	public void setYPosition(int yPosition)
+	{
+		this.yPosition = yPosition;
 	}
 }
