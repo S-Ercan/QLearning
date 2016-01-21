@@ -63,6 +63,7 @@ public class QValuePanel extends JPanel
 
 					label = new JLabel("0.0");
 					label.setFont(new Font("", Font.PLAIN, 13));
+					label.setForeground(Color.white);
 					label.setSize(10, 10);
 					label.setBounds(xPosition, yPosition, tileWidth, tileHeight);
 					qValueLabels[x][y][z] = label;
@@ -71,15 +72,29 @@ public class QValuePanel extends JPanel
 			}
 		}
 
-		decimalFormat = new DecimalFormat("#0.00");
+		decimalFormat = new DecimalFormat("#0.0");
 	}
 
 	public void updateQValue(int x, int y, Direction direction, double q)
-	{
-		Graphics g = getGraphics();
-		g.setFont(new Font("QValueFont", Font.PLAIN, 14));
-		g.setColor(Color.white);
-		g.drawString(decimalFormat.format(q), (x + 1) * xSpacing + 12, (y + 1) * ySpacing + 15);
+	{		
+		int z = 0;
+		switch(direction)
+		{
+			case UP:
+				z = 0;
+				break;
+			case RIGHT:
+				z = 1;
+				break;
+			case DOWN:
+				z = 2;
+				break;
+			case LEFT:
+				z = 3;
+				break;
+		}
+
+		qValueLabels[x][y][z].setText(decimalFormat.format(q));
 	}
 
 	protected void paintComponent(Graphics g)

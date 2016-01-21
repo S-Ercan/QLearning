@@ -72,6 +72,6 @@ public class GameWindow extends JFrame
 
 	public void updateQValue(int x, int y, Direction direction, double q)
 	{
-//		qValuePanel.updateQValue(x, y, direction, q);
+		qValuePanel.updateQValue(x, y, direction, q);
 	}
 }

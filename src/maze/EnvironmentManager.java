@@ -30,18 +30,18 @@ public class EnvironmentManager
 	 *            x coordinate of destination tile
 	 * @param y
 	 *            y coordinate of destination tile
-	 * @return change in score (can be positive and negative)
 	 */
-	public static int executeMove(Maze maze, int x, int y, Direction direction)
+	public static void executeMove(Maze maze, int x, int y, Direction direction)
 	{
 		int result = maze.getTileValue(x, y);
+		int agentXOld = agent.getXPosition();
+		int agentYOld = agent.getYPosition();
+		agent.update(x, y, direction, result);
 		// Trigger move animation if move was valid
 		if (result != -1)
 		{
 			gameWindow.showMoveAnimation(x, y);
-			gameWindow.updateQValue(agent.getXPosition(), agent.getYPosition(), direction,
-					agent.getQValue(agent.getXPosition(), agent.getYPosition(), direction));
+			gameWindow.updateQValue(agentXOld, agentYOld, direction, agent.getQValue(agentXOld, agentYOld, direction));
 		}
-		return result;
 	}
 }

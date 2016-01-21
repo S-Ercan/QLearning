@@ -30,7 +30,7 @@ public class Maze
 	}
 
 	/**
-	 * Loops through all tiles and assigns a reward with 0.1 probability or a
+	 * Loops through all tiles and assigns a reward with 0.2 probability or a
 	 * punishment with 0.1 probability.
 	 */
 	public void populateMaze()
@@ -44,7 +44,7 @@ public class Maze
 				{
 					maze[i][j] = -10;
 				}
-				else if (value >= 0.9)
+				else if (value >= 0.8)
 				{
 					maze[i][j] = 10;
 				}

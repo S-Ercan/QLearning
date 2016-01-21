@@ -69,15 +69,7 @@ public class Agent
 	 */
 	public void executeMove(int x, int y, Direction direction)
 	{
-		int scoreChange = EnvironmentManager.executeMove(maze, x, y, direction);
-		if (scoreChange != -1)
-		{
-			update(x, y, direction, scoreChange);
-		}
-		else
-		{
-			profile.excludeDirectionFromTile(xPosition, yPosition, direction);
-		}
+		EnvironmentManager.executeMove(maze, x, y, direction);
 	}
 
 	/**
@@ -90,15 +82,22 @@ public class Agent
 	 */
 	public void update(int x, int y, Direction direction, int scoreChange)
 	{
-		System.out.println("Moved to (" + x + ", " + y + ")");
+		if (scoreChange != -1)
+		{
+			System.out.println("Moved to (" + x + ", " + y + ")");
 
-		score += scoreChange;
-		System.out.println("Score: " + score);
+			score += scoreChange;
+			System.out.println("Score: " + score);
 
-		profile.updateStrategy(xPosition, yPosition, direction, x, y, scoreChange);
+			profile.updateStrategy(xPosition, yPosition, direction, x, y, scoreChange);
 
-		xPosition = x;
-		yPosition = y;
+			xPosition = x;
+			yPosition = y;
+		}
+		else
+		{
+			profile.excludeDirectionFromTile(xPosition, yPosition, direction);
+		}
 	}
 
 	public double getQValue(int x, int y, Direction direction)
