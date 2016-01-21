@@ -10,8 +10,6 @@ public class Agent
 	private int yPosition;
 	private int score;
 
-	private double learningFactor = 0.1;
-
 	public Agent(Maze maze)
 	{
 		this.maze = maze;
@@ -24,7 +22,7 @@ public class Agent
 	public void run()
 	{
 		int stepCounter = 0;
-		while (stepCounter < 50)
+		while (stepCounter < 100)
 		{
 			try
 			{
@@ -58,31 +56,20 @@ public class Agent
 		}
 		else
 		{
-			excludeDirectionFromTile(x, y, direction);
+			profile.excludeDirectionFromTile(x, y, direction);
 		}
 	}
 
 	public void update(int x, int y, Direction direction, int scoreChange)
 	{
-		if (scoreChange > 0)
-		{
-			profile.adjustProbabilitiesForTile(xPosition, yPosition, direction, learningFactor);
-		}
-		else if (scoreChange < 0)
-		{
-			profile.adjustProbabilitiesForTile(xPosition, yPosition, direction, -learningFactor);
-		}
-
-		xPosition = x;
-		yPosition = y;
 		System.out.println("Moved to (" + x + ", " + y + ")");
 
 		score += scoreChange;
 		System.out.println("Score: " + score);
-	}
 
-	public void excludeDirectionFromTile(int x, int y, Direction direction)
-	{
-		profile.excludeDirectionFromTile(xPosition, yPosition, direction);
+		profile.updateStrategy(xPosition, yPosition, direction, x, y, scoreChange);
+
+		xPosition = x;
+		yPosition = y;
 	}
 }
