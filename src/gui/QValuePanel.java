@@ -34,6 +34,13 @@ public class QValuePanel extends JPanel
 		this.ySize = ySize;
 
 		qValueLabels = new JLabel[xSize][ySize][4];
+		createQValueLabels();
+
+		decimalFormat = new DecimalFormat("#0.0");
+	}
+
+	private void createQValueLabels()
+	{
 		JLabel label;
 		int xPosition, yPosition;
 		for (int x = 0; x < xSize; x++)
@@ -71,8 +78,6 @@ public class QValuePanel extends JPanel
 				}
 			}
 		}
-
-		decimalFormat = new DecimalFormat("#0.0");
 	}
 
 	public void updateQValue(int x, int y, Direction direction, double q)

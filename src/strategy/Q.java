@@ -49,6 +49,7 @@ public class Q
 	 */
 	public Direction getBestDirection()
 	{
+		// TODO: act randomly with small and decreasing probability
 		List<Direction> candidateDirections = new ArrayList<Direction>();
 		double maxQ = Double.NEGATIVE_INFINITY;
 		double value;
@@ -57,12 +58,12 @@ public class Q
 			value = entry.getValue();
 			if (value >= maxQ)
 			{
-				maxQ = value;
 				if (value > maxQ)
 				{
 					candidateDirections.clear();
 				}
 				candidateDirections.add(entry.getKey());
+				maxQ = value;
 			}
 		}
 
