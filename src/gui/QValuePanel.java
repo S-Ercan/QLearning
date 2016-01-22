@@ -44,7 +44,7 @@ public class QValuePanel extends JPanel
 		{
 			for (int y = 0; y < ySize; y++)
 			{
-				xPosition = (x + 1) * MazePanel.xSpacing + 5;
+				xPosition = (x + 1) * MazePanel.xSpacing;
 				yPosition = (y + 1) * MazePanel.ySpacing;
 				JPanel tilePanel = new JPanel();
 				tilePanel.setBackground(MazePanel.neutralColor);

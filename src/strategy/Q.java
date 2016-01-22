@@ -22,6 +22,7 @@ public class Q
 
 	private Map<Direction, Double> strategy;
 	private Random random;
+	private double pRandExploration;
 
 	private DecimalFormat decimalFormat;
 
@@ -31,6 +32,7 @@ public class Q
 		this.y = y;
 
 		random = new Random();
+		pRandExploration = 0.5;
 
 		strategy = new HashMap<Direction, Double>();
 		strategy.put(Direction.UP, 0.0);
@@ -42,14 +44,27 @@ public class Q
 	}
 
 	/**
-	 * Returns the direction with the highest Q-value.
-	 * If multiple dimensions share this maximum, one is selected among these randomly.
+	 * Returns the direction with the highest Q-value. If multiple dimensions
+	 * share this maximum, one is selected among these randomly.
 	 * 
 	 * @return direction with highest value
 	 */
 	public Direction getBestDirection()
 	{
-		// TODO: act randomly with small and decreasing probability
+		/*
+		 * With a small and decreasing probability, choose random direction.
+		 * This is to encourage exploration and avoid getting stuck in locally
+		 * optimal but globally sub-optimal behavior.
+		 */
+		if (random.nextDouble() < pRandExploration)
+		{
+			pRandExploration -= 0.05;
+			System.out.println(
+					"Updated pRandExploration for (" + x + ", " + y + ") to " + pRandExploration);
+			List<Direction> directions = new ArrayList<Direction>(strategy.keySet());
+			return directions.get(random.nextInt(directions.size()));
+		}
+
 		List<Direction> candidateDirections = new ArrayList<Direction>();
 		double maxQ = Double.NEGATIVE_INFINITY;
 		double value;
@@ -74,14 +89,18 @@ public class Q
 	 * Updates Q((x, y), direction) according to the Q-values in the next state
 	 * and the reward received.
 	 * 
-	 * @param direction direction to update Q-value for
-	 * @param nextStrategy Q-values belonging to state reached by last move
-	 * @param reward reward received by last move (positive or negative)
+	 * @param direction
+	 *            direction to update Q-value for
+	 * @param nextStrategy
+	 *            Q-values belonging to state reached by last move
+	 * @param reward
+	 *            reward received by last move (positive or negative)
 	 */
 	public void update(Direction direction, Q nextStrategy, double reward)
 	{
 		double oldValue = strategy.get(direction);
-		double newValue = oldValue + alpha * (reward + gamma * (nextStrategy.getMaxQValue()) - oldValue);
+		double newValue = oldValue
+				+ alpha * (reward + gamma * (nextStrategy.getMaxQValue()) - oldValue);
 		strategy.put(direction, newValue);
 		System.out.println("Updating Q((" + x + ", " + y + "), " + direction + ") from "
 				+ decimalFormat.format(oldValue) + " to " + decimalFormat.format(newValue) + ".");
@@ -106,10 +125,11 @@ public class Q
 	}
 
 	/**
-	 * Removes direction from strategy - used when moving in 'direction' from tile (x, y)
-	 * turns out to be an invalid move. 
+	 * Removes direction from strategy - used when moving in 'direction' from
+	 * tile (x, y) turns out to be an invalid move.
 	 * 
-	 * @param direction direction to remove
+	 * @param direction
+	 *            direction to remove
 	 */
 	public void excludeDirection(Direction direction)
 	{
