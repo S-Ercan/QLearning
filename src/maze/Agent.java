@@ -140,4 +140,9 @@ public class Agent
 	{
 		return yPosition;
 	}
+
+	public int getScore()
+	{
+		return score;
+	}
 }
