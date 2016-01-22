@@ -6,7 +6,7 @@ import strategy.StrategyProfile;
  * Represents an agent moving through a maze.
  * Stores position and score information.
  * Learns which actions to choose by updating its StrategyProfile,
- * and then uses this to chooses and execute moves.
+ * and then uses this to choose and execute moves.
  */
 public class Agent
 {
