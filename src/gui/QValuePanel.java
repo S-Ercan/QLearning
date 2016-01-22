@@ -57,58 +57,86 @@ public class QValuePanel extends JPanel
 	}
 
 	/**
-	 * Creates a JPanel for each maze tile. Adds a JLabel for each direction to
-	 * all created JPanels.
+	 * Creates a JPanel for each maze tile and adds a JLabel for each direction
+	 * to all created JPanels.
 	 */
 	private void createQValueLabels()
 	{
-		JLabel label;
-		int xPosition, yPosition;
+		JPanel tilePanel;
 		for (int x = 0; x < xSize; x++)
 		{
 			for (int y = 0; y < ySize; y++)
 			{
-				// Determine positioning of panel
-				xPosition = (x + 1) * MazePanel.xSpacing;
-				yPosition = (y + 1) * MazePanel.ySpacing;
-
-				// Create and add panel
-				JPanel tilePanel = new JPanel();
-				tilePanel.setBackground(MazePanel.neutralColor);
-				tilePanel.setLayout(new BorderLayout());
-				tilePanel.setBounds(xPosition, yPosition, MazePanel.tileWidth,
-						MazePanel.tileHeight);
-				tilePanel.setBorder(new EmptyBorder(tilePanelPadding, tilePanelPadding,
-						tilePanelPadding, tilePanelPadding));
-				add(tilePanel);
-
-				// Create and add labels for each direction
-				for (int z = 0; z < Direction.values().length; z++)
-				{
-					label = new JLabel("0.0", SwingConstants.CENTER);
-					label.setFont(new Font("", fontStyle, fontSize));
-					label.setForeground(textColor);
-					qValueLabels[x][y][z] = label;
-
-					String index = BorderLayout.CENTER;
-					switch (z)
-					{
-						case 0:
-							index = BorderLayout.NORTH;
-							break;
-						case 1:
-							index = BorderLayout.EAST;
-							break;
-						case 2:
-							index = BorderLayout.SOUTH;
-							break;
-						case 3:
-							index = BorderLayout.WEST;
-							break;
-					}
-					tilePanel.add(label, index);
-				}
+				// Create panel
+				tilePanel = createPanel(x, y);
+				// Create labels for each direction
+				createLabels(x, y, tilePanel);
 			}
+		}
+	}
+
+	/**
+	 * Creates a JPanel for tile (x, y) which will contain Q-value labels.
+	 * 
+	 * @param x
+	 *            x coordinate of tile
+	 * @param y
+	 *            y coordinate of tile
+	 * @return JPanel created for tile (x, y)
+	 */
+	private JPanel createPanel(int x, int y)
+	{
+		// Determine positioning of panel
+		int xPosition = (x + 1) * MazePanel.xSpacing;
+		int yPosition = (y + 1) * MazePanel.ySpacing;
+
+		// Create and add panel
+		JPanel tilePanel = new JPanel();
+		tilePanel.setBackground(MazePanel.neutralColor);
+		tilePanel.setLayout(new BorderLayout());
+		tilePanel.setBounds(xPosition, yPosition, MazePanel.tileWidth, MazePanel.tileHeight);
+		tilePanel.setBorder(new EmptyBorder(tilePanelPadding, tilePanelPadding, tilePanelPadding,
+				tilePanelPadding));
+		add(tilePanel);
+		return tilePanel;
+	}
+
+	/**
+	 * Creates a JLabel for each direction and adds them to tilePanel.
+	 * 
+	 * @param x
+	 *            x coordinate of tile
+	 * @param y
+	 *            y coordinate of tile
+	 * @param tilePanel
+	 *            JPanel created for tile (x, y)
+	 */
+	private void createLabels(int x, int y, JPanel tilePanel)
+	{
+		for (int z = 0; z < Direction.values().length; z++)
+		{
+			JLabel label = new JLabel("0.0", SwingConstants.CENTER);
+			label.setFont(new Font("", fontStyle, fontSize));
+			label.setForeground(textColor);
+			qValueLabels[x][y][z] = label;
+
+			String index = BorderLayout.CENTER;
+			switch (z)
+			{
+				case 0:
+					index = BorderLayout.NORTH;
+					break;
+				case 1:
+					index = BorderLayout.EAST;
+					break;
+				case 2:
+					index = BorderLayout.SOUTH;
+					break;
+				case 3:
+					index = BorderLayout.WEST;
+					break;
+			}
+			tilePanel.add(label, index);
 		}
 	}
 

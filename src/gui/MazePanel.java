@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
@@ -43,8 +42,6 @@ public class MazePanel extends JPanel
 		this.ySize = maze.getYSize();
 
 		this.colorMap = new Color[xSize][ySize];
-
-		setLayout(new GridLayout(xSize, ySize));
 	}
 
 	/**
