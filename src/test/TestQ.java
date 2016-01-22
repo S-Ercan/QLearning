@@ -2,21 +2,35 @@ package test;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import strategy.Q;
 
 public class TestQ
 {
+	private Q q;
+	private int x;
+	private int y;
 
-	@Test
-	public void testQ()
+	@Before
+	public void setUp()
 	{
-		fail("Not yet implemented");
+		x = 1;
+		y = 2;
+		q = new Q(x, y);
 	}
 
 	@Test
-	public void testGetBestDirection()
+	public void testCreateQ_HasCorrectX()
 	{
-		fail("Not yet implemented");
+		assertEquals(x, q.getX());
+	}
+
+	@Test
+	public void testCreateQ_HasCorrectY()
+	{
+		assertEquals(y, q.getY());
 	}
 
 	@Test
