@@ -172,7 +172,7 @@ public class QValuePanel extends JPanel
 	}
 
 	/**
-	 * Creates tiles for all maze tiles.
+	 * Draws rectangles for all maze tiles.
 	 */
 	protected void paintComponent(Graphics g)
 	{
