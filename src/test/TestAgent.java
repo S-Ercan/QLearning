@@ -64,17 +64,4 @@ public class TestAgent
 	{
 		fail("Not yet implemented");
 	}
-
-	@Test
-	public void testGetXPosition()
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetYPosition()
-	{
-		fail("Not yet implemented");
-	}
-
 }
