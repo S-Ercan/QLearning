@@ -52,7 +52,7 @@ public class QValuePanel extends JPanel
 				tilePanel.setBounds(xPosition, yPosition, MazePanel.tileWidth,
 						MazePanel.tileHeight);
 				add(tilePanel);
-				
+
 				for (int z = 0; z < 4; z++)
 				{
 					label = new JLabel("0.0", SwingConstants.CENTER);
@@ -84,24 +84,20 @@ public class QValuePanel extends JPanel
 
 	public void updateQValue(int x, int y, Direction direction, double q)
 	{
-		int z = 0;
-		switch (direction)
+		JLabel qValueLabel = qValueLabels[x][y][direction.ordinal()];
+		qValueLabel.setText(decimalFormat.format(q));
+		if (q > 0)
 		{
-			case UP:
-				z = 0;
-				break;
-			case RIGHT:
-				z = 1;
-				break;
-			case DOWN:
-				z = 2;
-				break;
-			case LEFT:
-				z = 3;
-				break;
+			qValueLabel.setForeground(MazePanel.rewardColor);
 		}
-
-		qValueLabels[x][y][z].setText(decimalFormat.format(q));
+		else if (q < 0)
+		{
+			qValueLabel.setForeground(MazePanel.punishmentColor);
+		}
+		else
+		{
+			qValueLabel.setForeground(MazePanel.neutralColor);
+		}
 	}
 
 	protected void paintComponent(Graphics g)
