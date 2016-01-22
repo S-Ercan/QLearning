@@ -1,4 +1,4 @@
-package test;
+package test.maze;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -18,8 +18,6 @@ public class TestAgent
 	public void setUp()
 	{
 		maze = mock(Maze.class);
-		when(maze.getXSize()).thenReturn(2);
-		when(maze.getYSize()).thenReturn(2);
 		agent = new Agent(maze);
 	}
 
