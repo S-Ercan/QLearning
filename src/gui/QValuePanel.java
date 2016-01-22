@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import maze.Direction;
 
@@ -16,6 +17,10 @@ public class QValuePanel extends JPanel
 {
 	private static final long serialVersionUID = -6075907538876446276L;
 
+	private final int tilePanelPadding = 5;
+
+	private final int fontStyle = Font.TRUETYPE_FONT;
+	private final int fontSize = 14;
 	private final Color textColor = Color.white;
 
 	private int xSize;
@@ -32,7 +37,7 @@ public class QValuePanel extends JPanel
 		this.xSize = xSize;
 		this.ySize = ySize;
 
-		qValueLabels = new JLabel[xSize][ySize][4];
+		qValueLabels = new JLabel[xSize][ySize][Direction.values().length];
 		createQValueLabels();
 
 		decimalFormat = new DecimalFormat("#0.0");
@@ -53,12 +58,14 @@ public class QValuePanel extends JPanel
 				tilePanel.setLayout(new BorderLayout());
 				tilePanel.setBounds(xPosition, yPosition, MazePanel.tileWidth,
 						MazePanel.tileHeight);
+				tilePanel.setBorder(new EmptyBorder(tilePanelPadding, tilePanelPadding,
+						tilePanelPadding, tilePanelPadding));
 				add(tilePanel);
 
 				for (int z = 0; z < Direction.values().length; z++)
 				{
 					label = new JLabel("0.0", SwingConstants.CENTER);
-					label.setFont(new Font("", Font.PLAIN, 13));
+					label.setFont(new Font("", fontStyle, fontSize));
 					label.setForeground(textColor);
 					qValueLabels[x][y][z] = label;
 

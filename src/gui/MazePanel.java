@@ -18,10 +18,12 @@ public class MazePanel extends JPanel
 	// Mapping from x and y coordinates to color
 	private Color[][] colorMap;
 
-	public static final int tileWidth = 60;
-	public static final int tileHeight = 60;
-	public static final int xSpacing = 70;
-	public static final int ySpacing = 70;
+	private static final int xMargin = 10;
+	private static final int yMargin = 10;
+	public static final int tileWidth = 70;
+	public static final int tileHeight = 70;
+	public static final int xSpacing = tileWidth + xMargin;
+	public static final int ySpacing = tileHeight + yMargin;
 
 	public static final Color neutralColor = Color.gray;
 	public static final Color rewardColor = Color.green;
