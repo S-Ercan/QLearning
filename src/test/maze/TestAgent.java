@@ -6,8 +6,8 @@ import static org.mockito.Mockito.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import maze.Agent;
-import maze.Maze;
+import main.maze.Agent;
+import main.maze.Maze;
 
 public class TestAgent
 {

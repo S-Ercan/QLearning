@@ -1,11 +1,11 @@
-package gui;
+package main.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import maze.Maze;
+import main.maze.Maze;
 
 /**
  * JPanel for displaying maze and animating agent movement through it.

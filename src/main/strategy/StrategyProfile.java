@@ -1,6 +1,6 @@
-package strategy;
+package main.strategy;
 
-import maze.Direction;
+import main.maze.Direction;
 
 /**
  * A 2D array containing action-utility mappings for all maze tiles.

@@ -1,6 +1,6 @@
-package maze;
+package main.maze;
 
-import strategy.StrategyProfile;
+import main.strategy.StrategyProfile;
 
 /**
  * Represents an agent moving through a maze.

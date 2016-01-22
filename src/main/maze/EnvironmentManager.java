@@ -1,6 +1,6 @@
-package maze;
+package main.maze;
 
-import gui.GameWindow;
+import main.gui.GameWindow;
 
 /**
  * Creates the game window which displays the maze graphically. Instantiates and

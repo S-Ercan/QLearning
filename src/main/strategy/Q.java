@@ -1,4 +1,4 @@
-package strategy;
+package main.strategy;
 
 import java.text.DecimalFormat;
 
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import maze.Direction;
+import main.maze.Direction;
 
 import java.util.Random;
 

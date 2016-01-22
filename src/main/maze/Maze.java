@@ -1,4 +1,4 @@
-package maze;
+package main.maze;
 
 import java.util.Random;
 

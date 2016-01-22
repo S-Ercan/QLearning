@@ -1,4 +1,4 @@
-package gui;
+package main.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import maze.Direction;
+import main.maze.Direction;
 
 /**
  * JPanel for displaying the updated Q-values as the agent learns them while

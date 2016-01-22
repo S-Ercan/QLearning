@@ -1,4 +1,4 @@
-package gui;
+package main.gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -7,8 +7,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import maze.Direction;
-import maze.Maze;
+import main.maze.Direction;
+import main.maze.Maze;
 
 /**
  * Main frame for graphical maze representation.
