@@ -2,6 +2,12 @@ package maze;
 
 import strategy.StrategyProfile;
 
+/**
+ * Represents an agent moving through a maze.
+ * Stores position and score information.
+ * Learns which actions to choose by updating its StrategyProfile,
+ * and then uses this to chooses and execute moves.
+ */
 public class Agent
 {
 	private final int numSteps = 100;
@@ -15,6 +21,11 @@ public class Agent
 
 	private int score;
 
+	/**
+	 * Creates a new agent for the given maze.
+	 * 
+	 * @param maze the maze the agent is active in
+	 */
 	public Agent(Maze maze)
 	{
 		this.maze = maze;
@@ -98,7 +109,7 @@ public class Agent
 			score += scoreChange;
 			System.out.println("Score: " + score);
 
-			profile.updateStrategy(xPosition, yPosition, direction, x, y, scoreChange);
+			profile.updateStrategyForTile(xPosition, yPosition, direction, x, y, scoreChange);
 
 			xPosition = x;
 			yPosition = y;
@@ -109,9 +120,15 @@ public class Agent
 		}
 	}
 
+	/**
+	 * @param x x coordinate of tile
+	 * @param y y coordinate of tile
+	 * @param direction direction to retrieve Q-value for
+	 * @return Q-value corresponding to choosing 'direction' from tile (x, y)
+	 */
 	public double getQValue(int x, int y, Direction direction)
 	{
-		return profile.getQValue(x, y, direction);
+		return profile.getQValueForTile(x, y, direction);
 	}
 
 	public int getXPosition()
@@ -119,18 +136,8 @@ public class Agent
 		return xPosition;
 	}
 
-	public void setXPosition(int xPosition)
-	{
-		this.xPosition = xPosition;
-	}
-
 	public int getYPosition()
 	{
 		return yPosition;
-	}
-
-	public void setYPosition(int yPosition)
-	{
-		this.yPosition = yPosition;
 	}
 }

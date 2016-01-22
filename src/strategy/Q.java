@@ -12,6 +12,10 @@ import maze.Direction;
 
 import java.util.Random;
 
+/**
+ * Implements Q-learning by storing Q-values for all directions from a given
+ * tile and enabling their update according to the Q-learning technique.
+ */
 public class Q
 {
 	private final double alpha = 1;
@@ -26,6 +30,14 @@ public class Q
 
 	private DecimalFormat decimalFormat;
 
+	/**
+	 * Creates an action-utility mapping for tile (x, y).
+	 * 
+	 * @param x
+	 *            x coordinate of tile
+	 * @param y
+	 *            y coordinate of tile
+	 */
 	public Q(int x, int y)
 	{
 		this.x = x;
@@ -107,7 +119,7 @@ public class Q
 	}
 
 	/**
-	 * @return maximum value occurring in strategy
+	 * @return maximum utility value that can be achieved from this tile
 	 */
 	public double getMaxQValue()
 	{

@@ -10,6 +10,12 @@ public class Maze
 	private final int minSize = 2;
 	private final int maxSize = 10;
 
+	private final double pReward = 0.2;
+	private final double pPunishment = 0.1;
+
+	private final int rewardValue = 10;
+	private final int punishmentValue = -10;
+
 	private Random random;
 	private int[][] maze;
 
@@ -18,20 +24,20 @@ public class Maze
 
 	public Maze()
 	{
-		random = new Random();
-
 		// Randomly determine dimensions
+		random = new Random();
 		xSize = random.nextInt(maxSize - 1) + minSize;
 		ySize = random.nextInt(maxSize - 1) + minSize;
 		maze = new int[xSize][ySize];
 		System.out.println("Creating " + xSize + " x " + ySize + " maze");
 
+		// Fill maze with rewards and punishments
 		populateMaze();
 	}
 
 	/**
-	 * Loops through all tiles and assigns a reward with 0.2 probability or a
-	 * punishment with 0.1 probability.
+	 * Loops through all tiles and assigns a reward with probability pReward
+	 * or a punishment with probability pPunishment.
 	 */
 	public void populateMaze()
 	{
@@ -40,13 +46,13 @@ public class Maze
 			for (int j = 0; j < ySize; j++)
 			{
 				double value = random.nextDouble();
-				if (value <= 0.1)
+				if (value <= pReward)
 				{
-					maze[i][j] = -10;
+					maze[i][j] = rewardValue;
 				}
-				else if (value >= 0.8)
+				else if (value >= 1 - pPunishment)
 				{
-					maze[i][j] = 10;
+					maze[i][j] = punishmentValue;
 				}
 			}
 		}
@@ -69,18 +75,8 @@ public class Maze
 		return xSize;
 	}
 
-	public void setXSize(int xSize)
-	{
-		this.xSize = xSize;
-	}
-
 	public int getYSize()
 	{
 		return ySize;
-	}
-
-	public void setYSize(int ySize)
-	{
-		this.ySize = ySize;
 	}
 }
