@@ -48,7 +48,8 @@ public class GameWindow extends JFrame
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double screenWidth = screenSize.getWidth();
 		double screenHeight = screenSize.getHeight();
-		setLocation((int) screenWidth / 2 - windowWidth / 2, (int) screenHeight / 2 - windowHeight / 2);
+		setLocation((int) screenWidth / 2 - windowWidth / 2,
+				(int) screenHeight / 2 - windowHeight / 2);
 
 		setResizable(false);
 		setTitle("Maze");

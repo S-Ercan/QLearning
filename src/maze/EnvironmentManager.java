@@ -41,7 +41,8 @@ public class EnvironmentManager
 		if (result != -1)
 		{
 			gameWindow.showMoveAnimation(x, y);
-			gameWindow.updateQValue(agentXOld, agentYOld, direction, agent.getQValue(agentXOld, agentYOld, direction));
+			gameWindow.updateQValue(agentXOld, agentYOld, direction,
+					agent.getQValue(agentXOld, agentYOld, direction));
 		}
 	}
 }

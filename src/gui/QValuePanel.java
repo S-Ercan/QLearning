@@ -13,6 +13,10 @@ import javax.swing.border.EmptyBorder;
 
 import maze.Direction;
 
+/**
+ * JPanel for displaying the updated Q-values as the agent learns them while
+ * moving through the maze.
+ */
 public class QValuePanel extends JPanel
 {
 	private static final long serialVersionUID = -6075907538876446276L;
@@ -30,6 +34,15 @@ public class QValuePanel extends JPanel
 
 	private DecimalFormat decimalFormat;
 
+	/**
+	 * Creates a new Q-values panel with the given dimensions. Creates and adds
+	 * Q-value labels.
+	 * 
+	 * @param xSize
+	 *            maze width
+	 * @param ySize
+	 *            maze height
+	 */
 	public QValuePanel(int xSize, int ySize)
 	{
 		setLayout(null);
@@ -43,6 +56,10 @@ public class QValuePanel extends JPanel
 		decimalFormat = new DecimalFormat("#0.0");
 	}
 
+	/**
+	 * Creates a JPanel for each maze tile. Adds a JLabel for each direction to
+	 * all created JPanels.
+	 */
 	private void createQValueLabels()
 	{
 		JLabel label;
@@ -51,8 +68,11 @@ public class QValuePanel extends JPanel
 		{
 			for (int y = 0; y < ySize; y++)
 			{
+				// Determine positioning of panel
 				xPosition = (x + 1) * MazePanel.xSpacing;
 				yPosition = (y + 1) * MazePanel.ySpacing;
+
+				// Create and add panel
 				JPanel tilePanel = new JPanel();
 				tilePanel.setBackground(MazePanel.neutralColor);
 				tilePanel.setLayout(new BorderLayout());
@@ -62,6 +82,7 @@ public class QValuePanel extends JPanel
 						tilePanelPadding, tilePanelPadding));
 				add(tilePanel);
 
+				// Create and add labels for each direction
 				for (int z = 0; z < Direction.values().length; z++)
 				{
 					label = new JLabel("0.0", SwingConstants.CENTER);
@@ -91,6 +112,19 @@ public class QValuePanel extends JPanel
 		}
 	}
 
+	/**
+	 * Updates Q-value and font color of Q-value label specified by (x, y) and
+	 * direction.
+	 * 
+	 * @param x
+	 *            x coordinate of tile
+	 * @param y
+	 *            y coordinate of tile
+	 * @param direction
+	 *            direction for which to update Q-value
+	 * @param q
+	 *            new Q-value
+	 */
 	public void updateQValue(int x, int y, Direction direction, double q)
 	{
 		JLabel qValueLabel = qValueLabels[x][y][direction.ordinal()];
@@ -109,6 +143,9 @@ public class QValuePanel extends JPanel
 		}
 	}
 
+	/**
+	 * Creates tiles for all maze tiles.
+	 */
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);

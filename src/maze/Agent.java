@@ -60,12 +60,17 @@ public class Agent
 	}
 
 	/**
-	 * Passes the x and y coordinates of the desired destination square to EnvironmentManager.
-	 * Updates profile if move was valid, otherwise excludes direction from current tile.
+	 * Passes the x and y coordinates of the desired destination square to
+	 * EnvironmentManager. Updates profile if move was valid, otherwise excludes
+	 * direction from current tile.
 	 * 
-	 * @param x x coordinate of target tile
-	 * @param y y coordinate of target tile
-	 * @param direction direction we're moving in from current tile to get to target tile
+	 * @param x
+	 *            x coordinate of target tile
+	 * @param y
+	 *            y coordinate of target tile
+	 * @param direction
+	 *            direction we're moving in from current tile to get to target
+	 *            tile
 	 */
 	public void executeMove(int x, int y, Direction direction)
 	{
@@ -75,10 +80,14 @@ public class Agent
 	/**
 	 * Updates position and score and outputs status messages.
 	 * 
-	 * @param x x coordinate of new tile
-	 * @param y y coordinate of new tile
-	 * @param direction direction we've moved in from previous tile to current tile
-	 * @param scoreChange change in score caused by move
+	 * @param x
+	 *            x coordinate of new tile
+	 * @param y
+	 *            y coordinate of new tile
+	 * @param direction
+	 *            direction we've moved in from previous tile to current tile
+	 * @param scoreChange
+	 *            change in score caused by move
 	 */
 	public void update(int x, int y, Direction direction, int scoreChange)
 	{
