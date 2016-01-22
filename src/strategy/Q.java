@@ -59,8 +59,8 @@ public class Q
 		if (random.nextDouble() < pRandExploration)
 		{
 			pRandExploration -= 0.05;
-			System.out.println(
-					"Updated pRandExploration for (" + x + ", " + y + ") to " + pRandExploration);
+			System.out.println("Updated pRandExploration for (" + x + ", " + y + ") to "
+					+ decimalFormat.format(pRandExploration));
 			List<Direction> directions = new ArrayList<Direction>(strategy.keySet());
 			return directions.get(random.nextInt(directions.size()));
 		}

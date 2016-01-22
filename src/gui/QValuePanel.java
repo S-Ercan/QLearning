@@ -16,6 +16,8 @@ public class QValuePanel extends JPanel
 {
 	private static final long serialVersionUID = -6075907538876446276L;
 
+	private final Color textColor = Color.white;
+
 	private int xSize;
 	private int ySize;
 
@@ -53,11 +55,11 @@ public class QValuePanel extends JPanel
 						MazePanel.tileHeight);
 				add(tilePanel);
 
-				for (int z = 0; z < 4; z++)
+				for (int z = 0; z < Direction.values().length; z++)
 				{
 					label = new JLabel("0.0", SwingConstants.CENTER);
 					label.setFont(new Font("", Font.PLAIN, 13));
-					label.setForeground(Color.white);
+					label.setForeground(textColor);
 					qValueLabels[x][y][z] = label;
 
 					String index = BorderLayout.CENTER;
@@ -96,7 +98,7 @@ public class QValuePanel extends JPanel
 		}
 		else
 		{
-			qValueLabel.setForeground(MazePanel.neutralColor);
+			qValueLabel.setForeground(textColor);
 		}
 	}
 
