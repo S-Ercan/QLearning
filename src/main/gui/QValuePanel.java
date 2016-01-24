@@ -87,8 +87,8 @@ public class QValuePanel extends JPanel
 	private JPanel createPanel(int x, int y)
 	{
 		// Determine positioning of panel
-		int xPosition = (x + 1) * MazePanel.xSpacing;
-		int yPosition = (y + 1) * MazePanel.ySpacing;
+		int xPosition = MazePanel.xMargin + x * MazePanel.xSpacing;
+		int yPosition = MazePanel.yMargin + y * MazePanel.ySpacing;
 
 		// Create and add panel
 		JPanel tilePanel = new JPanel();
@@ -178,13 +178,14 @@ public class QValuePanel extends JPanel
 	{
 		super.paintComponent(g);
 
-		for (int x = 1; x <= xSize; x++)
+		for (int x = 0; x < xSize; x++)
 		{
-			for (int y = 1; y <= ySize; y++)
+			for (int y = 0; y < ySize; y++)
 			{
+				int xPosition = MazePanel.xMargin + x * MazePanel.xSpacing;
+				int yPosition = MazePanel.yMargin + y * MazePanel.ySpacing;
 				g.setColor(MazePanel.neutralColor);
-				g.fillRect(x * MazePanel.xSpacing, y * MazePanel.ySpacing, MazePanel.tileWidth,
-						MazePanel.tileHeight);
+				g.fillRect(xPosition, yPosition, MazePanel.tileWidth, MazePanel.tileHeight);
 			}
 		}
 	}

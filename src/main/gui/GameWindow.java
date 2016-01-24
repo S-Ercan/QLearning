@@ -47,11 +47,13 @@ public class GameWindow extends JFrame implements ActionListener
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
 		getContentPane().add(mainPanel);
 
-		mainPanel.add(createMazeAndControlsPanel(maze));
+		int panelWidth = maze.getXSize() * MazePanel.tileWidth
+				+ (maze.getXSize() + 1) * MazePanel.xMargin;
+		int panelHeight = maze.getYSize() * MazePanel.tileHeight
+				+ (maze.getYSize() + 1) * MazePanel.yMargin;
 
-		qValuePanel = new QValuePanel(maze.getXSize(), maze.getYSize());
-		qValuePanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		mainPanel.add(qValuePanel);
+		mainPanel.add(createMazeAndControlsPanel(maze, panelWidth, panelHeight));
+		mainPanel.add(createQValuePanel(maze, panelWidth, panelHeight));
 
 		// Adjust size to maze dimension
 		int windowWidth = (maze.getXSize() + 5) * mazePanel.getTileWidth() * 2;
@@ -72,21 +74,16 @@ public class GameWindow extends JFrame implements ActionListener
 		setVisible(true);
 	}
 
-	public JPanel createMazeAndControlsPanel(Maze maze)
+	public JPanel createMazeAndControlsPanel(Maze maze, int panelWidth, int panelHeight)
 	{
 		JPanel mazeAndControlsPanel = new JPanel();
 		mazeAndControlsPanel.setLayout(new BoxLayout(mazeAndControlsPanel, BoxLayout.Y_AXIS));
 
-		int mazePanelWidth = maze.getXSize() * MazePanel.tileWidth
-				+ (maze.getXSize() + 1) * MazePanel.xMargin;
-		int mazePanelHeight = maze.getYSize() * MazePanel.tileHeight
-				+ (maze.getYSize() + 1) * MazePanel.yMargin;
-
 		mazePanel = new MazePanel(maze);
 		mazePanel.setBorder(BorderFactory.createLineBorder(Color.black));
-		mazePanel.setMinimumSize(new Dimension(mazePanelWidth, mazePanelHeight));
-		mazePanel.setPreferredSize(new Dimension(mazePanelWidth, mazePanelHeight));
-		mazePanel.setMaximumSize(new Dimension(mazePanelWidth, mazePanelHeight));
+		mazePanel.setMinimumSize(new Dimension(panelWidth, panelHeight));
+		mazePanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
+		mazePanel.setMaximumSize(new Dimension(panelWidth, panelHeight));
 		mazePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		mazeAndControlsPanel.add(mazePanel);
 
@@ -112,6 +109,18 @@ public class GameWindow extends JFrame implements ActionListener
 		return mazeAndControlsPanel;
 	}
 
+	public JPanel createQValuePanel(Maze maze, int panelWidth, int panelHeight)
+	{
+		qValuePanel = new QValuePanel(maze.getXSize(), maze.getYSize());
+		qValuePanel.setMinimumSize(new Dimension(panelWidth, panelHeight));
+		qValuePanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
+		qValuePanel.setMaximumSize(new Dimension(panelWidth, panelHeight));
+		qValuePanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		mainPanel.add(qValuePanel);
+
+		return qValuePanel;
+	}
+	
 	/**
 	 * Calls mazePanel's move animation functionality.
 	 * 
