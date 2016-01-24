@@ -17,7 +17,7 @@ import main.maze.Direction;
  * JPanel for displaying the updated Q-values as the agent learns them while
  * moving through the maze.
  */
-public class QValuePanel extends JPanel
+public class QValuesPanel extends JPanel
 {
 	private static final long serialVersionUID = -6075907538876446276L;
 
@@ -43,7 +43,7 @@ public class QValuePanel extends JPanel
 	 * @param ySize
 	 *            maze height
 	 */
-	public QValuePanel(int xSize, int ySize)
+	public QValuesPanel(int xSize, int ySize)
 	{
 		setLayout(null);
 
