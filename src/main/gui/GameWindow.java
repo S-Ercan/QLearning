@@ -1,7 +1,5 @@
 package main.gui;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -9,12 +7,12 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 import main.maze.Direction;
 import main.maze.Maze;
@@ -37,28 +35,30 @@ public class GameWindow extends JFrame implements ActionListener
 	private JButton pauseButton;
 
 	/**
-	 * Creates a new window with a graphical representation of maze.
+	 * Creates a new window with a graphical representation of maze and the
+	 * corresponding Q-values.
 	 * 
 	 * @param maze
 	 *            maze to display
 	 */
 	public GameWindow(Maze maze)
 	{
+		mainPanel = new JPanel();
+		mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		getContentPane().add(mainPanel);
+
+		// Determine dimension of maze panel and Q-values panel
 		int panelWidth = maze.getXSize() * MazePanel.tileWidth
 				+ (maze.getXSize() + 1) * MazePanel.xMargin;
 		int panelHeight = maze.getYSize() * MazePanel.tileHeight
 				+ (maze.getYSize() + 1) * MazePanel.yMargin;
-
-		mainPanel = new JPanel();
-		mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		getContentPane().add(mainPanel);
 
 		mainPanel.add(createMazeAndQValuesPanel(maze, panelWidth, panelHeight));
 		mainPanel.add(createControlsPanel());
 
 		// Adjust size to maze dimension
 		int windowWidth = panelWidth * 2 + 20;
-		int windowHeight = panelHeight + 200;
+		int windowHeight = panelHeight + 150;
 		setSize(windowWidth, windowHeight);
 
 		// Adjust location to size
@@ -75,8 +75,21 @@ public class GameWindow extends JFrame implements ActionListener
 		setVisible(true);
 	}
 
+	/**
+	 * Creates a panel for the maze, a corresponding panel for the agent's
+	 * Q-values for the maze, and puts both in a container panel.
+	 * 
+	 * @param maze
+	 *            maze to create panels for
+	 * @param panelWidth
+	 *            individual width of both panels
+	 * @param panelHeight
+	 *            individual width of both panels
+	 * @return panel containing maze and Q-values panels
+	 */
 	public JPanel createMazeAndQValuesPanel(Maze maze, int panelWidth, int panelHeight)
 	{
+		// Create container panel
 		JPanel mazeAndQValuesPanel = new JPanel();
 		mazeAndQValuesPanel.setLayout(new BoxLayout(mazeAndQValuesPanel, BoxLayout.X_AXIS));
 
@@ -95,11 +108,18 @@ public class GameWindow extends JFrame implements ActionListener
 		return mazeAndQValuesPanel;
 	}
 
+	/**
+	 * @return panel containing a score label and buttons for resuming/pausing
+	 *         the simulation
+	 */
 	public JPanel createControlsPanel()
 	{
+		// Create container panel
 		JPanel controlsPanel = new JPanel();
+		controlsPanel.setBorder(new EmptyBorder(0, 10, 0, 0));
 		controlsPanel.setLayout(new BoxLayout(controlsPanel, BoxLayout.Y_AXIS));
 
+		// Create panel for score label
 		JPanel scorePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		scoreLabel = new JLabel();
@@ -107,6 +127,7 @@ public class GameWindow extends JFrame implements ActionListener
 		updateScore(0);
 		scorePanel.add(scoreLabel);
 
+		// Create panel for resume/pause buttons
 		JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		goButton = new JButton("Go");
@@ -143,6 +164,14 @@ public class GameWindow extends JFrame implements ActionListener
 		scoreLabel.setText("Score: " + score);
 	}
 
+	/**
+	 * Updates Q-value for action '((x, y), direction)' to q.
+	 * 
+	 * @param x x coordinate of tile
+	 * @param y y coordinate of tile
+	 * @param direction direction to update Q-value for
+	 * @param q new Q-value
+	 */
 	public void updateQValue(int x, int y, Direction direction, double q)
 	{
 		qValuesPanel.updateQValue(x, y, direction, q);

@@ -3,9 +3,8 @@ package main.maze;
 import main.strategy.StrategyProfile;
 
 /**
- * Represents an agent moving through a maze.
- * Stores position and score information.
- * Learns which actions to choose by updating its StrategyProfile,
+ * Represents an agent moving through a maze. Stores position and score
+ * information. Learns which actions to choose by updating its StrategyProfile,
  * and then uses this to choose and execute moves.
  */
 public class Agent
@@ -49,8 +48,7 @@ public class Agent
 
 	/**
 	 * Passes the x and y coordinates of the desired destination square to
-	 * EnvironmentManager. Updates profile if move was valid, otherwise excludes
-	 * direction from current tile.
+	 * EnvironmentManager.
 	 * 
 	 * @param x
 	 *            x coordinate of target tile
@@ -66,7 +64,9 @@ public class Agent
 	}
 
 	/**
-	 * Updates position and score and outputs status messages.
+	 * Updates position, score and profile if move was valid and outputs status
+	 * messages. In case of an invalid move, excludes chosen direction from
+	 * current tile.
 	 * 
 	 * @param x
 	 *            x coordinate of new tile
