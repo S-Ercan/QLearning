@@ -17,8 +17,8 @@ public class MazePanel extends JPanel
 	// Mapping from x and y coordinates to color
 	private Color[][] colorMap;
 
-	private static final int xMargin = 10;
-	private static final int yMargin = 10;
+	public static final int xMargin = 10;
+	public static final int yMargin = 10;
 	public static final int tileWidth = 70;
 	public static final int tileHeight = 70;
 	public static final int xSpacing = tileWidth + xMargin;
@@ -59,10 +59,10 @@ public class MazePanel extends JPanel
 		Graphics g = getGraphics();
 		// Restore color of previous tile
 		g.setColor(colorMap[xOld][yOld]);
-		g.fillRect((xOld + 1) * xSpacing, (yOld + 1) * ySpacing, tileWidth, tileHeight);
+		g.fillRect(xMargin + xOld * xSpacing, yMargin + yOld * ySpacing, tileWidth, tileHeight);
 		// Paint current tile white
 		g.setColor(Color.white);
-		g.fillRect((x + 1) * xSpacing, (y + 1) * ySpacing, tileWidth, tileHeight);
+		g.fillRect(xMargin + x * xSpacing, yMargin + y * ySpacing, tileWidth, tileHeight);
 
 		// Save current coordinates
 		this.xOld = x;
@@ -77,15 +77,15 @@ public class MazePanel extends JPanel
 		super.paintComponent(g);
 		Color color;
 
-		for (int x = 1; x <= xSize; x++)
+		for (int x = 0; x < xSize; x++)
 		{
-			for (int y = 1; y <= ySize; y++)
+			for (int y = 0; y < ySize; y++)
 			{
-				if (maze.getTileValue(x - 1, y - 1) == 10)
+				if (maze.getTileValue(x, y) == 10)
 				{
 					color = rewardColor;
 				}
-				else if (maze.getTileValue(x - 1, y - 1) == -10)
+				else if (maze.getTileValue(x, y) == -10)
 				{
 					color = punishmentColor;
 				}
@@ -94,9 +94,9 @@ public class MazePanel extends JPanel
 					color = neutralColor;
 				}
 
-				colorMap[x - 1][y - 1] = color;
+				colorMap[x][y] = color;
 				g.setColor(color);
-				g.fillRect(x * xSpacing, y * ySpacing, tileWidth, tileHeight);
+				g.fillRect(xMargin + x * xSpacing, yMargin + y * ySpacing, tileWidth, tileHeight);
 			}
 		}
 	}
