@@ -16,16 +16,20 @@ public class EnvironmentManager
 	{
 		Maze maze = new Maze();
 		gameWindow = new GameWindow(maze);
-
 		agent = new Agent(maze);
-		
+
 		run();
 	}
 
 	private static void run()
 	{
-		while(true)
+		gameWindow.showMoveAnimation(agent.getXPosition(), agent.getYPosition());
+		while (true)
 		{
+			if (gameWindow.simulationIsRunning())
+			{
+				agent.move();
+			}
 			try
 			{
 				Thread.sleep(500);
@@ -34,13 +38,9 @@ public class EnvironmentManager
 			{
 				e.printStackTrace();
 			}
-			if(gameWindow.simulationIsRunning())
-			{
-				agent.move();				
-			}
 		}
 	}
-	
+
 	/**
 	 * Execute move and return result.
 	 * 

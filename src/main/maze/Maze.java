@@ -36,8 +36,8 @@ public class Maze
 	}
 
 	/**
-	 * Loops through all tiles and assigns a reward with probability pReward
-	 * or a punishment with probability pPunishment.
+	 * Loops through all tiles and assigns a reward with probability pReward or
+	 * a punishment with probability pPunishment.
 	 */
 	public void populateMaze()
 	{

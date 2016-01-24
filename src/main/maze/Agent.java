@@ -21,7 +21,8 @@ public class Agent
 	/**
 	 * Creates a new agent for the given maze.
 	 * 
-	 * @param maze the maze the agent is active in
+	 * @param maze
+	 *            the maze the agent is active in
 	 */
 	public Agent(Maze maze)
 	{
@@ -97,9 +98,12 @@ public class Agent
 	}
 
 	/**
-	 * @param x x coordinate of tile
-	 * @param y y coordinate of tile
-	 * @param direction direction to retrieve Q-value for
+	 * @param x
+	 *            x coordinate of tile
+	 * @param y
+	 *            y coordinate of tile
+	 * @param direction
+	 *            direction to retrieve Q-value for
 	 * @return Q-value corresponding to choosing 'direction' from tile (x, y)
 	 */
 	public double getQValue(int x, int y, Direction direction)

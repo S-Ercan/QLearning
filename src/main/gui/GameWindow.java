@@ -24,7 +24,7 @@ import main.maze.Maze;
 public class GameWindow extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 1903142717890981086L;
-	
+
 	private boolean simulationRunning;
 
 	private JPanel mainPanel;
@@ -143,13 +143,13 @@ public class GameWindow extends JFrame implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if(e.getSource() == goButton)
+		if (e.getSource() == goButton)
 		{
 			simulationRunning = true;
 		}
-		else if(e.getSource() == pauseButton)
+		else if (e.getSource() == pauseButton)
 		{
-			simulationRunning = false;			
+			simulationRunning = false;
 		}
 	}
 }
