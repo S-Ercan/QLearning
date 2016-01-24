@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -19,14 +21,19 @@ import main.maze.Maze;
 /**
  * Main frame for graphical maze representation.
  */
-public class GameWindow extends JFrame
+public class GameWindow extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 1903142717890981086L;
+	
+	private boolean simulationRunning;
 
 	private JPanel mainPanel;
 	private MazePanel mazePanel;
 	private QValuePanel qValuePanel;
+
 	private JLabel scoreLabel;
+	private JButton goButton;
+	private JButton pauseButton;
 
 	/**
 	 * Creates a new window with a graphical representation of maze.
@@ -88,11 +95,18 @@ public class GameWindow extends JFrame
 		controlsPanel.setLayout(new BoxLayout(controlsPanel, BoxLayout.Y_AXIS));
 		controlsPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-		scoreLabel = new JLabel("Score: 0");
+		scoreLabel = new JLabel();
 		scoreLabel.setFont(new Font("", Font.BOLD, 16));
+		updateScore(0);
 		controlsPanel.add(scoreLabel);
-		controlsPanel.add(new JButton("Go"));
-		controlsPanel.add(new JButton("Pause"));
+
+		goButton = new JButton("Go");
+		goButton.addActionListener(this);
+		controlsPanel.add(goButton);
+
+		pauseButton = new JButton("Pause");
+		pauseButton.addActionListener(this);
+		controlsPanel.add(pauseButton);
 		mazeAndControlsPanel.add(controlsPanel);
 
 		return mazeAndControlsPanel;
@@ -119,5 +133,23 @@ public class GameWindow extends JFrame
 	public void updateQValue(int x, int y, Direction direction, double q)
 	{
 		qValuePanel.updateQValue(x, y, direction, q);
+	}
+
+	public boolean simulationIsRunning()
+	{
+		return simulationRunning;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		if(e.getSource() == goButton)
+		{
+			simulationRunning = true;
+		}
+		else if(e.getSource() == pauseButton)
+		{
+			simulationRunning = false;			
+		}
 	}
 }

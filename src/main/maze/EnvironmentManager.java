@@ -18,9 +18,29 @@ public class EnvironmentManager
 		gameWindow = new GameWindow(maze);
 
 		agent = new Agent(maze);
-		agent.run();
+		
+		run();
 	}
 
+	private static void run()
+	{
+		while(true)
+		{
+			try
+			{
+				Thread.sleep(500);
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+			if(gameWindow.simulationIsRunning())
+			{
+				agent.move();				
+			}
+		}
+	}
+	
 	/**
 	 * Execute move and return result.
 	 * 
@@ -41,6 +61,7 @@ public class EnvironmentManager
 		if (result != -1)
 		{
 			gameWindow.showMoveAnimation(x, y);
+			gameWindow.updateScore(agent.getScore());
 			gameWindow.updateQValue(agentXOld, agentYOld, direction,
 					agent.getQValue(agentXOld, agentYOld, direction));
 		}

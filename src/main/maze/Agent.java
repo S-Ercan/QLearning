@@ -10,9 +10,6 @@ import main.strategy.StrategyProfile;
  */
 public class Agent
 {
-	private final int numSteps = 100;
-	private final int moveDelay = 500;
-
 	private Maze maze;
 	private StrategyProfile profile;
 
@@ -36,31 +33,10 @@ public class Agent
 	}
 
 	/**
-	 * Contains main agent loop: chooses and executes a move 'numSteps' times.
-	 */
-	public void run()
-	{
-		int stepCounter = 0;
-		while (stepCounter < numSteps)
-		{
-			try
-			{
-				Thread.sleep(moveDelay);
-			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-			chooseMove();
-			stepCounter++;
-		}
-	}
-
-	/**
 	 * Uses 'profile' to get the best direction to head from the current tile.
 	 * Calculates destination coordinates accordingly and executes the move.
 	 */
-	public void chooseMove()
+	public void move()
 	{
 		Direction direction = profile.getBestDirectionFromTile(xPosition, yPosition);
 		int x = direction == Direction.LEFT ? xPosition - 1
