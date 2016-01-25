@@ -69,7 +69,7 @@ public class GameWindow extends JFrame implements ActionListener
 				(int) screenHeight / 2 - windowHeight / 2);
 
 		setResizable(false);
-		setTitle("Maze");
+		setTitle("Q-learning");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setVisible(true);
