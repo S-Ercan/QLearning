@@ -1,10 +1,12 @@
 package test.strategy;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import main.maze.Direction;
 import main.strategy.Q;
 
 public class TestQ
@@ -34,27 +36,18 @@ public class TestQ
 	}
 
 	@Test
-	public void testUpdate()
+	public void testUpdateQ_QUpdated()
 	{
-		fail("Not yet implemented");
+		Q qNext = mock(Q.class);
+		when(qNext.getMaxQValue()).thenReturn(0.0);
+		q.update(Direction.LEFT, qNext, 10);
+
+		assertEquals(10, q.getQValueForDirection(Direction.LEFT), 0);
 	}
 
 	@Test
-	public void testGetMaxQValue()
+	public void testNoUpdates_MaxValueIsZero()
 	{
-		fail("Not yet implemented");
+		assertEquals(0, q.getMaxQValue(), 0);
 	}
-
-	@Test
-	public void testExcludeDirection()
-	{
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetQValueForDirection()
-	{
-		fail("Not yet implemented");
-	}
-
 }
