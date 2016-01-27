@@ -2,6 +2,11 @@ package main.maze;
 
 import java.util.Random;
 
+import main.maze.tile.EmptyTile;
+import main.maze.tile.PunishmentTile;
+import main.maze.tile.RewardTile;
+import main.maze.tile.Tile;
+
 /**
  * Represents a maze using a 2D array.
  */
@@ -13,11 +18,8 @@ public class Maze
 	private final double pReward = 0.2;
 	private final double pPunishment = 0.1;
 
-	private final int rewardValue = 10;
-	private final int punishmentValue = -10;
-
 	private Random random;
-	private int[][] maze;
+	private Tile[][] maze;
 
 	private int xSize;
 	private int ySize;
@@ -28,7 +30,7 @@ public class Maze
 		random = new Random();
 		xSize = random.nextInt(maxSize - 1) + minSize;
 		ySize = random.nextInt(maxSize - 1) + minSize;
-		maze = new int[xSize][ySize];
+		maze = new Tile[xSize][ySize];
 		System.out.println("Creating " + xSize + " x " + ySize + " maze");
 
 		// Fill maze with rewards and punishments
@@ -48,26 +50,38 @@ public class Maze
 				double value = random.nextDouble();
 				if (value <= pReward)
 				{
-					maze[i][j] = rewardValue;
+					// Assign reward of 5 or 10
+					maze[i][j] = new RewardTile((random.nextInt(2) + 1) * 5);
 				}
 				else if (value >= 1 - pPunishment)
 				{
-					maze[i][j] = punishmentValue;
+					// Assign punishment of -5 or -10
+					maze[i][j] = new PunishmentTile((random.nextInt(2) + 1) * -5);
+				}
+				else
+				{
+					maze[i][j] = new EmptyTile();
 				}
 			}
 		}
 		// Ensure initial square is free
-		maze[0][0] = 0;
+		maze[0][0] = new EmptyTile();
+	}
+
+	public Tile getTile(int x, int y)
+	{
+		Tile tile = null;
+		if (!(x < 0 || x >= xSize || y < 0 || y >= ySize))
+		{
+			tile = maze[x][y];
+		}
+		return tile;
 	}
 
 	public int getTileValue(int x, int y)
 	{
-		int tileValue = -1;
-		if (!(x < 0 || x >= xSize || y < 0 || y >= ySize))
-		{
-			tileValue = maze[x][y];
-		}
-		return tileValue;
+		Tile tile = getTile(x, y);
+		return tile == null ? -1 : tile.getValue();
 	}
 
 	public int getXSize()

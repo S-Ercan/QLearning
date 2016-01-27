@@ -6,6 +6,9 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import main.maze.Maze;
+import main.maze.tile.PunishmentTile;
+import main.maze.tile.RewardTile;
+import main.maze.tile.Tile;
 
 /**
  * JPanel for displaying maze and animating agent movement through it.
@@ -57,11 +60,20 @@ public class MazePanel extends JPanel
 	public void showMoveAnimation(int x, int y)
 	{
 		Graphics g = getGraphics();
+		Tile oldTile = maze.getTile(xOld, yOld);
+
 		// Restore color of previous tile
 		g.setColor(colorMap[xOld][yOld]);
 		g.fillRect(xMargin + xOld * xSpacing, yMargin + yOld * ySpacing, tileWidth, tileHeight);
-		// Paint current tile white
 		g.setColor(Color.white);
+		if(oldTile instanceof RewardTile || oldTile instanceof PunishmentTile)
+		{
+			g.drawString(Double.toString(oldTile.getValue()),
+					xMargin + xOld * xSpacing + tileWidth / 2 - 15,
+					yMargin + yOld * ySpacing + tileHeight / 2 + 5);
+		}
+
+		// Paint current tile white
 		g.fillRect(xMargin + x * xSpacing, yMargin + y * ySpacing, tileWidth, tileHeight);
 
 		// Save current coordinates
@@ -75,28 +87,41 @@ public class MazePanel extends JPanel
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
-		Color color;
 
+		Color color;
+		Tile tile;
+		boolean drawValue = false;
 		for (int x = 0; x < xSize; x++)
 		{
 			for (int y = 0; y < ySize; y++)
 			{
-				if (maze.getTileValue(x, y) == 10)
+				tile = maze.getTile(x, y);
+				if (tile instanceof RewardTile)
 				{
 					color = rewardColor;
+					drawValue = true;
 				}
-				else if (maze.getTileValue(x, y) == -10)
+				else if (tile instanceof PunishmentTile)
 				{
 					color = punishmentColor;
+					drawValue = true;
 				}
 				else
 				{
 					color = neutralColor;
+					drawValue = false;
 				}
 
 				colorMap[x][y] = color;
 				g.setColor(color);
 				g.fillRect(xMargin + x * xSpacing, yMargin + y * ySpacing, tileWidth, tileHeight);
+				g.setColor(Color.white);
+				if(drawValue)
+				{
+					g.drawString(Double.toString(tile.getValue()),
+							xMargin + x * xSpacing + tileWidth / 2 - 15,
+							yMargin + y * ySpacing + tileHeight / 2 + 5);	
+				}
 			}
 		}
 	}
