@@ -1,7 +1,6 @@
 package main.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Font;
 import java.text.DecimalFormat;
 
@@ -21,10 +20,6 @@ public class QValuesPanel extends JPanel
 	private static final long serialVersionUID = -6075907538876446276L;
 
 	private final int tilePanelPadding = 5;
-
-	private final int fontStyle = Font.TRUETYPE_FONT;
-	private final int fontSize = 14;
-	private final Color textColor = Color.white;
 
 	private int xSize;
 	private int ySize;
@@ -115,8 +110,8 @@ public class QValuesPanel extends JPanel
 		for (int z = 0; z < Direction.values().length; z++)
 		{
 			JLabel label = new JLabel("0.0", SwingConstants.CENTER);
-			label.setFont(new Font("", fontStyle, fontSize));
-			label.setForeground(textColor);
+			label.setFont(new Font("", MazePanel.fontStyle, MazePanel.fontSize));
+			label.setForeground(MazePanel.textColor);
 			qValueLabels[x][y][z] = label;
 
 			String index = BorderLayout.CENTER;
@@ -166,7 +161,7 @@ public class QValuesPanel extends JPanel
 		}
 		else
 		{
-			qValueLabel.setForeground(textColor);
+			qValueLabel.setForeground(MazePanel.textColor);
 		}
 	}
 }

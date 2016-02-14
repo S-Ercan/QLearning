@@ -21,13 +21,6 @@ public class MazePanel extends JPanel
 {
 	private static final long serialVersionUID = 5364142617462688939L;
 
-	// Mapping from x and y coordinates to color
-	private Color[][] colorMap;
-	// Mapping from x and y coordinates to tile panel
-	private JPanel[][] tilePanelMap;
-	// Mapping from x and y coordinates to tile value label
-	private JLabel[][] tileValueLabelMap;
-
 	public static final int xMargin = 10;
 	public static final int yMargin = 10;
 	public static final int tileWidth = 70;
@@ -38,6 +31,15 @@ public class MazePanel extends JPanel
 	public static final Color neutralColor = Color.gray;
 	public static final Color rewardColor = Color.green;
 	public static final Color punishmentColor = Color.red;
+
+	public static final int fontStyle = Font.TRUETYPE_FONT;
+	public static final int fontSize = 14;
+	public static final Color textColor = Color.white;
+
+	// Mapping from x and y coordinates to color
+	private Color[][] colorMap;
+	// Mapping from x and y coordinates to tile panel
+	private JPanel[][] tilePanelMap;
 
 	private Maze maze;
 	private int xSize;
@@ -58,14 +60,13 @@ public class MazePanel extends JPanel
 
 		this.colorMap = new Color[xSize][ySize];
 		this.tilePanelMap = new JPanel[xSize][ySize];
-		this.tileValueLabelMap = new JLabel[xSize][ySize];
 
 		decimalFormat = new DecimalFormat("#0.0");
 
-		createTileValueLabels();
+		createTilePanels();
 	}
 
-	private void createTileValueLabels()
+	private void createTilePanels()
 	{
 		Tile tile;
 		Color tileColor;
@@ -77,10 +78,11 @@ public class MazePanel extends JPanel
 				int xPosition = MazePanel.xMargin + x * MazePanel.xSpacing;
 				int yPosition = MazePanel.yMargin + y * MazePanel.ySpacing;
 
-				// Create and add panel
+				// Create panel
 				JPanel tilePanel = new JPanel();
 				tilePanel.setLayout(new BorderLayout());
 
+				// Color panel according to the type of its tile
 				tile = maze.getTile(x, y);
 				if (tile instanceof RewardTile)
 				{
@@ -101,16 +103,21 @@ public class MazePanel extends JPanel
 						MazePanel.tileHeight);
 				tilePanelMap[x][y] = tilePanel;
 				add(tilePanel);
-				String labelText = (tile instanceof RewardTile || tile instanceof PunishmentTile)
-						? decimalFormat.format(tile.getValue()) : "";
-				JLabel label = new JLabel(labelText, SwingConstants.CENTER);
-				label.setFont(new Font("", Font.TRUETYPE_FONT, 14));
-				label.setForeground(Color.white);
-				tileValueLabelMap[x][y] = label;
-				tilePanel.add(label);
 
+				if (tile instanceof RewardTile || tile instanceof PunishmentTile)
+				{
+					createTileValueLabel(tilePanel, tile);
+				}
 			}
 		}
+	}
+
+	private void createTileValueLabel(JPanel tilePanel, Tile tile)
+	{
+		JLabel label = new JLabel(decimalFormat.format(tile.getValue()), SwingConstants.CENTER);
+		label.setFont(new Font("", fontStyle, fontSize));
+		label.setForeground(textColor);
+		tilePanel.add(label);
 	}
 
 	/**
