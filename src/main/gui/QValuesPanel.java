@@ -3,7 +3,6 @@ package main.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.text.DecimalFormat;
 
 import javax.swing.JLabel;
@@ -168,25 +167,6 @@ public class QValuesPanel extends JPanel
 		else
 		{
 			qValueLabel.setForeground(textColor);
-		}
-	}
-
-	/**
-	 * Draws rectangles for all maze tiles.
-	 */
-	protected void paintComponent(Graphics g)
-	{
-		super.paintComponent(g);
-
-		for (int x = 0; x < xSize; x++)
-		{
-			for (int y = 0; y < ySize; y++)
-			{
-				int xPosition = MazePanel.xMargin + x * MazePanel.xSpacing;
-				int yPosition = MazePanel.yMargin + y * MazePanel.ySpacing;
-				g.setColor(MazePanel.neutralColor);
-				g.fillRect(xPosition, yPosition, MazePanel.tileWidth, MazePanel.tileHeight);
-			}
 		}
 	}
 }
