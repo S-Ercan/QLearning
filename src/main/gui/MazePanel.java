@@ -39,7 +39,7 @@ public class MazePanel extends JPanel
 
 	// Font attributes
 	public static final int fontStyle = Font.TRUETYPE_FONT;
-	public static final int fontSize = 15;
+	public static final int fontSize = 14;
 	public static final Color textColor = Color.white;
 
 	// Mapping from tile types to colors
@@ -58,6 +58,11 @@ public class MazePanel extends JPanel
 
 	private DecimalFormat decimalFormat;
 
+	/**
+	 * Creates a new panel for the given maze.
+	 * 
+	 * @param maze maze to create panel for
+	 */
 	public MazePanel(Maze maze)
 	{
 		setLayout(null);
@@ -80,6 +85,10 @@ public class MazePanel extends JPanel
 		createTilePanels();
 	}
 
+	/**
+	 * Creates a panel for each maze tile and colors it according to the tile
+	 * type.
+	 */
 	private void createTilePanels()
 	{
 		Tile tile;
@@ -117,6 +126,14 @@ public class MazePanel extends JPanel
 		}
 	}
 
+	/**
+	 * Creates a label containing the value of tile and adds it to tilePanel.
+	 * 
+	 * @param tilePanel
+	 *            panel to add label to
+	 * @param tile
+	 *            tile to display value for
+	 */
 	private void createTileValueLabel(JPanel tilePanel, Tile tile)
 	{
 		JLabel label = new JLabel(decimalFormat.format(tile.getValue()), SwingConstants.CENTER);
