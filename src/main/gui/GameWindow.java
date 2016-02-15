@@ -24,6 +24,9 @@ public class GameWindow extends JFrame implements ActionListener
 {
 	private static final long serialVersionUID = 1903142717890981086L;
 
+	private static final int fontStyle = Font.BOLD;
+	private static final int fontSize = 18;
+
 	private boolean simulationRunning;
 
 	private JPanel mainPanel;
@@ -93,16 +96,14 @@ public class GameWindow extends JFrame implements ActionListener
 		JPanel mazeAndQValuesPanel = new JPanel();
 		mazeAndQValuesPanel.setLayout(new BoxLayout(mazeAndQValuesPanel, BoxLayout.X_AXIS));
 
+		// Create maze panel
 		mazePanel = new MazePanel(maze);
-		mazePanel.setMinimumSize(new Dimension(panelWidth, panelHeight));
 		mazePanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
-		mazePanel.setMaximumSize(new Dimension(panelWidth, panelHeight));
 		mazeAndQValuesPanel.add(mazePanel);
 
+		// Create Q-values panel
 		qValuesPanel = new QValuesPanel(maze.getXSize(), maze.getYSize());
-		qValuesPanel.setMinimumSize(new Dimension(panelWidth, panelHeight));
 		qValuesPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
-		qValuesPanel.setMaximumSize(new Dimension(panelWidth, panelHeight));
 		mazeAndQValuesPanel.add(qValuesPanel);
 
 		return mazeAndQValuesPanel;
@@ -123,7 +124,7 @@ public class GameWindow extends JFrame implements ActionListener
 		JPanel scorePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		scoreLabel = new JLabel();
-		scoreLabel.setFont(new Font("", Font.BOLD, 16));
+		scoreLabel.setFont(new Font("", fontStyle, fontSize));
 		updateScore(0);
 		scorePanel.add(scoreLabel);
 

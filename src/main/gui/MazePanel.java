@@ -4,12 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import main.maze.Maze;
+import main.maze.tile.EmptyTile;
 import main.maze.tile.PunishmentTile;
 import main.maze.tile.RewardTile;
 import main.maze.tile.Tile;
@@ -21,6 +24,7 @@ public class MazePanel extends JPanel
 {
 	private static final long serialVersionUID = 5364142617462688939L;
 
+	// Sizes, margins and paddings
 	public static final int xMargin = 10;
 	public static final int yMargin = 10;
 	public static final int tileWidth = 70;
@@ -28,14 +32,18 @@ public class MazePanel extends JPanel
 	public static final int xSpacing = tileWidth + xMargin;
 	public static final int ySpacing = tileHeight + yMargin;
 
+	// Tile colors
 	public static final Color neutralColor = Color.gray;
 	public static final Color rewardColor = Color.green;
 	public static final Color punishmentColor = Color.red;
 
+	// Font attributes
 	public static final int fontStyle = Font.TRUETYPE_FONT;
-	public static final int fontSize = 14;
+	public static final int fontSize = 15;
 	public static final Color textColor = Color.white;
 
+	// Mapping from tile types to colors
+	private Map<Class<?>, Color> tileTypeToColorMap;
 	// Mapping from x and y coordinates to color
 	private Color[][] colorMap;
 	// Mapping from x and y coordinates to tile panel
@@ -55,11 +63,17 @@ public class MazePanel extends JPanel
 		setLayout(null);
 
 		this.maze = maze;
-		this.xSize = maze.getXSize();
-		this.ySize = maze.getYSize();
+		xSize = maze.getXSize();
+		ySize = maze.getYSize();
 
-		this.colorMap = new Color[xSize][ySize];
-		this.tilePanelMap = new JPanel[xSize][ySize];
+		// Map tile types to colors
+		tileTypeToColorMap = new HashMap<Class<?>, Color>();
+		tileTypeToColorMap.put(RewardTile.class, rewardColor);
+		tileTypeToColorMap.put(PunishmentTile.class, punishmentColor);
+		tileTypeToColorMap.put(EmptyTile.class, neutralColor);
+
+		colorMap = new Color[xSize][ySize];
+		tilePanelMap = new JPanel[xSize][ySize];
 
 		decimalFormat = new DecimalFormat("#0.0");
 
@@ -84,26 +98,17 @@ public class MazePanel extends JPanel
 
 				// Color panel according to the type of its tile
 				tile = maze.getTile(x, y);
-				if (tile instanceof RewardTile)
-				{
-					tileColor = rewardColor;
-				}
-				else if (tile instanceof PunishmentTile)
-				{
-					tileColor = punishmentColor;
-				}
-				else
-				{
-					tileColor = neutralColor;
-				}
+				tileColor = tileTypeToColorMap.get(tile.getClass());
 				colorMap[x][y] = tileColor;
 				tilePanel.setBackground(tileColor);
 
+				// Set bounds and add panel
 				tilePanel.setBounds(xPosition, yPosition, MazePanel.tileWidth,
 						MazePanel.tileHeight);
 				tilePanelMap[x][y] = tilePanel;
 				add(tilePanel);
 
+				// Add a label with tile value of value is non-zero
 				if (tile instanceof RewardTile || tile instanceof PunishmentTile)
 				{
 					createTileValueLabel(tilePanel, tile);
@@ -140,15 +145,5 @@ public class MazePanel extends JPanel
 		// Save current coordinates
 		this.xOld = x;
 		this.yOld = y;
-	}
-
-	public int getTileWidth()
-	{
-		return tileWidth;
-	}
-
-	public int getTileHeight()
-	{
-		return tileHeight;
 	}
 }
