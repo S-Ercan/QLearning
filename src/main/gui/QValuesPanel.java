@@ -19,7 +19,7 @@ public class QValuesPanel extends JPanel
 {
 	private static final long serialVersionUID = -6075907538876446276L;
 
-	private final int tilePanelPadding = 5;
+	private static final int tilePanelPadding = 5;
 
 	private int xSize;
 	private int ySize;

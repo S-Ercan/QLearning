@@ -18,8 +18,8 @@ import java.util.Random;
  */
 public class Q
 {
-	private final double alpha = 1;
-	private final double gamma = 0.5;
+	private static final double alpha = 1;
+	private static final double gamma = 0.5;
 
 	private int x;
 	private int y;

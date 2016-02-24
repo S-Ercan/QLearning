@@ -12,11 +12,11 @@ import main.maze.tile.Tile;
  */
 public class Maze
 {
-	private final int minSize = 2;
-	private final int maxSize = 10;
+	private static final int minSize = 2;
+	private static final int maxSize = 10;
 
-	private final double pReward = 0.2;
-	private final double pPunishment = 0.1;
+	private static final double pReward = 0.2;
+	private static final double pPunishment = 0.1;
 
 	private Random random;
 	private Tile[][] maze;
