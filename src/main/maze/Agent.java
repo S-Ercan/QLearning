@@ -39,7 +39,8 @@ public class Agent
 	 */
 	public void move()
 	{
-		Direction direction = profile.getBestDirectionFromTile(position);
+		Position currentPosition = getPosition();
+		Direction direction = profile.getBestDirectionFromTile(currentPosition);
 		setDirection(direction);
 
 		int xCurrent = position.getX();
@@ -49,13 +50,18 @@ public class Agent
 		int yNew = direction == Direction.DOWN ? yCurrent + 1
 				: direction == Direction.UP ? yCurrent - 1 : yCurrent;
 
-		EnvironmentManager.executeMove(maze, new Position(xNew, yNew));
+		try
+		{
+			EnvironmentManager.executeMove(maze, new Position(xNew, yNew));
+		}
+		catch (InvalidTileCoordinatesException e)
+		{
+			profile.excludeDirectionFromTile(currentPosition, direction);
+		}
 	}
 
 	/**
-	 * Updates position, score and profile if move was valid and outputs status
-	 * messages. In case of an invalid move, excludes chosen direction from
-	 * current tile.
+	 * Updates position, score and profile and outputs status messages.
 	 * 
 	 * @param newPosition
 	 *            current position in maze
@@ -64,16 +70,9 @@ public class Agent
 	 */
 	public void update(Position newPosition, int scoreChange)
 	{
-		if (scoreChange != -1)
-		{
-			profile.updateStrategyForTile(getPosition(), newPosition, getDirection(), scoreChange);
-			setScore(score += scoreChange);
-			setPosition(newPosition);
-		}
-		else
-		{
-			profile.excludeDirectionFromTile(position, direction);
-		}
+		profile.updateStrategyForTile(getPosition(), newPosition, getDirection(), scoreChange);
+		setScore(score += scoreChange);
+		setPosition(newPosition);
 	}
 
 	/**
@@ -81,7 +80,8 @@ public class Agent
 	 *            position of tile to get Q-value for
 	 * @param direction
 	 *            direction to get Q-value for
-	 * @return Q-value corresponding to choosing 'direction' from tile at 'position'
+	 * @return Q-value corresponding to choosing 'direction' from tile at
+	 *         'position'
 	 */
 	public double getQValue(Position position, Direction direction)
 	{

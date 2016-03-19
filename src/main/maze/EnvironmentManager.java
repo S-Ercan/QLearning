@@ -66,27 +66,33 @@ public class EnvironmentManager
 	}
 
 	/**
-	 * Executes move given by agent, updates the agent with the move result,
-	 * and passes move details to GameWindow to display the move graphically.
+	 * Executes move given by agent and passes move details to GameWindow to
+	 * display the move graphically.
 	 * 
 	 * @param maze
 	 *            maze to execute move in
 	 * @param position
 	 *            destination position in maze
+	 * @throws InvalidTileCoordinatesException
 	 */
 	public static void executeMove(Maze maze, Position position)
+			throws InvalidTileCoordinatesException
 	{
-		int result = maze.getTileValue(position);
+		int result;
+		try
+		{
+			result = maze.getTileValue(position);
+		}
+		catch (InvalidTileCoordinatesException e)
+		{
+			throw e;
+		}
 
 		Position oldPosition = agent.getPosition();
-		Direction direction = agent.getDirection();
 		agent.update(position, result);
+		Direction direction = agent.getDirection();
 
-		// Trigger move animation if move was valid
-		if (result != -1)
-		{
-			gameWindow.processMove(oldPosition, agent.getPosition(), direction, agent.getScore(),
-					agent.getQValue(oldPosition, direction));
-		}
+		gameWindow.processMove(oldPosition, agent.getPosition(), direction, agent.getScore(),
+				agent.getQValue(oldPosition, direction));
 	}
 }

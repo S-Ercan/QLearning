@@ -80,13 +80,25 @@ public class Maze
 
 	public Tile getTile(Position position)
 	{
-		return getTile(position.getX(), position.getY());
+		Tile tile = null;
+		if (position != null)
+		{
+			tile = getTile(position.getX(), position.getY());
+		}
+		return tile;
 	}
 
-	public int getTileValue(Position position)
+	public int getTileValue(Position position) throws InvalidTileCoordinatesException
 	{
 		Tile tile = getTile(position);
-		return tile == null ? -1 : tile.getValue();
+		if (tile == null)
+		{
+			throw new InvalidTileCoordinatesException("No tile at position " + position + ".");
+		}
+		else
+		{
+			return tile.getValue();
+		}
 	}
 
 	public int getXSize()
