@@ -10,6 +10,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import main.maze.Direction;
+import main.maze.Position;
 
 /**
  * JPanel for displaying the updated Q-values as the agent learns them while
@@ -138,18 +139,16 @@ public class QValuesPanel extends JPanel
 	 * Updates Q-value and font color of Q-value label specified by (x, y) and
 	 * direction.
 	 * 
-	 * @param x
-	 *            x coordinate of tile
-	 * @param y
-	 *            y coordinate of tile
+	 * @param position
+	 *            position of tile to update Q-value for
 	 * @param direction
 	 *            direction for which to update Q-value
 	 * @param q
 	 *            new Q-value
 	 */
-	public void updateQValue(int x, int y, Direction direction, double q)
+	public void updateQValue(Position position, Direction direction, double q)
 	{
-		JLabel qValueLabel = qValueLabels[x][y][direction.ordinal()];
+		JLabel qValueLabel = qValueLabels[position.getX()][position.getY()][direction.ordinal()];
 		qValueLabel.setText(decimalFormat.format(q));
 		if (q > 0)
 		{

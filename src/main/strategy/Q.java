@@ -70,7 +70,7 @@ public class Q
 		 */
 		if (random.nextDouble() < pRandExploration)
 		{
-			pRandExploration -= 0.05;
+			pRandExploration -= 0.025;
 			System.out.println("Updated pRandExploration for (" + x + ", " + y + ") to "
 					+ decimalFormat.format(pRandExploration));
 			List<Direction> directions = new ArrayList<Direction>(strategy.keySet());

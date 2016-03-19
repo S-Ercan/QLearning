@@ -12,9 +12,10 @@ public class Agent
 	private Maze maze;
 	private StrategyProfile profile;
 
-	private int xPosition;
-	private int yPosition;
-
+	// Current position in maze
+	private Position position;
+	// Direction agent is facing currently
+	private Direction direction;
 	private int score;
 
 	/**
@@ -27,9 +28,9 @@ public class Agent
 	{
 		this.maze = maze;
 		profile = new StrategyProfile(maze.getXSize(), maze.getYSize());
-		xPosition = 0;
-		yPosition = 0;
+		position = new Position(0, 0);
 		score = 0;
+		direction = null;
 	}
 
 	/**
@@ -38,29 +39,17 @@ public class Agent
 	 */
 	public void move()
 	{
-		Direction direction = profile.getBestDirectionFromTile(xPosition, yPosition);
-		int x = direction == Direction.LEFT ? xPosition - 1
-				: direction == Direction.RIGHT ? xPosition + 1 : xPosition;
-		int y = direction == Direction.DOWN ? yPosition + 1
-				: direction == Direction.UP ? yPosition - 1 : yPosition;
-		executeMove(x, y, direction);
-	}
+		Direction direction = profile.getBestDirectionFromTile(position);
+		setDirection(direction);
 
-	/**
-	 * Passes the x and y coordinates of the desired destination square to
-	 * EnvironmentManager.
-	 * 
-	 * @param x
-	 *            x coordinate of target tile
-	 * @param y
-	 *            y coordinate of target tile
-	 * @param direction
-	 *            direction we're moving in from current tile to get to target
-	 *            tile
-	 */
-	public void executeMove(int x, int y, Direction direction)
-	{
-		EnvironmentManager.executeMove(maze, x, y, direction);
+		int xCurrent = position.getX();
+		int yCurrent = position.getY();
+		int xNew = direction == Direction.LEFT ? xCurrent - 1
+				: direction == Direction.RIGHT ? xCurrent + 1 : xCurrent;
+		int yNew = direction == Direction.DOWN ? yCurrent + 1
+				: direction == Direction.UP ? yCurrent - 1 : yCurrent;
+
+		EnvironmentManager.executeMove(maze, new Position(xNew, yNew));
 	}
 
 	/**
@@ -68,61 +57,66 @@ public class Agent
 	 * messages. In case of an invalid move, excludes chosen direction from
 	 * current tile.
 	 * 
-	 * @param x
-	 *            x coordinate of new tile
-	 * @param y
-	 *            y coordinate of new tile
-	 * @param direction
-	 *            direction we've moved in from previous tile to current tile
+	 * @param newPosition
+	 *            current position in maze
 	 * @param scoreChange
 	 *            change in score caused by move
 	 */
-	public void update(int x, int y, Direction direction, int scoreChange)
+	public void update(Position newPosition, int scoreChange)
 	{
 		if (scoreChange != -1)
 		{
-			System.out.println("Moved to (" + x + ", " + y + ")");
-
-			score += scoreChange;
-			System.out.println("Score: " + score);
-
-			profile.updateStrategyForTile(xPosition, yPosition, direction, x, y, scoreChange);
-
-			xPosition = x;
-			yPosition = y;
+			profile.updateStrategyForTile(getPosition(), newPosition, getDirection(), scoreChange);
+			setScore(score += scoreChange);
+			setPosition(newPosition);
 		}
 		else
 		{
-			profile.excludeDirectionFromTile(xPosition, yPosition, direction);
+			profile.excludeDirectionFromTile(position, direction);
 		}
 	}
 
 	/**
-	 * @param x
-	 *            x coordinate of tile
-	 * @param y
-	 *            y coordinate of tile
+	 * @param position
+	 *            position of tile to get Q-value for
 	 * @param direction
-	 *            direction to retrieve Q-value for
-	 * @return Q-value corresponding to choosing 'direction' from tile (x, y)
+	 *            direction to get Q-value for
+	 * @return Q-value corresponding to choosing 'direction' from tile at 'position'
 	 */
-	public double getQValue(int x, int y, Direction direction)
+	public double getQValue(Position position, Direction direction)
 	{
-		return profile.getQValueForTile(x, y, direction);
+		return profile.getQValueForTile(position, direction);
 	}
 
-	public int getXPosition()
+	public Position getPosition()
 	{
-		return xPosition;
+		return position;
 	}
 
-	public int getYPosition()
+	public void setPosition(Position position)
 	{
-		return yPosition;
+		this.position = position;
+		System.out.println("Moved to " + position);
+	}
+
+	public Direction getDirection()
+	{
+		return direction;
+	}
+
+	public void setDirection(Direction direction)
+	{
+		this.direction = direction;
 	}
 
 	public int getScore()
 	{
 		return score;
+	}
+
+	public void setScore(int score)
+	{
+		this.score = score;
+		System.out.println("Score: " + score);
 	}
 }

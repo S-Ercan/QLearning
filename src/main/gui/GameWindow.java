@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 
 import main.maze.Direction;
 import main.maze.Maze;
+import main.maze.Position;
 
 /**
  * Main frame for graphical maze representation.
@@ -147,17 +148,23 @@ public class GameWindow extends JFrame implements ActionListener
 		return controlsPanel;
 	}
 
+	public void processMove(Position oldPosition, Position newPosition, Direction direction,
+			int score, double qValue)
+	{
+		showMoveAnimation(newPosition);
+		updateScore(score);
+		updateQValue(oldPosition, direction, qValue);
+	}
+
 	/**
 	 * Calls mazePanel's move animation functionality.
 	 * 
-	 * @param x
-	 *            x coordinate of destination tile
-	 * @param y
-	 *            y coordinate of destination tile
+	 * @param position
+	 *            destination of move that was executed
 	 */
-	public void showMoveAnimation(int x, int y)
+	public void showMoveAnimation(Position position)
 	{
-		mazePanel.showMoveAnimation(x, y);
+		mazePanel.showMoveAnimation(position);
 	}
 
 	public void updateScore(int score)
@@ -166,16 +173,18 @@ public class GameWindow extends JFrame implements ActionListener
 	}
 
 	/**
-	 * Updates Q-value for action '((x, y), direction)' to q.
+	 * Updates Q-value for action '(position, direction)' to q.
 	 * 
-	 * @param x x coordinate of tile
-	 * @param y y coordinate of tile
-	 * @param direction direction to update Q-value for
-	 * @param q new Q-value
+	 * @param position
+	 *            position of tile to update Q-value for
+	 * @param direction
+	 *            direction to update Q-value for
+	 * @param q
+	 *            new Q-value
 	 */
-	public void updateQValue(int x, int y, Direction direction, double q)
+	public void updateQValue(Position position, Direction direction, double q)
 	{
-		qValuesPanel.updateQValue(x, y, direction, q);
+		qValuesPanel.updateQValue(position, direction, q);
 	}
 
 	public boolean simulationIsRunning()

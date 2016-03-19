@@ -78,9 +78,14 @@ public class Maze
 		return tile;
 	}
 
-	public int getTileValue(int x, int y)
+	public Tile getTile(Position position)
 	{
-		Tile tile = getTile(x, y);
+		return getTile(position.getX(), position.getY());
+	}
+
+	public int getTileValue(Position position)
+	{
+		Tile tile = getTile(position);
 		return tile == null ? -1 : tile.getValue();
 	}
 

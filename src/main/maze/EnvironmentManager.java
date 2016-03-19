@@ -47,7 +47,7 @@ public class EnvironmentManager
 
 	private static void run()
 	{
-		gameWindow.showMoveAnimation(agent.getXPosition(), agent.getYPosition());
+		gameWindow.showMoveAnimation(agent.getPosition());
 		while (true)
 		{
 			if (gameWindow.simulationIsRunning())
@@ -66,28 +66,27 @@ public class EnvironmentManager
 	}
 
 	/**
-	 * Execute move and return result.
+	 * Executes move given by agent, updates the agent with the move result,
+	 * and passes move details to GameWindow to display the move graphically.
 	 * 
 	 * @param maze
 	 *            maze to execute move in
-	 * @param x
-	 *            x coordinate of destination tile
-	 * @param y
-	 *            y coordinate of destination tile
+	 * @param position
+	 *            destination position in maze
 	 */
-	public static void executeMove(Maze maze, int x, int y, Direction direction)
+	public static void executeMove(Maze maze, Position position)
 	{
-		int result = maze.getTileValue(x, y);
-		int agentXOld = agent.getXPosition();
-		int agentYOld = agent.getYPosition();
-		agent.update(x, y, direction, result);
+		int result = maze.getTileValue(position);
+
+		Position oldPosition = agent.getPosition();
+		Direction direction = agent.getDirection();
+		agent.update(position, result);
+
 		// Trigger move animation if move was valid
 		if (result != -1)
 		{
-			gameWindow.showMoveAnimation(x, y);
-			gameWindow.updateScore(agent.getScore());
-			gameWindow.updateQValue(agentXOld, agentYOld, direction,
-					agent.getQValue(agentXOld, agentYOld, direction));
+			gameWindow.processMove(oldPosition, agent.getPosition(), direction, agent.getScore(),
+					agent.getQValue(oldPosition, direction));
 		}
 	}
 }

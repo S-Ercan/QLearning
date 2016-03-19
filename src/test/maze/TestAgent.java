@@ -24,13 +24,13 @@ public class TestAgent
 	@Test
 	public void testCreateAgent_XPositionIsZero()
 	{
-		assertEquals(0, agent.getXPosition());
+		assertEquals(0, agent.getPosition().getX());
 	}
 
 	@Test
 	public void testCreateAgent_YPositionIsZero()
 	{
-		assertEquals(0, agent.getYPosition());
+		assertEquals(0, agent.getPosition().getY());
 	}
 
 	@Test

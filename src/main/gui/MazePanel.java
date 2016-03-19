@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import main.maze.Maze;
+import main.maze.Position;
 import main.maze.tile.EmptyTile;
 import main.maze.tile.PunishmentTile;
 import main.maze.tile.RewardTile;
@@ -152,8 +153,10 @@ public class MazePanel extends JPanel
 	 * @param y
 	 *            y coordinate of destination tile
 	 */
-	public void showMoveAnimation(int x, int y)
+	public void showMoveAnimation(Position position)
 	{
+		int x = position.getX();
+		int y = position.getY();
 		// Restore color of previous tile
 		tilePanelMap[xOld][yOld].setBackground(colorMap[xOld][yOld]);
 		// Paint current tile white

@@ -1,12 +1,15 @@
 package main.strategy;
 
 import main.maze.Direction;
+import main.maze.Position;
 
 /**
  * A 2D array containing action-utility mappings for all maze tiles.
  */
 public class StrategyProfile
 {
+	private int width;
+	private int height;
 	private Q[][] profile;
 
 	/**
@@ -17,6 +20,8 @@ public class StrategyProfile
 	 */
 	public StrategyProfile(int x, int y)
 	{
+		width = x;
+		height = y;
 		profile = new Q[x][y];
 		for (int i = 0; i < x; i++)
 		{
@@ -32,65 +37,72 @@ public class StrategyProfile
 	 * yOld), having arrived at tile (x, y) and having received a reward with
 	 * value 'reward.
 	 * 
-	 * @param xOld
-	 *            x coordinate of previous tile
-	 * @param yOld
-	 *            y coordinate of previous tile
+	 * @param oldPosition
+	 *            position of previous tile
+	 * @param newPosition
+	 *            position of current tile
 	 * @param direction
 	 *            direction agent traveled from previous to current tile
-	 * @param x
-	 *            x coordinate of current tile
-	 * @param y
-	 *            y coordinate of current tile
 	 * @param reward
 	 *            reward received by moving from previous to current tile
 	 */
-	public void updateStrategyForTile(int xOld, int yOld, Direction direction, int x, int y,
-			double reward)
+	public void updateStrategyForTile(Position oldPosition, Position newPosition,
+			Direction direction, double reward)
 	{
-		profile[xOld][yOld].update(direction, profile[x][y], reward);
+		getQ(oldPosition).update(direction, getQ(newPosition), reward);
 	}
 
 	/**
-	 * @param x
-	 *            x coordinate of tile
-	 * @param y
-	 *            y coordinate of tile
+	 * @param position
+	 *            position of tile to update Q-value for
 	 * @param direction
 	 *            direction to return Q-value for
 	 * @return Q-value corresponding to choosing 'direction' from tile (x, y).
 	 */
-	public double getQValueForTile(int x, int y, Direction direction)
+	public double getQValueForTile(Position position, Direction direction)
 	{
-		return profile[x][y].getQValueForDirection(direction);
+		return getQ(position).getQValueForDirection(direction);
 	}
 
 	/**
-	 * @param x
-	 *            x coordinate of tile
-	 * @param y
-	 *            y coordinate of tile
+	 * @param position
+	 *            position of tile for which to return the best direction
 	 * @return direction with highest Q-value from tile (x, y)
 	 */
-	public Direction getBestDirectionFromTile(int x, int y)
+	public Direction getBestDirectionFromTile(Position position)
 	{
-		return profile[x][y].getBestDirection();
+		return getQ(position).getBestDirection();
 	}
 
 	/**
-	 * Excludes 'direction' as a possible action from tile (x, y). Used after
-	 * discovering that moving in direction 'direction' from tile (x, y) is an
-	 * invalid move.
+	 * Excludes 'direction' as a possible action from tile at 'position'. Used
+	 * after discovering that moving in direction 'direction' from tile at
+	 * 'position' is an invalid move.
 	 * 
-	 * @param x
-	 *            x coordinate of tile
-	 * @param y
-	 *            y coordinate of tile
+	 * @param position
+	 *            position of tile to exclude direction for
 	 * @param direction
 	 *            direction to exclude from tile(x, y)
 	 */
-	public void excludeDirectionFromTile(int x, int y, Direction direction)
+	public void excludeDirectionFromTile(Position position, Direction direction)
 	{
-		profile[x][y].excludeDirection(direction);
+		getQ(position).excludeDirection(direction);
+	}
+
+	/**
+	 * @param position
+	 *            tile to get strategy for
+	 * @return strategy for tile at 'position'
+	 */
+	public Q getQ(Position position)
+	{
+		Q q = null;
+		int x = position.getX();
+		int y = position.getY();
+		if (x >= 0 && x < width && y >= 0 && y < height)
+		{
+			q = profile[x][y];
+		}
+		return q;
 	}
 }
