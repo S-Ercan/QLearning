@@ -31,14 +31,14 @@ public class Position
 		this.y = y;
 	}
 
-	public String toString()
-	{
-		return "(" + x + "," + y + ")";
-	}
-
 	public boolean isValid(int x, int y)
 	{
 		return this.x >= 0 && this.x < x && this.y >= 0 && this.y < y;
+	}
+
+	public String toString()
+	{
+		return "(" + x + "," + y + ")";
 	}
 
 	@Override
