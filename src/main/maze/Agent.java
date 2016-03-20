@@ -29,8 +29,8 @@ public class Agent
 		this.maze = maze;
 		profile = new StrategyProfile(maze.getXSize(), maze.getYSize());
 		position = new Position(0, 0);
+		direction = Direction.RIGHT;
 		score = 0;
-		direction = null;
 	}
 
 	/**

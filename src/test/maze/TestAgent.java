@@ -7,7 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import main.maze.Agent;
+import main.maze.Direction;
 import main.maze.Maze;
+import main.maze.Position;
 
 public class TestAgent
 {
@@ -18,6 +20,8 @@ public class TestAgent
 	public void setUp()
 	{
 		maze = mock(Maze.class);
+		when(maze.getXSize()).thenReturn(5);
+		when(maze.getYSize()).thenReturn(5);
 		agent = new Agent(maze);
 	}
 
@@ -40,26 +44,33 @@ public class TestAgent
 	}
 
 	@Test
-	public void testChooseMove()
+	public void testCreateAgent_HasValidDirection()
 	{
-		fail("Not yet implemented");
+		assertTrue(agent.getDirection() instanceof Direction);
 	}
 
 	@Test
-	public void testExecuteMove()
+	public void testUpdate_SetsPosition()
 	{
-		fail("Not yet implemented");
+		Position position = new Position(1, 1);
+		agent.update(position, 1);
+
+		assertTrue(position.equals(agent.getPosition()));
 	}
 
 	@Test
-	public void testUpdate()
+	public void testUpdate_SetsScore()
 	{
-		fail("Not yet implemented");
+		int score = agent.getScore();
+		int scoreChange = 10;
+		agent.update(new Position(1, 1), scoreChange);
+
+		assertEquals(score += scoreChange, agent.getScore());
 	}
 
 	@Test
-	public void testGetQValue()
+	public void testGetQValueWithoutMoves_ReturnsZero()
 	{
-		fail("Not yet implemented");
+		assertEquals(0, agent.getQValue(agent.getPosition(), Direction.RIGHT), 0.0);
 	}
 }

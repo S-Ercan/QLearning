@@ -62,7 +62,8 @@ public class MazePanel extends JPanel
 	/**
 	 * Creates a new panel for the given maze.
 	 * 
-	 * @param maze maze to create panel for
+	 * @param maze
+	 *            maze to create panel for
 	 */
 	public MazePanel(Maze maze)
 	{
