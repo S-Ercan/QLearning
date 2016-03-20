@@ -4,6 +4,6 @@ public class EmptyTile extends Tile
 {
 	public EmptyTile()
 	{
-		setValue(0);
+		this.value = 0;
 	}
 }
