@@ -73,17 +73,17 @@ public class EnvironmentManager
 	 *            maze to execute move in
 	 * @param position
 	 *            destination position in maze
-	 * @throws InvalidTileCoordinatesException
+	 * @throws InvalidPositionException
 	 */
 	public static void executeMove(Maze maze, Position position)
-			throws InvalidTileCoordinatesException
+			throws InvalidPositionException
 	{
 		int result;
 		try
 		{
 			result = maze.getTileValue(position);
 		}
-		catch (InvalidTileCoordinatesException e)
+		catch (InvalidPositionException e)
 		{
 			throw e;
 		}

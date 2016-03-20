@@ -36,6 +36,11 @@ public class Position
 		return "(" + x + "," + y + ")";
 	}
 
+	public boolean isValid(int x, int y)
+	{
+		return this.x >= 0 && this.x < x && this.y >= 0 && this.y < y;
+	}
+
 	@Override
 	public boolean equals(Object obj)
 	{

@@ -88,12 +88,12 @@ public class Maze
 		return tile;
 	}
 
-	public int getTileValue(Position position) throws InvalidTileCoordinatesException
+	public int getTileValue(Position position) throws InvalidPositionException
 	{
 		Tile tile = getTile(position);
 		if (tile == null)
 		{
-			throw new InvalidTileCoordinatesException("No tile at position " + position + ".");
+			throw new InvalidPositionException("No tile at position " + position + ".");
 		}
 		else
 		{

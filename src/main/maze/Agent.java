@@ -54,7 +54,7 @@ public class Agent
 		{
 			EnvironmentManager.executeMove(maze, new Position(xNew, yNew));
 		}
-		catch (InvalidTileCoordinatesException e)
+		catch (InvalidPositionException e)
 		{
 			profile.excludeDirectionFromTile(currentPosition, direction);
 		}
