@@ -3,6 +3,9 @@ package main.maze;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import main.agent.Agent;
+import main.agent.AgentType;
+import main.agent.Direction;
 import main.gui.GameWindow;
 
 /**
@@ -13,6 +16,7 @@ import main.gui.GameWindow;
 public class EnvironmentManager
 {
 	private static GameWindow gameWindow;
+	private static Maze maze;
 	private static Agent agent;
 
 	public static void main(String[] args)
@@ -38,9 +42,9 @@ public class EnvironmentManager
 			e.printStackTrace();
 		}
 
-		Maze maze = new Maze();
+		maze = new Maze();
 		gameWindow = new GameWindow(maze);
-		agent = new Agent(maze);
+		agent = new Agent(maze, AgentType.Q);
 
 		run();
 	}
@@ -69,13 +73,11 @@ public class EnvironmentManager
 	 * Executes move given by agent and passes move details to GameWindow to
 	 * display the move graphically.
 	 * 
-	 * @param maze
-	 *            maze to execute move in
 	 * @param position
 	 *            destination position in maze
 	 * @throws InvalidPositionException
 	 */
-	public static void executeMove(Maze maze, Position position)
+	public static void executeMove(Position position)
 			throws InvalidPositionException
 	{
 		int result;

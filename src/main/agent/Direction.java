@@ -1,4 +1,4 @@
-package main.maze;
+package main.agent;
 
 /**
  * Directions Agent can move in.

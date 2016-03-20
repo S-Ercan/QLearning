@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import main.maze.Direction;
+import main.agent.Direction;
 
 import java.util.Random;
 

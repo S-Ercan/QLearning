@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import main.maze.Direction;
+import main.agent.Direction;
 import main.maze.Maze;
 import main.maze.Position;
 

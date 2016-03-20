@@ -6,7 +6,7 @@ import static org.mockito.Mockito.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.maze.Direction;
+import main.agent.Direction;
 import main.strategy.Q;
 
 public class TestQ

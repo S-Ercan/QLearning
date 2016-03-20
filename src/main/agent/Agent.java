@@ -1,5 +1,9 @@
-package main.maze;
+package main.agent;
 
+import main.maze.EnvironmentManager;
+import main.maze.InvalidPositionException;
+import main.maze.Maze;
+import main.maze.Position;
 import main.strategy.StrategyProfile;
 
 /**
@@ -9,7 +13,6 @@ import main.strategy.StrategyProfile;
  */
 public class Agent
 {
-	private Maze maze;
 	private StrategyProfile profile;
 
 	// Current position in maze
@@ -24,13 +27,12 @@ public class Agent
 	 * @param maze
 	 *            the maze the agent is active in
 	 */
-	public Agent(Maze maze)
+	public Agent(Maze maze, AgentType agentType)
 	{
-		this.maze = maze;
-		profile = new StrategyProfile(maze.getXSize(), maze.getYSize());
-		position = new Position(0, 0);
-		direction = Direction.RIGHT;
-		score = 0;
+		setProfile(createProfile(maze, agentType));
+		setPosition(new Position(0, 0));
+		setDirection(Direction.RIGHT);
+		setScore(0);
 	}
 
 	/**
@@ -52,7 +54,7 @@ public class Agent
 
 		try
 		{
-			EnvironmentManager.executeMove(maze, new Position(xNew, yNew));
+			EnvironmentManager.executeMove(new Position(xNew, yNew));
 		}
 		catch (InvalidPositionException e)
 		{
@@ -70,7 +72,7 @@ public class Agent
 	 */
 	public void update(Position newPosition, int scoreChange)
 	{
-		profile.updateStrategyForTile(getPosition(), newPosition, getDirection(), scoreChange);
+		getProfile().updateStrategyForTile(getPosition(), newPosition, getDirection(), scoreChange);
 		setScore(score += scoreChange);
 		setPosition(newPosition);
 	}
@@ -86,6 +88,32 @@ public class Agent
 	public double getQValue(Position position, Direction direction)
 	{
 		return profile.getQValueForTile(position, direction);
+	}
+
+	public StrategyProfile createProfile(Maze maze, AgentType agentType)
+	{
+		if (agentType == AgentType.Q)
+		{
+			return new StrategyProfile(maze.getXSize(), maze.getYSize());
+		}
+		else if (agentType == AgentType.RANDOM)
+		{
+			return new StrategyProfile(maze.getXSize(), maze.getYSize());
+		}
+		else
+		{
+			throw new IllegalArgumentException("Unsupportd agent type.");
+		}
+	}
+
+	public StrategyProfile getProfile()
+	{
+		return profile;
+	}
+
+	public void setProfile(StrategyProfile profile)
+	{
+		this.profile = profile;
 	}
 
 	public Position getPosition()

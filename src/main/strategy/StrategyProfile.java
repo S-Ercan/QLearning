@@ -1,6 +1,6 @@
 package main.strategy;
 
-import main.maze.Direction;
+import main.agent.Direction;
 import main.maze.Position;
 
 /**
@@ -38,9 +38,9 @@ public class StrategyProfile
 	 * value 'reward.
 	 * 
 	 * @param oldPosition
-	 *            position of previous tile
+	 *            previous position of agent
 	 * @param newPosition
-	 *            position of current tile
+	 *            current position of agent
 	 * @param direction
 	 *            direction agent traveled from previous to current tile
 	 * @param reward

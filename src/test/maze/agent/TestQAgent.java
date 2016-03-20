@@ -1,4 +1,4 @@
-package test.maze;
+package test.maze.agent;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -6,12 +6,13 @@ import static org.mockito.Mockito.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.maze.Agent;
-import main.maze.Direction;
+import main.agent.Agent;
+import main.agent.AgentType;
+import main.agent.Direction;
 import main.maze.Maze;
 import main.maze.Position;
 
-public class TestAgent
+public class TestQAgent
 {
 	private Maze maze;
 	private Agent agent;
@@ -22,7 +23,7 @@ public class TestAgent
 		maze = mock(Maze.class);
 		when(maze.getXSize()).thenReturn(5);
 		when(maze.getYSize()).thenReturn(5);
-		agent = new Agent(maze);
+		agent = new Agent(maze, AgentType.Q);
 	}
 
 	@Test

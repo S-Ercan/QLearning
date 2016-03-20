@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import main.maze.Direction;
+import main.agent.Direction;
 import main.maze.Position;
 
 /**
