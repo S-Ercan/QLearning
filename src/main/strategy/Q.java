@@ -68,7 +68,7 @@ public class Q
 		 * This is to encourage exploration and avoid getting stuck in locally
 		 * optimal but globally sub-optimal behavior.
 		 */
-		if (random.nextDouble() < pRandExploration)
+		if (random.nextDouble() < getPRandExploration())
 		{
 			pRandExploration -= 0.025;
 			System.out.println("Updated pRandExploration for (" + x + ", " + y + ") to "
@@ -161,5 +161,15 @@ public class Q
 	public int getY()
 	{
 		return y;
+	}
+
+	public double getPRandExploration()
+	{
+		return pRandExploration;
+	}
+
+	public void setPRandExploration(double pRandExploration)
+	{
+		this.pRandExploration = pRandExploration;
 	}
 }

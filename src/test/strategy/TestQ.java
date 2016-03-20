@@ -12,6 +12,7 @@ import main.strategy.Q;
 public class TestQ
 {
 	private Q q;
+	private Q qNext;
 	private int x;
 	private int y;
 
@@ -20,7 +21,10 @@ public class TestQ
 	{
 		x = 1;
 		y = 2;
+
 		q = new Q(x, y);
+		qNext = mock(Q.class);
+		when(qNext.getMaxQValue()).thenReturn(0.0);
 	}
 
 	@Test
@@ -38,10 +42,7 @@ public class TestQ
 	@Test
 	public void testUpdateQ_QUpdated()
 	{
-		Q qNext = mock(Q.class);
-		when(qNext.getMaxQValue()).thenReturn(0.0);
 		q.update(Direction.LEFT, qNext, 10);
-
 		assertEquals(10, q.getQValueForDirection(Direction.LEFT), 0);
 	}
 
@@ -49,5 +50,42 @@ public class TestQ
 	public void testNoUpdates_MaxValueIsZero()
 	{
 		assertEquals(0, q.getMaxQValue(), 0);
+	}
+
+	@Test
+	public void testExcludeDirection_ReturnsZeroForExcludedDirection()
+	{
+		q.update(Direction.RIGHT, qNext, 10);
+		q.excludeDirection(Direction.RIGHT);
+
+		assertEquals(0, q.getQValueForDirection(Direction.RIGHT), 0);
+	}
+
+	@Test
+	public void testGetBestDirectionWithoutRandomness_ReturnsBestDirection()
+	{
+		q.update(Direction.RIGHT, qNext, 10);
+		q.setPRandExploration(0);
+
+		assertEquals(Direction.RIGHT, q.getBestDirection());
+	}
+
+	@Test
+	public void testGetBestDirectionWithRandomness_ReturnsBestDirection()
+	{
+		// Set RIGHT as the best direction
+		Direction bestDirection = Direction.RIGHT;
+		Direction returnedDirection = bestDirection;
+		q.update(bestDirection, qNext, 10);
+
+		// With pRandExploration = 1, eventually a direction other than the best
+		// one should be returned
+		while (returnedDirection == bestDirection)
+		{
+			q.setPRandExploration(1);
+			returnedDirection = q.getBestDirection();
+		}
+
+		assertNotEquals(bestDirection, returnedDirection);
 	}
 }

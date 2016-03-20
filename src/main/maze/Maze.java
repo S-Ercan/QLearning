@@ -81,7 +81,7 @@ public class Maze
 	public Tile getTile(Position position)
 	{
 		Tile tile = null;
-		if (position != null && position.isValid(xSize, ySize));
+		if (position != null && position.isValid(xSize, ySize))
 		{
 			tile = getTile(position.getX(), position.getY());
 		}
