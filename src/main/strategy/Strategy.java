@@ -58,6 +58,8 @@ public abstract class Strategy
 	 */
 	public abstract Direction getBestDirection();
 
+	public abstract void update(Direction direction, Strategy nextStrategy, double reward);
+
 	public double getQValueForDirection(Direction direction)
 	{
 		return getStrategy().getOrDefault(direction, 0.0);

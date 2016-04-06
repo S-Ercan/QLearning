@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import main.agent.Direction;
@@ -95,7 +94,7 @@ public class Q extends Strategy
 	 * @param reward
 	 *            reward received by last move (positive or negative)
 	 */
-	public void update(Direction direction, Q nextStrategy, double reward)
+	public void update(Direction direction, Strategy nextStrategy, double reward)
 	{
 		double oldValue = getStrategy().get(direction);
 		double newValue = oldValue

@@ -13,7 +13,7 @@ public class StrategyProfile
 	private int width;
 	private int height;
 	private Strategy[][] profile;
-	
+
 	/**
 	 * @param x
 	 *            maze width
@@ -53,13 +53,7 @@ public class StrategyProfile
 	{
 		Strategy currentStrategy = getStrategy(oldPosition);
 		Strategy nextStrategy = getStrategy(newPosition);
-		// TODO: put update() in Strategy instead of in Q
-		if(currentStrategy instanceof Q && nextStrategy instanceof Q)
-		{
-			Q currentQ = (Q) currentStrategy;
-			Q nextQ = (Q) nextStrategy;
-			currentQ.update(direction, nextQ, reward);
-		}
+		currentStrategy.update(direction, nextStrategy, reward);
 	}
 
 	/**

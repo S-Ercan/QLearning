@@ -16,13 +16,13 @@ public class TestPunishmentTile
 		assertEquals(value, tile.getValue());
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testCreateWithZeroValue_ThrowsException()
 	{
 		new PunishmentTile(0);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testCreateWithPositiveValue_ThrowsException()
 	{
 		new PunishmentTile(1);

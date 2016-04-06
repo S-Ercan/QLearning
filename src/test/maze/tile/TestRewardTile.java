@@ -16,13 +16,13 @@ public class TestRewardTile
 		assertEquals(value, tile.getValue());
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testCreateWithZeroValue_ThrowsException()
 	{
 		new RewardTile(0);
 	}
 
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testCreateWithNegativeValue_ThrowsException()
 	{
 		new RewardTile(-1);

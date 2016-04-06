@@ -20,4 +20,10 @@ public class Random extends Strategy
 	{
 		return 0;
 	}
+
+	@Override
+	public void update(Direction direction, Strategy nextStrategy, double reward)
+	{
+		// Random strategy doesn't learn
+	}
 }
