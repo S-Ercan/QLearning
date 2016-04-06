@@ -2,10 +2,10 @@ package main.strategy;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import main.agent.AgentType;
 import main.agent.Direction;
-import main.maze.Position;
 
 public abstract class Strategy
 {
@@ -22,7 +22,7 @@ public abstract class Strategy
 		}
 		else if (agentType == AgentType.RANDOM)
 		{
-			return new Q(x, y);
+			return new Random(x, y);
 		}
 		else
 		{
@@ -58,7 +58,28 @@ public abstract class Strategy
 	 */
 	public abstract Direction getBestDirection();
 
-	public abstract double getQValueForDirection(Direction direction);
+	public double getQValueForDirection(Direction direction)
+	{
+		return getStrategy().getOrDefault(direction, 0.0);
+	}
+
+	/**
+	 * @return maximum utility value that can be achieved from this tile
+	 */
+	public double getMaxQValue()
+	{
+		double maxQ = 0;
+		double value;
+		for (Entry<Direction, Double> entry : getStrategy().entrySet())
+		{
+			value = entry.getValue();
+			if (value >= maxQ)
+			{
+				maxQ = value;
+			}
+		}
+		return maxQ;
+	}
 
 	/**
 	 * Removes direction from strategy - used when moving in 'direction' from

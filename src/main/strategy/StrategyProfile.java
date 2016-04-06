@@ -51,11 +51,13 @@ public class StrategyProfile
 	public void updateStrategyForTile(Position oldPosition, Position newPosition,
 			Direction direction, double reward)
 	{
-		Strategy strategy = getQ(oldPosition);
-		if(strategy instanceof Q)
+		Strategy currentStrategy = getStrategy(oldPosition);
+		Strategy nextStrategy = getStrategy(newPosition);
+		// TODO: put update() in Strategy instead of in Q
+		if(currentStrategy instanceof Q && nextStrategy instanceof Q)
 		{
-			Q currentQ = (Q) strategy;
-			Q nextQ = (Q) getQ(newPosition);
+			Q currentQ = (Q) currentStrategy;
+			Q nextQ = (Q) nextStrategy;
 			currentQ.update(direction, nextQ, reward);
 		}
 	}
@@ -69,7 +71,7 @@ public class StrategyProfile
 	 */
 	public double getQValueForTile(Position position, Direction direction)
 	{
-		return getQ(position).getQValueForDirection(direction);
+		return getStrategy(position).getQValueForDirection(direction);
 	}
 
 	/**
@@ -79,7 +81,7 @@ public class StrategyProfile
 	 */
 	public Direction getBestDirectionFromTile(Position position)
 	{
-		return getQ(position).getBestDirection();
+		return getStrategy(position).getBestDirection();
 	}
 
 	/**
@@ -94,7 +96,7 @@ public class StrategyProfile
 	 */
 	public void excludeDirectionFromTile(Position position, Direction direction)
 	{
-		getQ(position).excludeDirection(direction);
+		getStrategy(position).excludeDirection(direction);
 	}
 
 	/**
@@ -102,7 +104,7 @@ public class StrategyProfile
 	 *            tile to get strategy for
 	 * @return strategy for tile at 'position'
 	 */
-	public Strategy getQ(Position position)
+	public Strategy getStrategy(Position position)
 	{
 		Strategy q = null;
 		int x = position.getX();

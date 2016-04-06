@@ -77,7 +77,7 @@ public class EnvironmentManager
 	 *            destination position in maze
 	 * @throws InvalidPositionException
 	 */
-	public static void executeMove(Position position)
+	public static void executeMove(Position oldPosition, Direction direction, Position position)
 			throws InvalidPositionException
 	{
 		int result;
@@ -90,10 +90,7 @@ public class EnvironmentManager
 			throw e;
 		}
 
-		Position oldPosition = agent.getPosition();
 		agent.update(position, result);
-		Direction direction = agent.getDirection();
-
 		gameWindow.processMove(oldPosition, agent.getPosition(), direction, agent.getScore(),
 				agent.getQValue(oldPosition, direction));
 	}

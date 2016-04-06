@@ -41,20 +41,16 @@ public class Agent
 	 */
 	public void move()
 	{
+		// Determine next direction to take
 		Position currentPosition = getPosition();
 		Direction direction = profile.getBestDirectionFromTile(currentPosition);
 		setDirection(direction);
-
-		int xCurrent = position.getX();
-		int yCurrent = position.getY();
-		int xNew = direction == Direction.LEFT ? xCurrent - 1
-				: direction == Direction.RIGHT ? xCurrent + 1 : xCurrent;
-		int yNew = direction == Direction.DOWN ? yCurrent + 1
-				: direction == Direction.UP ? yCurrent - 1 : yCurrent;
-
+		// Calculate next position
+		Position nextPosition = getNextPosition();
+		// Execute move and exclude it as a possibility if it's invalid
 		try
 		{
-			EnvironmentManager.executeMove(new Position(xNew, yNew));
+			EnvironmentManager.executeMove(currentPosition, direction, nextPosition);
 		}
 		catch (InvalidPositionException e)
 		{
@@ -62,8 +58,19 @@ public class Agent
 		}
 	}
 
+	private Position getNextPosition()
+	{
+		int xCurrent = position.getX();
+		int yCurrent = position.getY();
+		int xNew = direction == Direction.LEFT ? xCurrent - 1
+				: direction == Direction.RIGHT ? xCurrent + 1 : xCurrent;
+		int yNew = direction == Direction.DOWN ? yCurrent + 1
+				: direction == Direction.UP ? yCurrent - 1 : yCurrent;
+		return new Position(xNew, yNew);
+	}
+
 	/**
-	 * Updates position, score and profile and outputs status messages.
+	 * Updates position, score and profile.
 	 * 
 	 * @param newPosition
 	 *            current position in maze

@@ -39,7 +39,6 @@ public class Q extends Strategy
 
 		random = new Random();
 		pRandExploration = 0.5;
-
 		decimalFormat = new DecimalFormat("#0.00");
 	}
 
@@ -104,29 +103,6 @@ public class Q extends Strategy
 		getStrategy().put(direction, newValue);
 		System.out.println("Updating Q((" + getX() + ", " + getY() + "), " + direction + ") from "
 				+ decimalFormat.format(oldValue) + " to " + decimalFormat.format(newValue) + ".");
-	}
-
-	/**
-	 * @return maximum utility value that can be achieved from this tile
-	 */
-	public double getMaxQValue()
-	{
-		double maxQ = 0;
-		double value;
-		for (Entry<Direction, Double> entry : getStrategy().entrySet())
-		{
-			value = entry.getValue();
-			if (value >= maxQ)
-			{
-				maxQ = value;
-			}
-		}
-		return maxQ;
-	}
-
-	public double getQValueForDirection(Direction direction)
-	{
-		return getStrategy().getOrDefault(direction, 0.0);
 	}
 
 	public double getPRandExploration()
