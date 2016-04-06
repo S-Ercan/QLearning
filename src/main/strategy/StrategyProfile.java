@@ -54,8 +54,9 @@ public class StrategyProfile
 		Strategy strategy = getQ(oldPosition);
 		if(strategy instanceof Q)
 		{
-//			Q strategy = (Q) strategy;
-//			strategy.update(direction, getQ(newPosition), reward);
+			Q currentQ = (Q) strategy;
+			Q nextQ = (Q) getQ(newPosition);
+			currentQ.update(direction, nextQ, reward);
 		}
 	}
 

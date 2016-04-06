@@ -14,4 +14,10 @@ public class Random extends Strategy
 	{
 		return null;
 	}
+
+	@Override
+	public double getQValueForDirection(Direction direction)
+	{
+		return 0;
+	}
 }

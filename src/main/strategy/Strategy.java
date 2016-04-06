@@ -5,6 +5,7 @@ import java.util.Map;
 
 import main.agent.AgentType;
 import main.agent.Direction;
+import main.maze.Position;
 
 public abstract class Strategy
 {
@@ -56,6 +57,8 @@ public abstract class Strategy
 	 * @return best direction
 	 */
 	public abstract Direction getBestDirection();
+
+	public abstract double getQValueForDirection(Direction direction);
 
 	/**
 	 * Removes direction from strategy - used when moving in 'direction' from
