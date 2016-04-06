@@ -1,6 +1,8 @@
 package main.strategy;
 
+import main.agent.AgentType;
 import main.agent.Direction;
+import main.maze.Maze;
 import main.maze.Position;
 
 /**
@@ -10,24 +12,24 @@ public class StrategyProfile
 {
 	private int width;
 	private int height;
-	private Q[][] profile;
-
+	private Strategy[][] profile;
+	
 	/**
 	 * @param x
 	 *            maze width
 	 * @param y
 	 *            maze height
 	 */
-	public StrategyProfile(int x, int y)
+	public StrategyProfile(Maze maze, AgentType agentType)
 	{
-		width = x;
-		height = y;
-		profile = new Q[x][y];
-		for (int i = 0; i < x; i++)
+		width = maze.getXSize();
+		height = maze.getYSize();
+		profile = new Strategy[width][height];
+		for (int i = 0; i < width; i++)
 		{
-			for (int j = 0; j < y; j++)
+			for (int j = 0; j < height; j++)
 			{
-				profile[i][j] = new Q(i, j);
+				profile[i][j] = Strategy.createStrategy(i, j, agentType);
 			}
 		}
 	}
@@ -49,7 +51,12 @@ public class StrategyProfile
 	public void updateStrategyForTile(Position oldPosition, Position newPosition,
 			Direction direction, double reward)
 	{
-		getQ(oldPosition).update(direction, getQ(newPosition), reward);
+		Strategy strategy = getQ(oldPosition);
+		if(strategy instanceof Q)
+		{
+//			Q strategy = (Q) strategy;
+//			strategy.update(direction, getQ(newPosition), reward);
+		}
 	}
 
 	/**
@@ -94,9 +101,9 @@ public class StrategyProfile
 	 *            tile to get strategy for
 	 * @return strategy for tile at 'position'
 	 */
-	public Q getQ(Position position)
+	public Strategy getQ(Position position)
 	{
-		Q q = null;
+		Strategy q = null;
 		int x = position.getX();
 		int y = position.getY();
 		if (x >= 0 && x < width && y >= 0 && y < height)

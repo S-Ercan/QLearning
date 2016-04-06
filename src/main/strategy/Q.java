@@ -3,7 +3,6 @@ package main.strategy;
 import java.text.DecimalFormat;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -16,15 +15,11 @@ import java.util.Random;
  * Implements Q-learning by storing Q-values for all directions from a given
  * tile and enabling their update according to the Q-learning technique.
  */
-public class Q
+public class Q extends Strategy
 {
 	private static final double alpha = 1;
 	private static final double gamma = 0.5;
 
-	private int x;
-	private int y;
-
-	private Map<Direction, Double> strategy;
 	private Random random;
 	private double pRandExploration;
 
@@ -40,17 +35,10 @@ public class Q
 	 */
 	public Q(int x, int y)
 	{
-		this.x = x;
-		this.y = y;
+		super(x, y);
 
 		random = new Random();
 		pRandExploration = 0.5;
-
-		strategy = new HashMap<Direction, Double>();
-		strategy.put(Direction.UP, 0.0);
-		strategy.put(Direction.DOWN, 0.0);
-		strategy.put(Direction.LEFT, 0.0);
-		strategy.put(Direction.RIGHT, 0.0);
 
 		decimalFormat = new DecimalFormat("#0.00");
 	}
@@ -71,16 +59,16 @@ public class Q
 		if (random.nextDouble() < getPRandExploration())
 		{
 			pRandExploration -= 0.025;
-			System.out.println("Updated pRandExploration for (" + x + ", " + y + ") to "
+			System.out.println("Updated pRandExploration for (" + getX() + ", " + getY() + ") to "
 					+ decimalFormat.format(pRandExploration));
-			List<Direction> directions = new ArrayList<Direction>(strategy.keySet());
+			List<Direction> directions = new ArrayList<Direction>(getStrategy().keySet());
 			return directions.get(random.nextInt(directions.size()));
 		}
 
 		List<Direction> candidateDirections = new ArrayList<Direction>();
 		double maxQ = Double.NEGATIVE_INFINITY;
 		double value;
-		for (Entry<Direction, Double> entry : strategy.entrySet())
+		for (Entry<Direction, Double> entry : getStrategy().entrySet())
 		{
 			value = entry.getValue();
 			if (value >= maxQ)
@@ -110,11 +98,11 @@ public class Q
 	 */
 	public void update(Direction direction, Q nextStrategy, double reward)
 	{
-		double oldValue = strategy.get(direction);
+		double oldValue = getStrategy().get(direction);
 		double newValue = oldValue
 				+ alpha * (reward + gamma * (nextStrategy.getMaxQValue()) - oldValue);
-		strategy.put(direction, newValue);
-		System.out.println("Updating Q((" + x + ", " + y + "), " + direction + ") from "
+		getStrategy().put(direction, newValue);
+		System.out.println("Updating Q((" + getX() + ", " + getY() + "), " + direction + ") from "
 				+ decimalFormat.format(oldValue) + " to " + decimalFormat.format(newValue) + ".");
 	}
 
@@ -125,7 +113,7 @@ public class Q
 	{
 		double maxQ = 0;
 		double value;
-		for (Entry<Direction, Double> entry : strategy.entrySet())
+		for (Entry<Direction, Double> entry : getStrategy().entrySet())
 		{
 			value = entry.getValue();
 			if (value >= maxQ)
@@ -136,31 +124,9 @@ public class Q
 		return maxQ;
 	}
 
-	/**
-	 * Removes direction from strategy - used when moving in 'direction' from
-	 * tile (x, y) turns out to be an invalid move.
-	 * 
-	 * @param direction
-	 *            direction to remove
-	 */
-	public void excludeDirection(Direction direction)
-	{
-		strategy.remove(direction);
-	}
-
 	public double getQValueForDirection(Direction direction)
 	{
-		return strategy.getOrDefault(direction, 0.0);
-	}
-
-	public int getX()
-	{
-		return x;
-	}
-
-	public int getY()
-	{
-		return y;
+		return getStrategy().getOrDefault(direction, 0.0);
 	}
 
 	public double getPRandExploration()

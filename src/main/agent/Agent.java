@@ -29,7 +29,7 @@ public class Agent
 	 */
 	public Agent(Maze maze, AgentType agentType)
 	{
-		setProfile(createProfile(maze, agentType));
+		setProfile(new StrategyProfile(maze, agentType));
 		setPosition(new Position(0, 0));
 		setDirection(Direction.RIGHT);
 		setScore(0);
@@ -88,22 +88,6 @@ public class Agent
 	public double getQValue(Position position, Direction direction)
 	{
 		return profile.getQValueForTile(position, direction);
-	}
-
-	public StrategyProfile createProfile(Maze maze, AgentType agentType)
-	{
-		if (agentType == AgentType.Q)
-		{
-			return new StrategyProfile(maze.getXSize(), maze.getYSize());
-		}
-		else if (agentType == AgentType.RANDOM)
-		{
-			return new StrategyProfile(maze.getXSize(), maze.getYSize());
-		}
-		else
-		{
-			throw new IllegalArgumentException("Unsupportd agent type.");
-		}
 	}
 
 	public StrategyProfile getProfile()
