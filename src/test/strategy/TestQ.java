@@ -24,7 +24,7 @@ public class TestQ
 
 		q = new Q(x, y);
 		qNext = mock(Q.class);
-		when(qNext.getMaxQValue()).thenReturn(0.0);
+		when(qNext.getMaxUtility()).thenReturn(0.0);
 	}
 
 	@Test
@@ -43,13 +43,13 @@ public class TestQ
 	public void testUpdateQ_QUpdated()
 	{
 		q.update(Direction.LEFT, qNext, 10);
-		assertEquals(10, q.getQValueForDirection(Direction.LEFT), 0);
+		assertEquals(10, q.getUtilityForDirection(Direction.LEFT), 0);
 	}
 
 	@Test
 	public void testNoUpdates_MaxValueIsZero()
 	{
-		assertEquals(0, q.getMaxQValue(), 0);
+		assertEquals(0, q.getMaxUtility(), 0);
 	}
 
 	@Test
@@ -58,7 +58,7 @@ public class TestQ
 		q.update(Direction.RIGHT, qNext, 10);
 		q.excludeDirection(Direction.RIGHT);
 
-		assertEquals(0, q.getQValueForDirection(Direction.RIGHT), 0);
+		assertEquals(0, q.getUtilityForDirection(Direction.RIGHT), 0);
 	}
 
 	@Test

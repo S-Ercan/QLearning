@@ -98,7 +98,7 @@ public class Q extends Strategy
 	{
 		double oldValue = getStrategy().get(direction);
 		double newValue = oldValue
-				+ alpha * (reward + gamma * (nextStrategy.getMaxQValue()) - oldValue);
+				+ alpha * (reward + gamma * (nextStrategy.getMaxUtility()) - oldValue);
 		getStrategy().put(direction, newValue);
 		System.out.println("Updating Q((" + getX() + ", " + getY() + "), " + direction + ") from "
 				+ decimalFormat.format(oldValue) + " to " + decimalFormat.format(newValue) + ".");

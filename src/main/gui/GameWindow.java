@@ -149,11 +149,11 @@ public class GameWindow extends JFrame implements ActionListener
 	}
 
 	public void processMove(Position oldPosition, Position newPosition, Direction direction,
-			int score, double qValue)
+			int score, double utility)
 	{
 		showMoveAnimation(newPosition);
 		updateScore(score);
-		updateQValue(oldPosition, direction, qValue);
+		updateUtility(oldPosition, direction, utility);
 	}
 
 	/**
@@ -179,12 +179,12 @@ public class GameWindow extends JFrame implements ActionListener
 	 *            position of tile to update Q-value for
 	 * @param direction
 	 *            direction to update Q-value for
-	 * @param q
-	 *            new Q-value
+	 * @param utility
+	 *            new utility value
 	 */
-	public void updateQValue(Position position, Direction direction, double q)
+	public void updateUtility(Position position, Direction direction, double utility)
 	{
-		qValuesPanel.updateQValue(position, direction, q);
+		qValuesPanel.updateQValue(position, direction, utility);
 	}
 
 	public boolean simulationIsRunning()

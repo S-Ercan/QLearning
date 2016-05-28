@@ -1,6 +1,5 @@
 package main.strategy;
 
-import main.agent.AgentType;
 import main.agent.Direction;
 import main.maze.Maze;
 import main.maze.Position;
@@ -20,7 +19,7 @@ public class StrategyProfile
 	 * @param y
 	 *            maze height
 	 */
-	public StrategyProfile(Maze maze, AgentType agentType)
+	public StrategyProfile(Maze maze)
 	{
 		width = maze.getXSize();
 		height = maze.getYSize();
@@ -29,7 +28,7 @@ public class StrategyProfile
 		{
 			for (int j = 0; j < height; j++)
 			{
-				profile[i][j] = Strategy.createStrategy(i, j, agentType);
+				profile[i][j] = new Q(i, j);
 			}
 		}
 	}
@@ -58,20 +57,20 @@ public class StrategyProfile
 
 	/**
 	 * @param position
-	 *            position of tile to update Q-value for
+	 *            position of tile to return utility of
 	 * @param direction
-	 *            direction to return Q-value for
-	 * @return Q-value corresponding to choosing 'direction' from tile (x, y).
+	 *            direction to return utility of
+	 * @return utility corresponding to choosing 'direction' from tile (x, y).
 	 */
-	public double getQValueForTile(Position position, Direction direction)
+	public double getUtilityForTile(Position position, Direction direction)
 	{
-		return getStrategy(position).getQValueForDirection(direction);
+		return getStrategy(position).getUtilityForDirection(direction);
 	}
 
 	/**
 	 * @param position
 	 *            position of tile for which to return the best direction
-	 * @return direction with highest Q-value from tile (x, y)
+	 * @return direction with highest utility tile (x, y)
 	 */
 	public Direction getBestDirectionFromTile(Position position)
 	{

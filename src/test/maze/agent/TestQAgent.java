@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import main.agent.Agent;
-import main.agent.AgentType;
 import main.agent.Direction;
 import main.maze.Maze;
 import main.maze.Position;
@@ -23,7 +22,7 @@ public class TestQAgent
 		maze = mock(Maze.class);
 		when(maze.getXSize()).thenReturn(5);
 		when(maze.getYSize()).thenReturn(5);
-		agent = new Agent(maze, AgentType.Q);
+		agent = new Agent(maze);
 	}
 
 	@Test
@@ -72,6 +71,6 @@ public class TestQAgent
 	@Test
 	public void testGetQValueWithoutMoves_ReturnsZero()
 	{
-		assertEquals(0, agent.getQValue(agent.getPosition(), Direction.RIGHT), 0.0);
+		assertEquals(0, agent.getUtility(agent.getPosition(), Direction.RIGHT), 0.0);
 	}
 }

@@ -4,7 +4,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import main.agent.Agent;
-import main.agent.AgentType;
 import main.agent.Direction;
 import main.gui.GameWindow;
 
@@ -44,7 +43,7 @@ public class EnvironmentManager
 
 		maze = new Maze();
 		gameWindow = new GameWindow(maze);
-		agent = new Agent(maze, AgentType.Q);
+		agent = new Agent(maze);
 
 		run();
 	}
@@ -92,6 +91,6 @@ public class EnvironmentManager
 
 		agent.update(position, result);
 		gameWindow.processMove(oldPosition, agent.getPosition(), direction, agent.getScore(),
-				agent.getQValue(oldPosition, direction));
+				agent.getUtility(oldPosition, direction));
 	}
 }

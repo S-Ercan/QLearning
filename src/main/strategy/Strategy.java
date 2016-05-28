@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import main.agent.AgentType;
 import main.agent.Direction;
 
 public abstract class Strategy
@@ -13,22 +12,6 @@ public abstract class Strategy
 	private int y;
 
 	private Map<Direction, Double> strategy;
-
-	public static Strategy createStrategy(int x, int y, AgentType agentType)
-	{
-		if (agentType == AgentType.Q)
-		{
-			return new Q(x, y);
-		}
-		else if (agentType == AgentType.RANDOM)
-		{
-			return new Random(x, y);
-		}
-		else
-		{
-			throw new IllegalArgumentException("Unsupported agent type.");
-		}
-	}
 
 	/**
 	 * Creates an action-utility mapping for tile (x, y).
@@ -60,7 +43,7 @@ public abstract class Strategy
 
 	public abstract void update(Direction direction, Strategy nextStrategy, double reward);
 
-	public double getQValueForDirection(Direction direction)
+	public double getUtilityForDirection(Direction direction)
 	{
 		return getStrategy().getOrDefault(direction, 0.0);
 	}
@@ -68,7 +51,7 @@ public abstract class Strategy
 	/**
 	 * @return maximum utility value that can be achieved from this tile
 	 */
-	public double getMaxQValue()
+	public double getMaxUtility()
 	{
 		double maxQ = 0;
 		double value;

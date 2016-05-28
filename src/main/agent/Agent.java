@@ -27,9 +27,9 @@ public class Agent
 	 * @param maze
 	 *            the maze the agent is active in
 	 */
-	public Agent(Maze maze, AgentType agentType)
+	public Agent(Maze maze)
 	{
-		setProfile(new StrategyProfile(maze, agentType));
+		setProfile(new StrategyProfile(maze));
 		setPosition(new Position(0, 0));
 		setDirection(Direction.RIGHT);
 		setScore(0);
@@ -92,9 +92,9 @@ public class Agent
 	 * @return Q-value corresponding to choosing 'direction' from tile at
 	 *         'position'
 	 */
-	public double getQValue(Position position, Direction direction)
+	public double getUtility(Position position, Direction direction)
 	{
-		return profile.getQValueForTile(position, direction);
+		return profile.getUtilityForTile(position, direction);
 	}
 
 	public StrategyProfile getProfile()
