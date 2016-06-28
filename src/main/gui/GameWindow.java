@@ -21,8 +21,7 @@ import main.maze.Position;
 /**
  * Main frame for graphical maze representation.
  */
-public class GameWindow extends JFrame implements ActionListener
-{
+public class GameWindow extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1903142717890981086L;
 
 	private static final int fontStyle = Font.BOLD;
@@ -45,8 +44,7 @@ public class GameWindow extends JFrame implements ActionListener
 	 * @param maze
 	 *            maze to display
 	 */
-	public GameWindow(Maze maze)
-	{
+	public GameWindow(Maze maze) {
 		mainPanel = new JPanel();
 		mainPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		getContentPane().add(mainPanel);
@@ -91,8 +89,7 @@ public class GameWindow extends JFrame implements ActionListener
 	 *            individual width of both panels
 	 * @return panel containing maze and Q-values panels
 	 */
-	public JPanel createMazeAndQValuesPanel(Maze maze, int panelWidth, int panelHeight)
-	{
+	public JPanel createMazeAndQValuesPanel(Maze maze, int panelWidth, int panelHeight) {
 		// Create container panel
 		JPanel mazeAndQValuesPanel = new JPanel();
 		mazeAndQValuesPanel.setLayout(new BoxLayout(mazeAndQValuesPanel, BoxLayout.X_AXIS));
@@ -114,8 +111,7 @@ public class GameWindow extends JFrame implements ActionListener
 	 * @return panel containing a score label and buttons for resuming/pausing
 	 *         the simulation
 	 */
-	public JPanel createControlsPanel()
-	{
+	public JPanel createControlsPanel() {
 		// Create container panel
 		JPanel controlsPanel = new JPanel();
 		controlsPanel.setBorder(new EmptyBorder(0, 10, 0, 0));
@@ -149,8 +145,7 @@ public class GameWindow extends JFrame implements ActionListener
 	}
 
 	public void processMove(Position oldPosition, Position newPosition, Direction direction,
-			int score, double utility)
-	{
+			int score, double utility) {
 		showMoveAnimation(newPosition);
 		updateScore(score);
 		updateUtility(oldPosition, direction, utility);
@@ -162,13 +157,11 @@ public class GameWindow extends JFrame implements ActionListener
 	 * @param position
 	 *            destination of move that was executed
 	 */
-	public void showMoveAnimation(Position position)
-	{
+	public void showMoveAnimation(Position position) {
 		mazePanel.showMoveAnimation(position);
 	}
 
-	public void updateScore(int score)
-	{
+	public void updateScore(int score) {
 		scoreLabel.setText("Score: " + score);
 	}
 
@@ -182,25 +175,20 @@ public class GameWindow extends JFrame implements ActionListener
 	 * @param utility
 	 *            new utility value
 	 */
-	public void updateUtility(Position position, Direction direction, double utility)
-	{
+	public void updateUtility(Position position, Direction direction, double utility) {
 		qValuesPanel.updateQValue(position, direction, utility);
 	}
 
-	public boolean simulationIsRunning()
-	{
+	public boolean simulationIsRunning() {
 		return simulationRunning;
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e)
-	{
-		if (e.getSource() == goButton)
-		{
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == goButton) {
 			simulationRunning = true;
 		}
-		else if (e.getSource() == pauseButton)
-		{
+		else if (e.getSource() == pauseButton) {
 			simulationRunning = false;
 		}
 	}

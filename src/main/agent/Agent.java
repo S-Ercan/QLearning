@@ -11,8 +11,7 @@ import main.strategy.StrategyProfile;
  * information. Learns which actions to choose by updating its StrategyProfile,
  * and then uses this to choose and execute moves.
  */
-public class Agent
-{
+public class Agent {
 	private StrategyProfile profile;
 
 	// Current position in maze
@@ -27,8 +26,7 @@ public class Agent
 	 * @param maze
 	 *            the maze the agent is active in
 	 */
-	public Agent(Maze maze)
-	{
+	public Agent(Maze maze) {
 		setProfile(new StrategyProfile(maze));
 		setPosition(new Position(0, 0));
 		setDirection(Direction.RIGHT);
@@ -39,8 +37,7 @@ public class Agent
 	 * Uses 'profile' to get the best direction to head from the current tile.
 	 * Calculates destination coordinates accordingly and executes the move.
 	 */
-	public void move()
-	{
+	public void move() {
 		// Determine next direction to take
 		Position currentPosition = getPosition();
 		Direction direction = profile.getBestDirectionFromTile(currentPosition);
@@ -48,18 +45,14 @@ public class Agent
 		// Calculate next position
 		Position nextPosition = getNextPosition();
 		// Execute move and exclude it as a possibility if it's invalid
-		try
-		{
+		try {
 			EnvironmentManager.executeMove(currentPosition, direction, nextPosition);
-		}
-		catch (InvalidPositionException e)
-		{
+		} catch (InvalidPositionException e) {
 			profile.excludeDirectionFromTile(currentPosition, direction);
 		}
 	}
 
-	private Position getNextPosition()
-	{
+	private Position getNextPosition() {
 		int xCurrent = position.getX();
 		int yCurrent = position.getY();
 		int xNew = direction == Direction.LEFT ? xCurrent - 1
@@ -77,8 +70,7 @@ public class Agent
 	 * @param scoreChange
 	 *            change in score caused by move
 	 */
-	public void update(Position newPosition, int scoreChange)
-	{
+	public void update(Position newPosition, int scoreChange) {
 		getProfile().updateStrategyForTile(getPosition(), newPosition, getDirection(), scoreChange);
 		setScore(score += scoreChange);
 		setPosition(newPosition);
@@ -92,49 +84,40 @@ public class Agent
 	 * @return Q-value corresponding to choosing 'direction' from tile at
 	 *         'position'
 	 */
-	public double getUtility(Position position, Direction direction)
-	{
+	public double getUtility(Position position, Direction direction) {
 		return profile.getUtilityForTile(position, direction);
 	}
 
-	public StrategyProfile getProfile()
-	{
+	public StrategyProfile getProfile() {
 		return profile;
 	}
 
-	public void setProfile(StrategyProfile profile)
-	{
+	public void setProfile(StrategyProfile profile) {
 		this.profile = profile;
 	}
 
-	public Position getPosition()
-	{
+	public Position getPosition() {
 		return position;
 	}
 
-	public void setPosition(Position position)
-	{
+	public void setPosition(Position position) {
 		this.position = position;
 		System.out.println("Moved to " + position);
 	}
 
-	public Direction getDirection()
-	{
+	public Direction getDirection() {
 		return direction;
 	}
 
-	public void setDirection(Direction direction)
-	{
+	public void setDirection(Direction direction) {
 		this.direction = direction;
 	}
 
-	public int getScore()
-	{
+	public int getScore() {
 		return score;
 	}
 
-	public void setScore(int score)
-	{
+	public void setScore(int score) {
 		this.score = score;
 		System.out.println("Score: " + score);
 	}

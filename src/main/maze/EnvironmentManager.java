@@ -12,32 +12,21 @@ import main.gui.GameWindow;
  * runs the maze and the agents active in it. Passes moves from agents to the
  * maze, and returns move results to agents.
  */
-public class EnvironmentManager
-{
+public class EnvironmentManager {
 	private static GameWindow gameWindow;
 	private static Maze maze;
 	private static Agent agent;
 
-	public static void main(String[] args)
-	{
-		try
-		{
+	public static void main(String[] args) {
+		try {
 			UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
-		}
-		catch (ClassNotFoundException e)
-		{
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}
-		catch (InstantiationException e)
-		{
+		} catch (InstantiationException e) {
 			e.printStackTrace();
-		}
-		catch (IllegalAccessException e)
-		{
+		} catch (IllegalAccessException e) {
 			e.printStackTrace();
-		}
-		catch (UnsupportedLookAndFeelException e)
-		{
+		} catch (UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
 
@@ -48,21 +37,15 @@ public class EnvironmentManager
 		run();
 	}
 
-	private static void run()
-	{
+	private static void run() {
 		gameWindow.showMoveAnimation(agent.getPosition());
-		while (true)
-		{
-			if (gameWindow.simulationIsRunning())
-			{
+		while (true) {
+			if (gameWindow.simulationIsRunning()) {
 				agent.move();
 			}
-			try
-			{
+			try {
 				Thread.sleep(500);
-			}
-			catch (InterruptedException e)
-			{
+			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
@@ -77,15 +60,11 @@ public class EnvironmentManager
 	 * @throws InvalidPositionException
 	 */
 	public static void executeMove(Position oldPosition, Direction direction, Position position)
-			throws InvalidPositionException
-	{
+			throws InvalidPositionException {
 		int result;
-		try
-		{
+		try {
 			result = maze.getTileValue(position);
-		}
-		catch (InvalidPositionException e)
-		{
+		} catch (InvalidPositionException e) {
 			throw e;
 		}
 

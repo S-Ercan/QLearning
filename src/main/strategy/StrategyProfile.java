@@ -7,8 +7,7 @@ import main.maze.Position;
 /**
  * A 2D array containing action-utility mappings for all maze tiles.
  */
-public class StrategyProfile
-{
+public class StrategyProfile {
 	private int width;
 	private int height;
 	private Strategy[][] profile;
@@ -19,15 +18,12 @@ public class StrategyProfile
 	 * @param y
 	 *            maze height
 	 */
-	public StrategyProfile(Maze maze)
-	{
+	public StrategyProfile(Maze maze) {
 		width = maze.getXSize();
 		height = maze.getYSize();
 		profile = new Strategy[width][height];
-		for (int i = 0; i < width; i++)
-		{
-			for (int j = 0; j < height; j++)
-			{
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
 				profile[i][j] = new Q(i, j);
 			}
 		}
@@ -48,8 +44,7 @@ public class StrategyProfile
 	 *            reward received by moving from previous to current tile
 	 */
 	public void updateStrategyForTile(Position oldPosition, Position newPosition,
-			Direction direction, double reward)
-	{
+			Direction direction, double reward) {
 		Strategy currentStrategy = getStrategy(oldPosition);
 		Strategy nextStrategy = getStrategy(newPosition);
 		currentStrategy.update(direction, nextStrategy, reward);
@@ -62,8 +57,7 @@ public class StrategyProfile
 	 *            direction to return utility of
 	 * @return utility corresponding to choosing 'direction' from tile (x, y).
 	 */
-	public double getUtilityForTile(Position position, Direction direction)
-	{
+	public double getUtilityForTile(Position position, Direction direction) {
 		return getStrategy(position).getUtilityForDirection(direction);
 	}
 
@@ -72,8 +66,7 @@ public class StrategyProfile
 	 *            position of tile for which to return the best direction
 	 * @return direction with highest utility tile (x, y)
 	 */
-	public Direction getBestDirectionFromTile(Position position)
-	{
+	public Direction getBestDirectionFromTile(Position position) {
 		return getStrategy(position).getBestDirection();
 	}
 
@@ -87,8 +80,7 @@ public class StrategyProfile
 	 * @param direction
 	 *            direction to exclude from tile(x, y)
 	 */
-	public void excludeDirectionFromTile(Position position, Direction direction)
-	{
+	public void excludeDirectionFromTile(Position position, Direction direction) {
 		getStrategy(position).excludeDirection(direction);
 	}
 
@@ -97,13 +89,11 @@ public class StrategyProfile
 	 *            tile to get strategy for
 	 * @return strategy for tile at 'position'
 	 */
-	public Strategy getStrategy(Position position)
-	{
+	public Strategy getStrategy(Position position) {
 		Strategy q = null;
 		int x = position.getX();
 		int y = position.getY();
-		if (x >= 0 && x < width && y >= 0 && y < height)
-		{
+		if (x >= 0 && x < width && y >= 0 && y < height) {
 			q = profile[x][y];
 		}
 		return q;

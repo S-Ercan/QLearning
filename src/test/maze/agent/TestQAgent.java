@@ -11,14 +11,12 @@ import main.agent.Direction;
 import main.maze.Maze;
 import main.maze.Position;
 
-public class TestQAgent
-{
+public class TestQAgent {
 	private Maze maze;
 	private Agent agent;
 
 	@Before
-	public void setUp()
-	{
+	public void setUp() {
 		maze = mock(Maze.class);
 		when(maze.getXSize()).thenReturn(5);
 		when(maze.getYSize()).thenReturn(5);
@@ -26,32 +24,27 @@ public class TestQAgent
 	}
 
 	@Test
-	public void testCreateAgent_XPositionIsZero()
-	{
+	public void testCreateAgent_XPositionIsZero() {
 		assertEquals(0, agent.getPosition().getX());
 	}
 
 	@Test
-	public void testCreateAgent_YPositionIsZero()
-	{
+	public void testCreateAgent_YPositionIsZero() {
 		assertEquals(0, agent.getPosition().getY());
 	}
 
 	@Test
-	public void testCreateAgent_ScoreIsZero()
-	{
+	public void testCreateAgent_ScoreIsZero() {
 		assertEquals(0, agent.getScore());
 	}
 
 	@Test
-	public void testCreateAgent_HasValidDirection()
-	{
+	public void testCreateAgent_HasValidDirection() {
 		assertTrue(agent.getDirection() instanceof Direction);
 	}
 
 	@Test
-	public void testUpdate_SetsPosition()
-	{
+	public void testUpdate_SetsPosition() {
 		Position position = new Position(1, 1);
 		agent.update(position, 1);
 
@@ -59,8 +52,7 @@ public class TestQAgent
 	}
 
 	@Test
-	public void testUpdate_SetsScore()
-	{
+	public void testUpdate_SetsScore() {
 		int score = agent.getScore();
 		int scoreChange = 10;
 		agent.update(new Position(1, 1), scoreChange);
@@ -69,8 +61,7 @@ public class TestQAgent
 	}
 
 	@Test
-	public void testGetQValueWithoutMoves_ReturnsZero()
-	{
+	public void testGetQValueWithoutMoves_ReturnsZero() {
 		assertEquals(0, agent.getUtility(agent.getPosition(), Direction.RIGHT), 0.0);
 	}
 }

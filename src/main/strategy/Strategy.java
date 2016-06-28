@@ -6,8 +6,7 @@ import java.util.Map.Entry;
 
 import main.agent.Direction;
 
-public abstract class Strategy
-{
+public abstract class Strategy {
 	private int x;
 	private int y;
 
@@ -21,8 +20,7 @@ public abstract class Strategy
 	 * @param y
 	 *            y coordinate of tile
 	 */
-	public Strategy(int x, int y)
-	{
+	public Strategy(int x, int y) {
 		this.x = x;
 		this.y = y;
 
@@ -43,23 +41,19 @@ public abstract class Strategy
 
 	public abstract void update(Direction direction, Strategy nextStrategy, double reward);
 
-	public double getUtilityForDirection(Direction direction)
-	{
+	public double getUtilityForDirection(Direction direction) {
 		return getStrategy().getOrDefault(direction, 0.0);
 	}
 
 	/**
 	 * @return maximum utility value that can be achieved from this tile
 	 */
-	public double getMaxUtility()
-	{
+	public double getMaxUtility() {
 		double maxQ = 0;
 		double value;
-		for (Entry<Direction, Double> entry : getStrategy().entrySet())
-		{
+		for (Entry<Direction, Double> entry : getStrategy().entrySet()) {
 			value = entry.getValue();
-			if (value >= maxQ)
-			{
+			if (value >= maxQ) {
 				maxQ = value;
 			}
 		}
@@ -73,28 +67,23 @@ public abstract class Strategy
 	 * @param direction
 	 *            direction to remove
 	 */
-	public void excludeDirection(Direction direction)
-	{
+	public void excludeDirection(Direction direction) {
 		strategy.remove(direction);
 	}
 
-	public Map<Direction, Double> getStrategy()
-	{
+	public Map<Direction, Double> getStrategy() {
 		return strategy;
 	}
 
-	public void setStrategy(Map<Direction, Double> strategy)
-	{
+	public void setStrategy(Map<Direction, Double> strategy) {
 		this.strategy = strategy;
 	}
 
-	public int getX()
-	{
+	public int getX() {
 		return x;
 	}
 
-	public int getY()
-	{
+	public int getY() {
 		return y;
 	}
 }

@@ -14,8 +14,7 @@ import java.util.Random;
  * Implements Q-learning by storing Q-values for all directions from a given
  * tile and enabling their update according to the Q-learning technique.
  */
-public class Q extends Strategy
-{
+public class Q extends Strategy {
 	private static final double alpha = 1;
 	private static final double gamma = 0.5;
 
@@ -32,8 +31,7 @@ public class Q extends Strategy
 	 * @param y
 	 *            y coordinate of tile
 	 */
-	public Q(int x, int y)
-	{
+	public Q(int x, int y) {
 		super(x, y);
 
 		random = new Random();
@@ -47,15 +45,13 @@ public class Q extends Strategy
 	 * 
 	 * @return direction with highest value
 	 */
-	public Direction getBestDirection()
-	{
+	public Direction getBestDirection() {
 		/*
 		 * With a small and decreasing probability, choose random direction.
 		 * This is to encourage exploration and avoid getting stuck in locally
 		 * optimal but globally sub-optimal behavior.
 		 */
-		if (random.nextDouble() < getPRandExploration())
-		{
+		if (random.nextDouble() < getPRandExploration()) {
 			pRandExploration -= 0.025;
 			System.out.println("Updated pRandExploration for (" + getX() + ", " + getY() + ") to "
 					+ decimalFormat.format(pRandExploration));
@@ -66,13 +62,10 @@ public class Q extends Strategy
 		List<Direction> candidateDirections = new ArrayList<Direction>();
 		double maxQ = Double.NEGATIVE_INFINITY;
 		double value;
-		for (Entry<Direction, Double> entry : getStrategy().entrySet())
-		{
+		for (Entry<Direction, Double> entry : getStrategy().entrySet()) {
 			value = entry.getValue();
-			if (value >= maxQ)
-			{
-				if (value > maxQ)
-				{
+			if (value >= maxQ) {
+				if (value > maxQ) {
 					candidateDirections.clear();
 				}
 				candidateDirections.add(entry.getKey());
@@ -94,8 +87,7 @@ public class Q extends Strategy
 	 * @param reward
 	 *            reward received by last move (positive or negative)
 	 */
-	public void update(Direction direction, Strategy nextStrategy, double reward)
-	{
+	public void update(Direction direction, Strategy nextStrategy, double reward) {
 		double oldValue = getStrategy().get(direction);
 		double newValue = oldValue
 				+ alpha * (reward + gamma * (nextStrategy.getMaxUtility()) - oldValue);
@@ -104,13 +96,11 @@ public class Q extends Strategy
 				+ decimalFormat.format(oldValue) + " to " + decimalFormat.format(newValue) + ".");
 	}
 
-	public double getPRandExploration()
-	{
+	public double getPRandExploration() {
 		return pRandExploration;
 	}
 
-	public void setPRandExploration(double pRandExploration)
-	{
+	public void setPRandExploration(double pRandExploration) {
 		this.pRandExploration = pRandExploration;
 	}
 }

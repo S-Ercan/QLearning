@@ -10,8 +10,7 @@ import main.maze.tile.Tile;
 /**
  * Represents a maze using a 2D array.
  */
-public class Maze
-{
+public class Maze {
 	private static final int minSize = 2;
 	private static final int maxSize = 10;
 
@@ -24,8 +23,7 @@ public class Maze
 	private int xSize;
 	private int ySize;
 
-	public Maze()
-	{
+	public Maze() {
 		// Randomly determine dimensions
 		random = new Random();
 		xSize = random.nextInt(maxSize - 1) + minSize;
@@ -41,25 +39,19 @@ public class Maze
 	 * Loops through all tiles and assigns a reward with probability pReward or
 	 * a punishment with probability pPunishment.
 	 */
-	public void populateMaze()
-	{
-		for (int i = 0; i < xSize; i++)
-		{
-			for (int j = 0; j < ySize; j++)
-			{
+	public void populateMaze() {
+		for (int i = 0; i < xSize; i++) {
+			for (int j = 0; j < ySize; j++) {
 				double value = random.nextDouble();
-				if (value <= pReward)
-				{
+				if (value <= pReward) {
 					// Assign reward of 5 or 10
 					maze[i][j] = new RewardTile((random.nextInt(2) + 1) * 5);
 				}
-				else if (value >= 1 - pPunishment)
-				{
+				else if (value >= 1 - pPunishment) {
 					// Assign punishment of -5 or -10
 					maze[i][j] = new PunishmentTile((random.nextInt(2) + 1) * -5);
 				}
-				else
-				{
+				else {
 					maze[i][j] = new EmptyTile();
 				}
 			}
@@ -68,46 +60,37 @@ public class Maze
 		maze[0][0] = new EmptyTile();
 	}
 
-	public Tile getTile(int x, int y)
-	{
+	public Tile getTile(int x, int y) {
 		Tile tile = null;
-		if (!(x < 0 || x >= xSize || y < 0 || y >= ySize))
-		{
+		if (!(x < 0 || x >= xSize || y < 0 || y >= ySize)) {
 			tile = maze[x][y];
 		}
 		return tile;
 	}
 
-	public Tile getTile(Position position)
-	{
+	public Tile getTile(Position position) {
 		Tile tile = null;
-		if (position != null && position.isValid(xSize, ySize))
-		{
+		if (position != null && position.isValid(xSize, ySize)) {
 			tile = getTile(position.getX(), position.getY());
 		}
 		return tile;
 	}
 
-	public int getTileValue(Position position) throws InvalidPositionException
-	{
+	public int getTileValue(Position position) throws InvalidPositionException {
 		Tile tile = getTile(position);
-		if (tile == null)
-		{
+		if (tile == null) {
 			throw new InvalidPositionException("No tile at position " + position + ".");
 		}
-		else
-		{
+		else {
 			return tile.getValue();
 		}
 	}
 
-	public int getXSize()
-	{
+	public int getXSize() {
 		return xSize;
 	}
 
-	public int getYSize()
-	{
+	public int getYSize() {
 		return ySize;
 	}
 }

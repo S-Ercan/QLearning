@@ -21,8 +21,7 @@ import main.maze.tile.Tile;
 /**
  * JPanel for displaying maze and animating agent movement through it.
  */
-public class MazePanel extends JPanel
-{
+public class MazePanel extends JPanel {
 	private static final long serialVersionUID = 5364142617462688939L;
 
 	// Sizes, margins and paddings
@@ -65,8 +64,7 @@ public class MazePanel extends JPanel
 	 * @param maze
 	 *            maze to create panel for
 	 */
-	public MazePanel(Maze maze)
-	{
+	public MazePanel(Maze maze) {
 		setLayout(null);
 
 		this.maze = maze;
@@ -91,14 +89,11 @@ public class MazePanel extends JPanel
 	 * Creates a panel for each maze tile and colors it according to the tile
 	 * type.
 	 */
-	private void createTilePanels()
-	{
+	private void createTilePanels() {
 		Tile tile;
 		Color tileColor;
-		for (int x = 0; x < xSize; x++)
-		{
-			for (int y = 0; y < ySize; y++)
-			{
+		for (int x = 0; x < xSize; x++) {
+			for (int y = 0; y < ySize; y++) {
 				// Determine positioning of panel
 				int xPosition = MazePanel.xMargin + x * MazePanel.xSpacing;
 				int yPosition = MazePanel.yMargin + y * MazePanel.ySpacing;
@@ -120,8 +115,7 @@ public class MazePanel extends JPanel
 				add(tilePanel);
 
 				// Add a label with tile value of value is non-zero
-				if (tile instanceof RewardTile || tile instanceof PunishmentTile)
-				{
+				if (tile instanceof RewardTile || tile instanceof PunishmentTile) {
 					createTileValueLabel(tilePanel, tile);
 				}
 			}
@@ -136,8 +130,7 @@ public class MazePanel extends JPanel
 	 * @param tile
 	 *            tile to display value for
 	 */
-	private void createTileValueLabel(JPanel tilePanel, Tile tile)
-	{
+	private void createTileValueLabel(JPanel tilePanel, Tile tile) {
 		JLabel label = new JLabel(decimalFormat.format(tile.getValue()), SwingConstants.CENTER);
 		label.setFont(new Font("", fontStyle, fontSize));
 		label.setForeground(textColor);
@@ -154,8 +147,7 @@ public class MazePanel extends JPanel
 	 * @param y
 	 *            y coordinate of destination tile
 	 */
-	public void showMoveAnimation(Position position)
-	{
+	public void showMoveAnimation(Position position) {
 		int x = position.getX();
 		int y = position.getY();
 		// Restore color of previous tile

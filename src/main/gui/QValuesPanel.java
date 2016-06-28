@@ -16,8 +16,7 @@ import main.maze.Position;
  * JPanel for displaying the updated Q-values as the agent learns them while
  * moving through the maze.
  */
-public class QValuesPanel extends JPanel
-{
+public class QValuesPanel extends JPanel {
 	private static final long serialVersionUID = -6075907538876446276L;
 
 	private static final int tilePanelPadding = 5;
@@ -38,8 +37,7 @@ public class QValuesPanel extends JPanel
 	 * @param ySize
 	 *            maze height
 	 */
-	public QValuesPanel(int xSize, int ySize)
-	{
+	public QValuesPanel(int xSize, int ySize) {
 		setLayout(null);
 
 		this.xSize = xSize;
@@ -55,13 +53,10 @@ public class QValuesPanel extends JPanel
 	 * Creates a JPanel for each maze tile and adds a JLabel for each direction
 	 * to all created JPanels.
 	 */
-	private void createQValueLabels()
-	{
+	private void createQValueLabels() {
 		JPanel tilePanel;
-		for (int x = 0; x < xSize; x++)
-		{
-			for (int y = 0; y < ySize; y++)
-			{
+		for (int x = 0; x < xSize; x++) {
+			for (int y = 0; y < ySize; y++) {
 				// Create panel
 				tilePanel = createPanel(x, y);
 				// Create labels for each direction
@@ -79,8 +74,7 @@ public class QValuesPanel extends JPanel
 	 *            y coordinate of tile
 	 * @return JPanel created for tile (x, y)
 	 */
-	private JPanel createPanel(int x, int y)
-	{
+	private JPanel createPanel(int x, int y) {
 		// Determine positioning of panel
 		int xPosition = MazePanel.xMargin + x * MazePanel.xSpacing;
 		int yPosition = MazePanel.yMargin + y * MazePanel.ySpacing;
@@ -106,18 +100,15 @@ public class QValuesPanel extends JPanel
 	 * @param tilePanel
 	 *            JPanel created for tile (x, y)
 	 */
-	private void createLabels(int x, int y, JPanel tilePanel)
-	{
-		for (int z = 0; z < Direction.values().length; z++)
-		{
+	private void createLabels(int x, int y, JPanel tilePanel) {
+		for (int z = 0; z < Direction.values().length; z++) {
 			JLabel label = new JLabel("0.0", SwingConstants.CENTER);
 			label.setFont(new Font("", MazePanel.fontStyle, MazePanel.fontSize));
 			label.setForeground(MazePanel.textColor);
 			qValueLabels[x][y][z] = label;
 
 			String index = BorderLayout.CENTER;
-			switch (z)
-			{
+			switch (z) {
 				case 0:
 					index = BorderLayout.NORTH;
 					break;
@@ -146,20 +137,16 @@ public class QValuesPanel extends JPanel
 	 * @param q
 	 *            new Q-value
 	 */
-	public void updateQValue(Position position, Direction direction, double q)
-	{
+	public void updateQValue(Position position, Direction direction, double q) {
 		JLabel qValueLabel = qValueLabels[position.getX()][position.getY()][direction.ordinal()];
 		qValueLabel.setText(decimalFormat.format(q));
-		if (q > 0)
-		{
+		if (q > 0) {
 			qValueLabel.setForeground(MazePanel.rewardColor);
 		}
-		else if (q < 0)
-		{
+		else if (q < 0) {
 			qValueLabel.setForeground(MazePanel.punishmentColor);
 		}
-		else
-		{
+		else {
 			qValueLabel.setForeground(MazePanel.textColor);
 		}
 	}
