@@ -5,6 +5,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import main.agent.Agent;
 import main.agent.Direction;
+import main.gui.ConfigurationDialog;
 import main.gui.GameWindow;
 
 /**
@@ -18,6 +19,8 @@ public class EnvironmentManager {
 	private static Agent agent;
 
 	public static void main(String[] args) {
+		new ConfigurationDialog();
+
 		try {
 			UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
 		} catch (ClassNotFoundException e) {
