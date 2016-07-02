@@ -11,26 +11,18 @@ import main.maze.tile.Tile;
  * Represents a maze using a 2D array.
  */
 public class Maze {
-	private static final int minSize = 2;
-	private static final int maxSize = 10;
-
 	private static final double pReward = 0.2;
 	private static final double pPunishment = 0.1;
 
-	private Random random;
 	private Tile[][] maze;
-
 	private int xSize;
 	private int ySize;
 
-	public Maze() {
-		// Randomly determine dimensions
-		random = new Random();
-		xSize = random.nextInt(maxSize - 1) + minSize;
-		ySize = random.nextInt(maxSize - 1) + minSize;
+	public Maze(int xSize, int ySize) {
+		setXSize(xSize);
+		setYSize(ySize);
 		maze = new Tile[xSize][ySize];
 		System.out.println("Creating " + xSize + " x " + ySize + " maze");
-
 		// Fill maze with rewards and punishments
 		populateMaze();
 	}
@@ -40,6 +32,7 @@ public class Maze {
 	 * a punishment with probability pPunishment.
 	 */
 	public void populateMaze() {
+		Random random = new Random();
 		for (int i = 0; i < xSize; i++) {
 			for (int j = 0; j < ySize; j++) {
 				double value = random.nextDouble();
@@ -90,7 +83,15 @@ public class Maze {
 		return xSize;
 	}
 
+	public void setXSize(int xSize) {
+		this.xSize = xSize;
+	}
+
 	public int getYSize() {
 		return ySize;
+	}
+
+	public void setYSize(int ySize) {
+		this.ySize = ySize;
 	}
 }

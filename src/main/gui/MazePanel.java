@@ -114,7 +114,7 @@ public class MazePanel extends JPanel {
 				tilePanelMap[x][y] = tilePanel;
 				add(tilePanel);
 
-				// Add a label with tile value of value is non-zero
+				// Add a label with tile value if value is non-zero
 				if (tile instanceof RewardTile || tile instanceof PunishmentTile) {
 					createTileValueLabel(tilePanel, tile);
 				}

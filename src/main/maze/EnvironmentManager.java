@@ -1,5 +1,7 @@
 package main.maze;
 
+import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -19,8 +21,6 @@ public class EnvironmentManager {
 	private static Agent agent;
 
 	public static void main(String[] args) {
-		new ConfigurationDialog();
-
 		try {
 			UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
 		} catch (ClassNotFoundException e) {
@@ -33,11 +33,25 @@ public class EnvironmentManager {
 			e.printStackTrace();
 		}
 
-		maze = new Maze();
-		gameWindow = new GameWindow(maze);
-		agent = new Agent(maze);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				new ConfigurationDialog();
+			}
+		});
+	}
 
-		run();
+	public static void start(int xSize, int ySize) {
+		new SwingWorker<Void, Void>() {
+			@Override
+			protected Void doInBackground() throws Exception {
+				maze = new Maze(xSize, ySize);
+				gameWindow = new GameWindow(maze);
+				agent = new Agent(maze);
+				EnvironmentManager.run();
+				return null;
+			}
+		}.execute();
 	}
 
 	private static void run() {
