@@ -1,5 +1,8 @@
 package main.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -12,7 +15,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import main.agent.Direction;
 import main.maze.Maze;
@@ -56,7 +62,7 @@ public class GameWindow extends JFrame implements ActionListener {
 				+ (maze.getYSize() + 1) * MazePanel.yMargin;
 
 		mainPanel.add(createMazeAndQValuesPanel(maze, panelWidth, panelHeight));
-		mainPanel.add(createControlsPanel());
+		mainPanel.add(createControlsPanel(panelWidth * 2, 100));
 
 		// Adjust size to maze dimension
 		int windowWidth = panelWidth * 2 + 20;
@@ -115,21 +121,52 @@ public class GameWindow extends JFrame implements ActionListener {
 	 * @return panel containing a score label and buttons for resuming/pausing
 	 *         the simulation
 	 */
-	public JPanel createControlsPanel() {
+	public JPanel createControlsPanel(int panelWidth, int panelHeight) {
+		JPanel mainPanel = new JPanel();
+		mainPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+
 		// Create container panel
 		JPanel controlsPanel = new JPanel();
 		controlsPanel.setBorder(new EmptyBorder(0, 10, 0, 0));
 		controlsPanel.setLayout(new BoxLayout(controlsPanel, BoxLayout.Y_AXIS));
 
-		// Create panel for score label
-		JPanel scorePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel scorePanel = createScorePanel();
+		JPanel buttonsPanel = createButtonsPanel();
 
+		controlsPanel.add(scorePanel);
+		controlsPanel.add(buttonsPanel);
+
+		mainPanel.add(controlsPanel);
+
+		JPanel timeControlPanel = createTimeControlPanel();
+		mainPanel.add(timeControlPanel);
+
+		return mainPanel;
+	}
+
+	private JPanel createScorePanel() {
+		JPanel scorePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		scoreLabel = new JLabel();
 		scoreLabel.setFont(new Font("", fontStyle, fontSize));
 		updateScore(0);
 		scorePanel.add(scoreLabel);
 
-		// Create panel for resume/pause buttons
+		return scorePanel;
+	}
+
+	private JPanel createTimeControlPanel() {
+		JPanel timeButtonPanel = new JPanel();
+		timeButtonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+
+		timeButtonPanel.add(new JLabel("Time factor:"));
+		JSpinner timeSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 3, 1));
+		timeButtonPanel.add(timeSpinner);
+
+		return timeButtonPanel;
+	}
+	
+	private JPanel createButtonsPanel() {
 		JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		goButton = new JButton("Go");
@@ -142,10 +179,7 @@ public class GameWindow extends JFrame implements ActionListener {
 		pauseButton.addActionListener(this);
 		buttonsPanel.add(pauseButton);
 
-		controlsPanel.add(scorePanel);
-		controlsPanel.add(buttonsPanel);
-
-		return controlsPanel;
+		return buttonsPanel;
 	}
 
 	public void processMove(Position oldPosition, Position newPosition, Direction direction,

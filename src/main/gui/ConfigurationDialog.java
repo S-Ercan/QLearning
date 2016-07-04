@@ -17,9 +17,6 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = -8482977682324666207L;
 
-	private int width = 0;
-	private int height = 0;
-
 	private JSpinner xSizeSpinner;
 	private JSpinner ySizeSpinner;
 	private JSpinner pRewardSpinner;
