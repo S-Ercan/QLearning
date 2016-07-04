@@ -11,16 +11,18 @@ import main.maze.tile.Tile;
  * Represents a maze using a 2D array.
  */
 public class Maze {
-	private static final double pReward = 0.2;
-	private static final double pPunishment = 0.1;
+	private double pReward = 0.2;
+	private double pPunishment = 0.1;
 
 	private Tile[][] maze;
 	private int xSize;
 	private int ySize;
 
-	public Maze(int xSize, int ySize) {
+	public Maze(int xSize, int ySize, double pReward, double pPunishment) {
 		setXSize(xSize);
 		setYSize(ySize);
+		setPReward(pReward);
+		setPPunishment(pPunishment);
 		maze = new Tile[xSize][ySize];
 		System.out.println("Creating " + xSize + " x " + ySize + " maze");
 		// Fill maze with rewards and punishments
@@ -93,5 +95,21 @@ public class Maze {
 
 	public void setYSize(int ySize) {
 		this.ySize = ySize;
+	}
+
+	public double getPReward() {
+		return pReward;
+	}
+
+	public void setPReward(double pReward) {
+		this.pReward = pReward;
+	}
+
+	public double getPPunishment() {
+		return pPunishment;
+	}
+
+	public void setPPunishment(double pPunishment) {
+		this.pPunishment = pPunishment;
 	}
 }

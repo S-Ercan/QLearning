@@ -41,11 +41,11 @@ public class EnvironmentManager {
 		});
 	}
 
-	public static void start(int xSize, int ySize) {
+	public static void start(int xSize, int ySize, double pReward, double pPunishment) {
 		new SwingWorker<Void, Void>() {
 			@Override
 			protected Void doInBackground() throws Exception {
-				maze = new Maze(xSize, ySize);
+				maze = new Maze(xSize, ySize, pReward, pPunishment);
 				gameWindow = new GameWindow(maze);
 				agent = new Agent(maze);
 				EnvironmentManager.run();

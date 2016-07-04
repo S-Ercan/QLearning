@@ -62,19 +62,23 @@ public class GameWindow extends JFrame implements ActionListener {
 		int windowWidth = panelWidth * 2 + 20;
 		int windowHeight = panelHeight + 150;
 		setSize(windowWidth, windowHeight);
-
-		// Adjust location to size
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		double screenWidth = screenSize.getWidth();
-		double screenHeight = screenSize.getHeight();
-		setLocation((int) screenWidth / 2 - windowWidth / 2,
-				(int) screenHeight / 2 - windowHeight / 2);
+		CoordinatePair windowLocation = getWindowLocation(windowWidth, windowHeight);
+		setLocation(windowLocation.getX(), windowLocation.getY());
 
 		setResizable(false);
 		setTitle("Q-learning");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setVisible(true);
+	}
+
+	protected static CoordinatePair getWindowLocation(int windowWidth, int windowHeight) {
+		// Adjust location to size
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		double screenWidth = screenSize.getWidth();
+		double screenHeight = screenSize.getHeight();
+		return new CoordinatePair((int) screenWidth / 2 - windowWidth / 2,
+				(int) screenHeight / 2 - windowHeight / 2);
 	}
 
 	/**
