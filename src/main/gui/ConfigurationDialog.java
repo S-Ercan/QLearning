@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import main.maze.EnvironmentManager;
 
@@ -54,6 +56,8 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 		pRewardSpinner = new JSpinner(new SpinnerNumberModel(0.2, 0, 1, 0.1));
 		JLabel pPunishmentLabel = new JLabel("pPunishment");
 		pPunishmentSpinner = new JSpinner(new SpinnerNumberModel(0.1, 0, 1, 0.1));
+		pRewardSpinner.addChangeListener(new JSpinnerChangeListener(pRewardSpinner, pPunishmentSpinner));
+		pPunishmentSpinner.addChangeListener(new JSpinnerChangeListener(pPunishmentSpinner, pRewardSpinner));
 
 		JPanel spinnerPanel = new JPanel();
 		spinnerPanel.setLayout(new GridLayout(2, 4));
@@ -76,6 +80,27 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 			EnvironmentManager.start((int) xSizeSpinner.getValue(), (int) ySizeSpinner.getValue(),
 					(double) pRewardSpinner.getValue(), (double) pPunishmentSpinner.getValue());
 		}
+	}
+
+	private class JSpinnerChangeListener implements ChangeListener {
+
+		private JSpinner thisSpinner;
+		private JSpinner otherSpinner;
+
+		public JSpinnerChangeListener(JSpinner thisSpinner, JSpinner otherSpinner) {
+			this.thisSpinner = thisSpinner;
+			this.otherSpinner = otherSpinner;
+		}
+
+		@Override
+		public void stateChanged(ChangeEvent arg0) {
+			double thisValue = (double) thisSpinner.getValue();
+			double otherValue = (double) otherSpinner.getValue();
+			if (thisValue + otherValue > 1) {
+				otherSpinner.setValue(1 - thisValue);
+			}
+		}
+
 	}
 
 }
