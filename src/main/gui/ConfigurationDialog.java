@@ -52,9 +52,9 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
 		JLabel ySizeLabel = new JLabel("Maze height");
 		ySizeSpinner = new JSpinner(new SpinnerNumberModel(5, 2, 10, 1));
 
-		JLabel pRewardLabel = new JLabel("pReward");
+		JLabel pRewardLabel = new JLabel("p(tile has reward)");
 		pRewardSpinner = new JSpinner(new SpinnerNumberModel(0.2, 0, 1, 0.1));
-		JLabel pPunishmentLabel = new JLabel("pPunishment");
+		JLabel pPunishmentLabel = new JLabel("p(tile has punishment)");
 		pPunishmentSpinner = new JSpinner(new SpinnerNumberModel(0.1, 0, 1, 0.1));
 		pRewardSpinner.addChangeListener(new JSpinnerChangeListener(pRewardSpinner, pPunishmentSpinner));
 		pPunishmentSpinner.addChangeListener(new JSpinnerChangeListener(pPunishmentSpinner, pRewardSpinner));

@@ -27,15 +27,15 @@ public class MazePanel extends JPanel {
 	// Sizes, margins and paddings
 	public static final int xMargin = 10;
 	public static final int yMargin = 10;
-	public static final int tileWidth = 70;
-	public static final int tileHeight = 70;
+	public static final int tileWidth = 75;
+	public static final int tileHeight = 75;
 	public static final int xSpacing = tileWidth + xMargin;
 	public static final int ySpacing = tileHeight + yMargin;
 
 	// Tile colors
-	public static final Color neutralColor = Color.gray;
-	public static final Color rewardColor = Color.green;
-	public static final Color punishmentColor = Color.red;
+	public static final Color neutralColor = new Color(160, 160, 160);
+	public static final Color rewardColor = new Color(15, 80, 15);
+	public static final Color punishmentColor = new Color(180, 0, 0);
 
 	// Font attributes
 	public static final int fontStyle = Font.TRUETYPE_FONT;
