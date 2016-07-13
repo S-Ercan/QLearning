@@ -19,6 +19,7 @@ public class EnvironmentManager {
 	private static GameWindow gameWindow;
 	private static Maze maze;
 	private static Agent agent;
+	private static int timeFactor;
 
 	public static void main(String[] args) {
 		try {
@@ -39,6 +40,7 @@ public class EnvironmentManager {
 				new ConfigurationDialog();
 			}
 		});
+		timeFactor = 1;
 	}
 
 	public static void start(int xSize, int ySize, double pReward, double pPunishment) {
@@ -61,7 +63,7 @@ public class EnvironmentManager {
 				agent.move();
 			}
 			try {
-				Thread.sleep(500);
+				Thread.sleep((long) (1000 / Math.pow(2, timeFactor)));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -88,5 +90,9 @@ public class EnvironmentManager {
 		agent.update(position, result);
 		gameWindow.processMove(oldPosition, agent.getPosition(), direction, agent.getScore(),
 				agent.getUtility(oldPosition, direction));
+	}
+
+	public static void setTimeFactor(int timeFactor) {
+		EnvironmentManager.timeFactor = timeFactor;
 	}
 }

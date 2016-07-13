@@ -1,8 +1,5 @@
 package main.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -18,9 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import main.agent.Direction;
+import main.maze.EnvironmentManager;
 import main.maze.Maze;
 import main.maze.Position;
 
@@ -161,11 +160,18 @@ public class GameWindow extends JFrame implements ActionListener {
 
 		timeButtonPanel.add(new JLabel("Time factor:"));
 		JSpinner timeSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 3, 1));
+		timeSpinner.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				EnvironmentManager.setTimeFactor((int) timeSpinner.getValue());
+			}
+		});
 		timeButtonPanel.add(timeSpinner);
 
 		return timeButtonPanel;
 	}
-	
+
 	private JPanel createButtonsPanel() {
 		JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
