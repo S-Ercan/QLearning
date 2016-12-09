@@ -70,7 +70,7 @@ public class Agent {
 	 * @param scoreChange
 	 *            change in score caused by move
 	 */
-	public void update(Position newPosition, int scoreChange) {
+	public void update(Position newPosition, int scoreChange) throws InvalidPositionException {
 		getProfile().updateStrategyForTile(getPosition(), newPosition, getDirection(), scoreChange);
 		setScore(score += scoreChange);
 		setPosition(newPosition);

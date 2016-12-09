@@ -1,6 +1,7 @@
 package main.strategy;
 
 import main.agent.Direction;
+import main.maze.InvalidPositionException;
 import main.maze.Maze;
 import main.maze.Position;
 
@@ -19,8 +20,8 @@ public class StrategyProfile {
 	 *            maze height
 	 */
 	public StrategyProfile(Maze maze) {
-		width = maze.getXSize();
-		height = maze.getYSize();
+		width = maze.getWidth();
+		height = maze.getHeight();
 		profile = new Strategy[width][height];
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
@@ -42,11 +43,22 @@ public class StrategyProfile {
 	 *            direction agent traveled from previous to current tile
 	 * @param reward
 	 *            reward received by moving from previous to current tile
+	 * @throws InvalidPositionException
+	 *             if oldPosition or newPosition are not valid positions within
+	 *             the maze associated with this profile
 	 */
 	public void updateStrategyForTile(Position oldPosition, Position newPosition,
-			Direction direction, double reward) {
+			Direction direction, double reward) throws InvalidPositionException {
 		Strategy currentStrategy = getStrategy(oldPosition);
+		if (currentStrategy == null) {
+			throw new InvalidPositionException(
+					"'oldPosition' does not represent a valid position.");
+		}
 		Strategy nextStrategy = getStrategy(newPosition);
+		if (nextStrategy == null) {
+			throw new InvalidPositionException(
+					"'newPosition' does not represent a valid position.");
+		}
 		currentStrategy.update(direction, nextStrategy, reward);
 	}
 

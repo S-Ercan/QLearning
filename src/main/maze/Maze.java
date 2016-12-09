@@ -15,12 +15,12 @@ public class Maze {
 	private double pPunishment = 0.1;
 
 	private Tile[][] maze;
-	private int xSize;
-	private int ySize;
+	private int width;
+	private int height;
 
 	public Maze(int xSize, int ySize, double pReward, double pPunishment) {
-		setXSize(xSize);
-		setYSize(ySize);
+		setWidth(xSize);
+		setHeight(ySize);
 		setPReward(pReward);
 		setPPunishment(pPunishment);
 		maze = new Tile[xSize][ySize];
@@ -35,8 +35,8 @@ public class Maze {
 	 */
 	public void populateMaze() {
 		Random random = new Random();
-		for (int i = 0; i < xSize; i++) {
-			for (int j = 0; j < ySize; j++) {
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
 				double value = random.nextDouble();
 				if (value <= pReward) {
 					// Assign reward of 5 or 10
@@ -57,7 +57,7 @@ public class Maze {
 
 	public Tile getTile(int x, int y) {
 		Tile tile = null;
-		if (!(x < 0 || x >= xSize || y < 0 || y >= ySize)) {
+		if (!(x < 0 || x >= width || y < 0 || y >= height)) {
 			tile = maze[x][y];
 		}
 		return tile;
@@ -65,7 +65,7 @@ public class Maze {
 
 	public Tile getTile(Position position) {
 		Tile tile = null;
-		if (position != null && position.isValid(xSize, ySize)) {
+		if (position != null && position.isValid(width, height)) {
 			tile = getTile(position.getX(), position.getY());
 		}
 		return tile;
@@ -81,20 +81,20 @@ public class Maze {
 		}
 	}
 
-	public int getXSize() {
-		return xSize;
+	public int getWidth() {
+		return width;
 	}
 
-	public void setXSize(int xSize) {
-		this.xSize = xSize;
+	public void setWidth(int width) {
+		this.width = width;
 	}
 
-	public int getYSize() {
-		return ySize;
+	public int getHeight() {
+		return height;
 	}
 
-	public void setYSize(int ySize) {
-		this.ySize = ySize;
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
 	public double getPReward() {

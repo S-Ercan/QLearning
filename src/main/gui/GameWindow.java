@@ -55,10 +55,10 @@ public class GameWindow extends JFrame implements ActionListener {
 		getContentPane().add(mainPanel);
 
 		// Determine dimension of maze panel and Q-values panel
-		int panelWidth = maze.getXSize() * MazePanel.tileWidth
-				+ (maze.getXSize() + 1) * MazePanel.xMargin;
-		int panelHeight = maze.getYSize() * MazePanel.tileHeight
-				+ (maze.getYSize() + 1) * MazePanel.yMargin;
+		int panelWidth = maze.getWidth() * MazePanel.tileWidth
+				+ (maze.getWidth() + 1) * MazePanel.xMargin;
+		int panelHeight = maze.getHeight() * MazePanel.tileHeight
+				+ (maze.getHeight() + 1) * MazePanel.yMargin;
 
 		mainPanel.add(createMazeAndQValuesPanel(maze, panelWidth, panelHeight));
 		mainPanel.add(createControlsPanel(panelWidth * 2, 100));
@@ -109,7 +109,7 @@ public class GameWindow extends JFrame implements ActionListener {
 		mazeAndQValuesPanel.add(mazePanel);
 
 		// Create Q-values panel
-		qValuesPanel = new QValuesPanel(maze.getXSize(), maze.getYSize());
+		qValuesPanel = new QValuesPanel(maze.getWidth(), maze.getHeight());
 		qValuesPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
 		mazeAndQValuesPanel.add(qValuesPanel);
 

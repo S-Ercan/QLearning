@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import main.agent.Agent;
 import main.agent.Direction;
+import main.maze.InvalidPositionException;
 import main.maze.Maze;
 import main.maze.Position;
 
@@ -15,11 +16,14 @@ public class TestQAgent {
 	private Maze maze;
 	private Agent agent;
 
+	private int mazeWidth = 5;
+	private int mazeHeight = 5;
+
 	@Before
 	public void setUp() {
 		maze = mock(Maze.class);
-		when(maze.getXSize()).thenReturn(5);
-		when(maze.getYSize()).thenReturn(5);
+		when(maze.getWidth()).thenReturn(mazeWidth);
+		when(maze.getHeight()).thenReturn(mazeHeight);
 		agent = new Agent(maze);
 	}
 
@@ -44,15 +48,21 @@ public class TestQAgent {
 	}
 
 	@Test
-	public void testUpdate_SetsPosition() {
+	public void testUpdate_SetsPosition() throws InvalidPositionException {
 		Position position = new Position(1, 1);
 		agent.update(position, 1);
 
 		assertTrue(position.equals(agent.getPosition()));
 	}
 
+	@Test(expected = InvalidPositionException.class)
+	public void testUpdateWithIllegalPosition_ThrowsException() throws InvalidPositionException {
+		Position position = new Position(mazeWidth + 1, mazeWidth + 1);
+		agent.update(position, 0);
+	}
+
 	@Test
-	public void testUpdate_SetsScore() {
+	public void testUpdate_SetsScore() throws InvalidPositionException {
 		int score = agent.getScore();
 		int scoreChange = 10;
 		agent.update(new Position(1, 1), scoreChange);

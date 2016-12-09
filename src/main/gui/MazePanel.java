@@ -68,8 +68,8 @@ public class MazePanel extends JPanel {
 		setLayout(null);
 
 		this.maze = maze;
-		xSize = maze.getXSize();
-		ySize = maze.getYSize();
+		xSize = maze.getWidth();
+		ySize = maze.getHeight();
 
 		// Map tile types to colors
 		tileTypeToColorMap = new HashMap<Class<?>, Color>();
