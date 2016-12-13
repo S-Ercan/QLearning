@@ -63,7 +63,7 @@ public class TestQ {
 	}
 
 	@Test
-	public void testGetBestDirectionWithRandomness_ReturnsBestDirection() {
+	public void testGetBestDirectionWithRandomness_ReturnsSuboptimalDirection() {
 		// Set RIGHT as the best direction
 		Direction bestDirection = Direction.RIGHT;
 		Direction returnedDirection = bestDirection;

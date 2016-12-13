@@ -63,12 +63,14 @@ public class Agent {
 	}
 
 	/**
-	 * Updates position, score and profile.
+	 * Updates strategy profile, score and position.
 	 * 
 	 * @param newPosition
 	 *            current position in maze
 	 * @param scoreChange
 	 *            change in score caused by move
+	 * @throws InvalidPositionException
+	 *             if newPosition is an invalid tile within the strategy profile
 	 */
 	public void update(Position newPosition, int scoreChange) throws InvalidPositionException {
 		getProfile().updateStrategyForTile(getPosition(), newPosition, getDirection(), scoreChange);
@@ -102,7 +104,6 @@ public class Agent {
 
 	public void setPosition(Position position) {
 		this.position = position;
-		System.out.println("Moved to " + position);
 	}
 
 	public Direction getDirection() {
@@ -119,6 +120,5 @@ public class Agent {
 
 	public void setScore(int score) {
 		this.score = score;
-		System.out.println("Score: " + score);
 	}
 }

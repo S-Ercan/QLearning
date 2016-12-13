@@ -72,11 +72,13 @@ public class EnvironmentManager {
 
 	/**
 	 * Executes move given by agent and passes move details to GameWindow to
-	 * display the move graphically.
+	 * display the move graphically. Updates agent with move result (the value
+	 * associated with the tile moved to).
 	 * 
 	 * @param position
 	 *            destination position in maze
 	 * @throws InvalidPositionException
+	 *             if position is not a valid position within maze
 	 */
 	public static void executeMove(Position oldPosition, Direction direction, Position position)
 			throws InvalidPositionException {
