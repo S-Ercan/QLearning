@@ -23,9 +23,8 @@ public class Maze {
 		setHeight(ySize);
 		setPReward(pReward);
 		setPPunishment(pPunishment);
+
 		maze = new Tile[xSize][ySize];
-		System.out.println("Creating " + xSize + " x " + ySize + " maze");
-		// Fill maze with rewards and punishments
 		populateMaze();
 	}
 

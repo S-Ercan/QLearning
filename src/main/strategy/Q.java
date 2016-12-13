@@ -53,8 +53,6 @@ public class Q extends Strategy {
 		 */
 		if (random.nextDouble() < getPRandExploration()) {
 			pRandExploration -= 0.025;
-			System.out.println("Updated pRandExploration for (" + getX() + ", " + getY() + ") to "
-					+ decimalFormat.format(pRandExploration));
 			List<Direction> directions = new ArrayList<Direction>(getStrategy().keySet());
 			return directions.get(random.nextInt(directions.size()));
 		}
@@ -92,8 +90,6 @@ public class Q extends Strategy {
 		double newValue = oldValue
 				+ alpha * (reward + gamma * (nextStrategy.getMaxUtility()) - oldValue);
 		getStrategy().put(direction, newValue);
-		System.out.println("Updating Q((" + getX() + ", " + getY() + "), " + direction + ") from "
-				+ decimalFormat.format(oldValue) + " to " + decimalFormat.format(newValue) + ".");
 	}
 
 	public double getPRandExploration() {
