@@ -25,7 +25,7 @@ public class Position {
         this.y = y;
     }
 
-    public boolean isValid(int x, int y) {
+    boolean isValid(int x, int y) {
         return this.x >= 0 && this.x < x && this.y >= 0 && this.y < y;
     }
 
@@ -44,8 +44,6 @@ public class Position {
         Position other = (Position) obj;
         if (x != other.x)
             return false;
-        if (y != other.y)
-            return false;
-        return true;
+        return y == other.y;
     }
 }

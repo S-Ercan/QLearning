@@ -88,7 +88,7 @@ public class StrategyProfile {
      * @param position tile to get strategy for
      * @return strategy for tile at 'position'
      */
-    public Strategy getStrategy(Position position) {
+    private Strategy getStrategy(Position position) {
         Strategy q = null;
         int x = position.getX();
         int y = position.getY();

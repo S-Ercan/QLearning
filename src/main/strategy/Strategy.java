@@ -18,11 +18,11 @@ public abstract class Strategy {
      * @param x x coordinate of tile
      * @param y y coordinate of tile
      */
-    public Strategy(int x, int y) {
+    Strategy(int x, int y) {
         this.x = x;
         this.y = y;
 
-        strategy = new HashMap<Direction, Double>();
+        strategy = new HashMap<>();
         strategy.put(Direction.UP, 0.0);
         strategy.put(Direction.DOWN, 0.0);
         strategy.put(Direction.LEFT, 0.0);

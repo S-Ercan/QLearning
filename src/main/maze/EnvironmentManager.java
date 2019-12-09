@@ -31,7 +31,7 @@ public class EnvironmentManager {
     public static void start(int xSize, int ySize, double pReward, double pPunishment) {
         new SwingWorker<Void, Void>() {
             @Override
-            protected Void doInBackground() throws Exception {
+            protected Void doInBackground() {
                 maze = new Maze(xSize, ySize, pReward, pPunishment);
                 gameWindow = new GameWindow(maze);
                 agent = new Agent(maze);

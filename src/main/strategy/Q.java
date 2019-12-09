@@ -2,7 +2,6 @@ package main.strategy;
 
 import main.agent.Direction;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
@@ -19,8 +18,6 @@ public class Q extends Strategy {
     private Random random;
     private double pRandExploration;
 
-    private DecimalFormat decimalFormat;
-
     /**
      * Creates an action-utility mapping for tile (x, y).
      *
@@ -32,7 +29,6 @@ public class Q extends Strategy {
 
         random = new Random();
         pRandExploration = 0.5;
-        decimalFormat = new DecimalFormat("#0.00");
     }
 
     /**

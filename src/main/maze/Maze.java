@@ -18,7 +18,7 @@ public class Maze {
     private int width;
     private int height;
 
-    public Maze(int xSize, int ySize, double pReward, double pPunishment) {
+    Maze(int xSize, int ySize, double pReward, double pPunishment) {
         setWidth(xSize);
         setHeight(ySize);
         setPReward(pReward);
@@ -32,7 +32,7 @@ public class Maze {
      * Loops through all tiles and assigns a reward with probability pReward or
      * a punishment with probability pPunishment.
      */
-    public void populateMaze() {
+    private void populateMaze() {
         Random random = new Random();
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
@@ -60,7 +60,7 @@ public class Maze {
         return tile;
     }
 
-    public Tile getTile(Position position) {
+    private Tile getTile(Position position) {
         Tile tile = null;
         if (position != null && position.isValid(width, height)) {
             tile = getTile(position.getX(), position.getY());
@@ -68,7 +68,7 @@ public class Maze {
         return tile;
     }
 
-    public int getTileValue(Position position) throws InvalidPositionException {
+    int getTileValue(Position position) throws InvalidPositionException {
         Tile tile = getTile(position);
         if (tile == null) {
             throw new InvalidPositionException("No tile at position " + position + ".");

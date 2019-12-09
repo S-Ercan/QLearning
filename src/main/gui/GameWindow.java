@@ -61,12 +61,12 @@ public class GameWindow extends JFrame implements ActionListener {
 
         setResizable(false);
         setTitle("Q-learning");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         setVisible(true);
     }
 
-    protected static CoordinatePair getWindowLocation(int windowWidth, int windowHeight) {
+    static CoordinatePair getWindowLocation(int windowWidth, int windowHeight) {
         // Adjust location to size
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         double screenWidth = screenSize.getWidth();
@@ -84,7 +84,7 @@ public class GameWindow extends JFrame implements ActionListener {
      * @param panelHeight individual width of both panels
      * @return panel containing maze and Q-values panels
      */
-    public JPanel createMazeAndQValuesPanel(Maze maze, int panelWidth, int panelHeight) {
+    private JPanel createMazeAndQValuesPanel(Maze maze, int panelWidth, int panelHeight) {
         // Create container panel
         JPanel mazeAndQValuesPanel = new JPanel();
         mazeAndQValuesPanel.setLayout(new BoxLayout(mazeAndQValuesPanel, BoxLayout.X_AXIS));
@@ -106,7 +106,7 @@ public class GameWindow extends JFrame implements ActionListener {
      * @return panel containing a score label and buttons for resuming/pausing
      * the simulation
      */
-    public JPanel createControlsPanel(int panelWidth, int panelHeight) {
+    private JPanel createControlsPanel(int panelWidth, int panelHeight) {
         JPanel mainPanel = new JPanel();
         mainPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
@@ -190,7 +190,7 @@ public class GameWindow extends JFrame implements ActionListener {
         mazePanel.showMoveAnimation(position);
     }
 
-    public void updateScore(int score) {
+    private void updateScore(int score) {
         scoreLabel.setText("Score: " + score);
     }
 
@@ -201,7 +201,7 @@ public class GameWindow extends JFrame implements ActionListener {
      * @param direction direction to update Q-value for
      * @param utility   new utility value
      */
-    public void updateUtility(Position position, Direction direction, double utility) {
+    private void updateUtility(Position position, Direction direction, double utility) {
         qValuesPanel.updateQValue(position, direction, utility);
     }
 

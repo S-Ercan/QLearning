@@ -40,7 +40,7 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
         setVisible(true);
     }
 
-    public JPanel createInputPanel() {
+    private JPanel createInputPanel() {
         JLabel xSizeLabel = new JLabel("Maze width");
         xSizeSpinner = new JSpinner(new SpinnerNumberModel(5, 2, 10, 1));
         JLabel ySizeLabel = new JLabel("Maze height");
@@ -81,7 +81,7 @@ public class ConfigurationDialog extends JDialog implements ActionListener {
         private JSpinner thisSpinner;
         private JSpinner otherSpinner;
 
-        public JSpinnerChangeListener(JSpinner thisSpinner, JSpinner otherSpinner) {
+        JSpinnerChangeListener(JSpinner thisSpinner, JSpinner otherSpinner) {
             this.thisSpinner = thisSpinner;
             this.otherSpinner = otherSpinner;
         }

@@ -16,22 +16,22 @@ import java.util.Map;
 /**
  * JPanel for displaying maze and animating agent movement through it.
  */
-public class MazePanel extends JPanel {
+class MazePanel extends JPanel {
     // Sizes, margins and paddings
-    public static final int xMargin = 10;
-    public static final int yMargin = 10;
-    public static final int tileWidth = 75;
-    public static final int tileHeight = 75;
-    public static final int xSpacing = tileWidth + xMargin;
-    public static final int ySpacing = tileHeight + yMargin;
+    static final int xMargin = 10;
+    static final int yMargin = 10;
+    static final int tileWidth = 75;
+    static final int tileHeight = 75;
+    static final int xSpacing = tileWidth + xMargin;
+    static final int ySpacing = tileHeight + yMargin;
     // Tile colors
-    public static final Color neutralColor = new Color(160, 160, 160);
-    public static final Color rewardColor = new Color(15, 80, 15);
-    public static final Color punishmentColor = new Color(180, 0, 0);
+    static final Color neutralColor = new Color(160, 160, 160);
+    static final Color rewardColor = new Color(15, 80, 15);
+    static final Color punishmentColor = new Color(180, 0, 0);
     // Font attributes
-    public static final int fontStyle = Font.TRUETYPE_FONT;
-    public static final int fontSize = 14;
-    public static final Color textColor = Color.white;
+    static final int fontStyle = Font.TRUETYPE_FONT;
+    static final int fontSize = 14;
+    static final Color textColor = Color.white;
     private static final long serialVersionUID = 5364142617462688939L;
     // Mapping from tile types to colors
     private Map<Class<?>, Color> tileTypeToColorMap;
@@ -54,7 +54,7 @@ public class MazePanel extends JPanel {
      *
      * @param maze maze to create panel for
      */
-    public MazePanel(Maze maze) {
+    MazePanel(Maze maze) {
         setLayout(null);
 
         this.maze = maze;
@@ -133,7 +133,7 @@ public class MazePanel extends JPanel {
      * @param x x coordinate of destination tile
      * @param y y coordinate of destination tile
      */
-    public void showMoveAnimation(Position position) {
+    void showMoveAnimation(Position position) {
         int x = position.getX();
         int y = position.getY();
         // Restore color of previous tile

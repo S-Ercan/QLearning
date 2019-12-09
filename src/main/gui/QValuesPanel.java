@@ -31,7 +31,7 @@ public class QValuesPanel extends JPanel {
      * @param xSize maze width
      * @param ySize maze height
      */
-    public QValuesPanel(int xSize, int ySize) {
+    QValuesPanel(int xSize, int ySize) {
         setLayout(null);
 
         this.xSize = xSize;
@@ -123,7 +123,7 @@ public class QValuesPanel extends JPanel {
      * @param direction direction for which to update Q-value
      * @param q         new Q-value
      */
-    public void updateQValue(Position position, Direction direction, double q) {
+    void updateQValue(Position position, Direction direction, double q) {
         JLabel qValueLabel = qValueLabels[position.getX()][position.getY()][direction.ordinal()];
         qValueLabel.setText(decimalFormat.format(q));
         if (q > 0) {

@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -45,7 +45,7 @@ public class TestQAgent {
 
     @Test
     public void testCreateAgent_HasValidDirection() {
-        assertTrue(agent.getDirection() instanceof Direction);
+        assertNotNull(agent.getDirection());
     }
 
     @Test
@@ -53,7 +53,7 @@ public class TestQAgent {
         Position position = new Position(1, 1);
         agent.update(position, 1);
 
-        assertTrue(position.equals(agent.getPosition()));
+        assertEquals(position, agent.getPosition());
     }
 
     @Test(expected = InvalidPositionException.class)
@@ -68,7 +68,7 @@ public class TestQAgent {
         int scoreChange = 10;
         agent.update(new Position(1, 1), scoreChange);
 
-        assertEquals(score += scoreChange, agent.getScore());
+        assertEquals(score + scoreChange, agent.getScore());
     }
 
     @Test
