@@ -1,9 +1,9 @@
 package main.maze.tile;
 
 public class Tile {
-	protected int value;
+    protected int value;
 
-	public int getValue() {
-		return value;
-	}
+    public int getValue() {
+        return value;
+    }
 }
